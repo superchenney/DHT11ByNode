@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登陆、注册</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/images/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="温度监测报警登陆" />
+    <link rel="apple-touch-icon-precomposed" href="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileImage" content="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+    <!-- <link rel="stylesheet" href="/stylesheets/amazeui.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.6.1/css/amazeui.min.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    body {
+        background-color: #44B47E;
+    }
+    
+    .login-box {
+        position: relative;
+        margin: 80px auto;
+        width: 500px;
+        height: 380px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+        -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+        box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+    }
+    
+    .lb-header {
+        position: relative;
+        color: #00415d;
+        margin: 5px 5px 10px 5px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        height: 28px;
+    }
+    
+    .lb-header a {
+        margin: 0 25px;
+        padding: 0 20px;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        font-size: 15px;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    
+    .lb-header .active {
+        color: #029f5b;
+        font-size: 18px;
+    }
+    
+  /*  .social-login {
+        position: relative;
+        float: left;
+        width: 100%;
+        height: auto;
+        padding: 10px 0 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .social-login a {
+        position: relative;
+        float: left;
+        width: calc(40% - 8px);
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 12px;
+        border-radius: 2px;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin: 0 3%;
+        text-align: center;
+    }
+    
+    .social-login a i {
+        position: relative;
+        float: left;
+        width: 20px;
+        top: 2px;
+    }
+    
+    .social-login a:first-child {
+        background-color: #49639F;
+    }
+    
+    .social-login a:last-child {
+        background-color: #DF4A32;
+    }*/
+    
+    .phone-login,
+    .phone-signup {
+        position: relative;
+        float: left;
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .u-form-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .u-form-group input {
+        width: calc(50% - 22px);
+        height: 45px;
+        outline: none;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        border-radius: 2px;
+        color: #333;
+        font-size: 0.8rem;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    
+    .u-form-group input:focus {
+        border-color: #358efb;
+    }
+    
+    .u-form-group button {
+        width: 50%;
+        background-color: #1CB94E;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: normal;
+        padding: 14px 0;
+        border-radius: 2px;
+        text-transform: uppercase;
+    }
+    
+    .forgot-password {
+        width: 50%;
+        text-align: left;
+        text-decoration: underline;
+        color: #888;
+        font-size: 0.75rem;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="login-box">
+    
+        <div class="lb-header">
+            <a href="#" class="active" id="login-box-link">登陆</a>
+            <a href="#" id="signup-box-link">注册</a>
+        </div>
+<!--         <div class="social-login">
+            <a href="#">
+                <i class="fa fa-facebook fa-lg"></i> Login in with facebook
+            </a>
+            <a href="#">
+                <i class="fa fa-google-plus fa-lg"></i> log in with Google
+            </a>
+        </div> -->
+        <form class="phone-login">
+            <div class="u-form-group">
+                <input type="text" placeholder="手机号码" />
+            </div>
+            <div class="u-form-group">
+                <input type="password" placeholder="密码" />
+            </div>
+            <div class="u-form-group">
+                <button>登 陆</button>
+            </div>
+            <div class="u-form-group">
+                <a href="#" class="forgot-password">忘记密码?</a>
+            </div>
+        </form>
+
+        <form class="phone-signup">
+            <div class="u-form-group" style="position: relative;">
+                <input type="text" placeholder="手机号码" />
+                <div style="position: absolute;top: 15px;right: 30px;">获取验证码</div>
+            </div>
+            <div class="u-form-group">
+                <input type="text" placeholder="验证码" />
+            </div>
+            <div class="u-form-group">
+                <input type="password" placeholder="密码" />
+            </div>
+            <div class="u-form-group">
+                <input type="password" placeholder="确认密码" />
+            </div>
+            <div class="u-form-group">
+                <button>注 册</button>
+            </div>
+        </form>
+    </div>
+    <!-- <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script> -->
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+    $(".phone-signup").hide();
+    $("#signup-box-link").click(function() {
+        $(".phone-login").fadeOut(100);
+        $(".phone-signup").delay(100).fadeIn(100);
+        $("#login-box-link").removeClass("active");
+        $("#signup-box-link").addClass("active");
+    });
+    $("#login-box-link").click(function() {
+        $(".phone-login").delay(100).fadeIn(100);;
+        $(".phone-signup").fadeOut(100);
+        $("#login-box-link").addClass("active");
+        $("#signup-box-link").removeClass("active");
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>告警日志</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/images/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="设置－温度监测报警" />
+    <link rel="apple-touch-icon-precomposed" href="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileImage" content="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+    <!-- <link rel="stylesheet" href="/stylesheets/amazeui.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.6.1/css/amazeui.min.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    body {
+        background-color: #44B47E;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 页头 50px -->
+    <header data-am-widget="header" class="am-header" style="margin: 10px 0;">
+        <div class="am-header-left am-header-nav">
+            <a href="/setting" class="am-btn" style="color: #FEFFFF;">
+                <i class="am-header-icon am-icon-arrow-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title" style="color: #FEFFFF;font-size: 1.8rem;">告警日志</h1>
+        <!-- <div class="am-header-right am-header-nav" style="right: 20px;color: #FEFFFF;">
+            <a href="" class="" style="color: #FEFFFF;">
+                <i class="am-header-icon am-icon-share-alt"></i>
+            </a>
+        </div> -->
+    </header>
+    <div class="am-g" style="background-color: #FEFFFF;">
+        <div class="am-u-sm-12">
+            <table class="am-table am-table-striped am-table-hover am-table-compact am-text-nowrap am-scrollable-horizontal am-table-centered">
+                <thead>
+                    <tr>
+                        <th class="table-id">ID</th>
+                        <th class="table-title">报警类别</th>
+                        <th class="table-author">时间</th>
+                        <th class="table-type am-hide-sm-only">推送类别</th>
+                        <th class="table-date am-hide-sm-only">推送状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>温度超限报警</td>
+                        <td>2014年9月4日 7:28:47</td>
+                        <td class="am-hide-sm-only">短信</td>
+                        <td class="am-hide-sm-only">成功</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="am-cf">
+                <!-- 共 15 条记录 -->
+                <div class="am-fr">
+                    共 <span style="font-weight: 600;">15</span> 条记录
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script> -->
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+
+</html>
