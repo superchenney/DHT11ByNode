@@ -162,6 +162,7 @@ io.on('connection', function(socket) {
 
     if (sensor.initialize()) {
         sensor.read();
+        sensor.warning();
     } else {
         console.warn('温湿度传感器初始化失败！');
     }
