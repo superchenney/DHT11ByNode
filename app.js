@@ -50,7 +50,7 @@ var sensorLib = require('node-dht-sensor');
 var User = global.dbHandel.getModel('user');
 var TempHumidityRecord = global.dbHandel.getModel('thr');
 var WarningRecord = global.dbHandel.getModel('wr');
-
+var Alidayu = require('./controller/alidayu/alidayu');
 
 
 io.on('connection', function(socket) {
@@ -137,7 +137,7 @@ io.on('connection', function(socket) {
                     //////////////////////////
                     for (var i = 0; i < userInfo.length; i++) {
                         /////////////////////////////
-                        if (readout.temperature >= userInfo[i].wt) {
+                        if (readout.temperature > userInfo[i].wt) {
                             /////////////////////////////
                             var warningTime = new Date();
                             //  如果订阅了，向用户发送报警短信
@@ -204,8 +204,10 @@ io.on('connection', function(socket) {
     };
 
     if (sensor.initialize()) {
-        sensor.read();
-        sensor.warning();
+        setTimeout(function() {
+            sensor.read();
+            sensor.warning();
+        }, 1000 * 2);
     } else {
         console.warn('温湿度传感器初始化失败！');
     }
