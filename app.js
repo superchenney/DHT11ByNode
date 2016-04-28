@@ -135,6 +135,7 @@ io.on('connection', function(socket) {
                     ////////////////////
                     //  如果订阅了，向用户发送报警短信
                     if (UserInfo[i].wl == 'true') {
+                        console.log('触发用户报警：' + UserInfo[i].upn);
                         // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
                         var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + UserInfo[i].wt + '"}';
                         var phoneNum = UserInfo[i].upn;
@@ -143,8 +144,8 @@ io.on('connection', function(socket) {
                         ///////////////////
                         ////////////存入数据库
                         WarningRecord.create({
-                            wt: UserInfo[i].temperature,
-                            wpn: UserInfo[i].upn, //报警的手机号
+                            wt: readout.temperature,
+                            wpn: phoneNum, //报警的手机号
                             wts: UserInfo[i].wt, //报警温度设定
                             t: warningTime
                         }, function(err, doc) {
