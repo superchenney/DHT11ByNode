@@ -135,12 +135,15 @@ io.on('connection', function(socket) {
                         }
                     });
                     ////////////////////
-                    //  向用户发送报警短信
-                    // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
-                    var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + i.wt + '"}';
-                    var phoneNum = i.upn;
-                    Alidayu.sendWarningMsg(smsParams, phoneNum);
-                    ///////////////////
+                    //  如果订阅了，向用户发送报警短信
+                    if (i.wl =='true') {
+                        // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
+                        var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + i.wt + '"}';
+                        var phoneNum = i.upn;
+                        Alidayu.sendWarningMsg(smsParams, phoneNum);
+                        ///////////////////
+                    }
+
                     //  5分钟后再读取
                     setTimeout(function() {
                         sensor.warning();
