@@ -123,17 +123,18 @@ io.on('connection', function(socket) {
                         //     upn: '13568821053',
                         //     _id: 57219 f659d4312266f2f56d6
                         // }]
+                        var UserInfo = [];
                         for (var i in doc) {
-                           var  UserInfo[i].wl = doc[i].wl;
-                           var  UserInfo[i].wt = doc[i].wt;
-                           var  UserInfo[i].upn = doc[i].upn;
+                            var UserInfo[i].wl = doc[i].wl;
+                            var UserInfo[i].wt = doc[i].wt;
+                            var UserInfo[i].upn = doc[i].upn;
                         }
 
 
                         console.log("报警用户概览：" + UserInfo);
                     }
                 })
-            //////////////////////////
+                //////////////////////////
             for (var i in UserInfo) {
                 /////////////////////////////
                 if (readout.temperature >= UserInfo[i].wt) {
