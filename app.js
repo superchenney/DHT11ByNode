@@ -136,10 +136,11 @@ io.on('connection', function(socket) {
                     });
                     ////////////////////
                     //  如果订阅了，向用户发送报警短信
-                    if (i.wl =='true') {
+                    if (i.wl == 'true') {
                         // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
                         var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + i.wt + '"}';
                         var phoneNum = i.upn;
+                        console.log("给用户：" + i.upn + "发送短信报警！");
                         Alidayu.sendWarningMsg(smsParams, phoneNum);
                         ///////////////////
                     }
