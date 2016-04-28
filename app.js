@@ -106,8 +106,7 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            var UserInfo = null;
-
+            var UserInfos = null;
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                 if (err) {
@@ -124,11 +123,13 @@ io.on('connection', function(socket) {
                     //     upn: '13568821053',
                     //     _id: 57219 f659d4312266f2f56d6
                     // }]
-                    UserInfo = doc;
+                    UserInfos.wl = doc.wl;
+                    UserInfos.wt = doc.wt;
+                    UserInfos.upn = doc.upn;
                     console.log("报警用户概览：" + UserInfo);
                 }
             });
-
+            //////////////////////////
             for (var i in UserInfo) {
                 /////////////////////////////
                 if (readout.temperature >= UserInfo[i].wt) {
@@ -138,7 +139,7 @@ io.on('connection', function(socket) {
                     if (UserInfo[i].wl == 'true') {
                         console.log('触发用户报警：' + UserInfo[i].upn);
                         // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
-                        var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + UserInfo[i].wt + '"}';
+                        var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + UserInfo[i].wt + '度"}';
                         var phoneNum = UserInfo[i].upn;
                         console.log("给用户：" + UserInfo[i].upn + "发送短信报警！");
                         Alidayu.sendWarningMsg(smsParams, phoneNum);
@@ -188,7 +189,7 @@ io.on('connection', function(socket) {
                     }, 1000);
                 }
                 ////////////////////
-            }
+            };
 
 
         }
