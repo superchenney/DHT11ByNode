@@ -144,7 +144,7 @@ io.on('connection', function(socket) {
                             if (userInfo[i].wl == 'true') {
                                 console.log('触发用户报警：' + userInfo[i].upn);
                                 // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
-                                var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
+                                var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
                                 var phoneNumStr = userInfo[i].upn.toString();
                                 console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
                                 Alidayu.sendWarningMsg(smsParams, phoneNumStr);
