@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var session = require('express-session');
 
-var moment = require('moment');
+
 
 var app = express();
 
@@ -68,7 +68,7 @@ io.on('connection', function(socket) {
             //////////////////////////////////////
             if (readout.temperature > 5) { //筛选掉初始化值，乱值
 
-                var recordTime = moment().format('MMMM Do YYYY, h:mm:ss');
+                var recordTime = new Date();
 
                 // // 长连接模块，实时数据
                 socket.emit('realTimeTAndH', {
@@ -114,8 +114,7 @@ io.on('connection', function(socket) {
                         /////////////////////////////
                         if (readout.temperature > userInfo[i].wt) {
                             /////////////////////////////
-                            // var warningTimePre = new Date();
-                            var warningTime = moment().format('MMMM Do YYYY, h:mm:ss');;
+                            var warningTime = new Date();
                             //  如果订阅了，向用户发送报警短信
                             if (userInfo[i].wl == 'true') {
                                 console.log('触发用户报警：' + userInfo[i].upn);
