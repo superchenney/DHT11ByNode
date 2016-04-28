@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            var UserInfos = null;
+            var UserInfo = null;
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                 if (err) {
@@ -123,9 +123,9 @@ io.on('connection', function(socket) {
                     //     upn: '13568821053',
                     //     _id: 57219 f659d4312266f2f56d6
                     // }]
-                    UserInfos.wl = doc.wl;
-                    UserInfos.wt = doc.wt;
-                    UserInfos.upn = doc.upn;
+                    UserInfo.wl = doc.wl;
+                    UserInfo.wt = doc.wt;
+                    UserInfo.upn = doc.upn;
                     console.log("报警用户概览：" + UserInfo);
                 }
             });
