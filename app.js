@@ -159,7 +159,7 @@ io.on('connection', function(socket) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log(warningTime + '\n' + userInfo[i].upn + "短信报警记录成功！");
+                                        console.log(warningTime + '\n' + phoneNumStr + "短信报警记录成功！");
                                     }
                                 });
                                 //////////////////
@@ -175,7 +175,7 @@ io.on('connection', function(socket) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log(warningTime + '\n' + userInfo[i].upn + "报警记录成功！");
+                                        console.log(warningTime + '\n' + phoneNumStr + "报警记录成功！");
                                     }
                                 });
                                 //////////////////
