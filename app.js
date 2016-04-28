@@ -106,33 +106,33 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            var UserInfo = [];
+            // var UserInfo = [];
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    // console.log(doc);
-                    // [{
-                    //     ur: 'norm',
-                    //     wl: 'true',
-                    //     wt: 27,
-                    //     uct: Thu Apr 28 2016 05: 23: 47 GMT + 0000(UTC),
-                    //     __v: 0,
-                    //     pwd: 'chenchao',
-                    //     upn: '13568821053',
-                    //     _id: 57219 f659d4312266f2f56d6
-                    // }]
-                    for (var i in doc) {
-                        UserInfo[i].wl = doc[i].wl;
-                        UserInfo[i].wt = doc[i].wt;
-                        UserInfo[i].upn = doc[i].upn;
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        // console.log(doc);
+                        // [{
+                        //     ur: 'norm',
+                        //     wl: 'true',
+                        //     wt: 27,
+                        //     uct: Thu Apr 28 2016 05: 23: 47 GMT + 0000(UTC),
+                        //     __v: 0,
+                        //     pwd: 'chenchao',
+                        //     upn: '13568821053',
+                        //     _id: 57219 f659d4312266f2f56d6
+                        // }]
+                        for (var i in doc) {
+                           var  UserInfo[i].wl = doc[i].wl;
+                           var  UserInfo[i].wt = doc[i].wt;
+                           var  UserInfo[i].upn = doc[i].upn;
+                        }
+
+
+                        console.log("报警用户概览：" + UserInfo);
                     }
-
-
-                    console.log("报警用户概览：" + UserInfo);
-                }
-            });
+                })
             //////////////////////////
             for (var i in UserInfo) {
                 /////////////////////////////
