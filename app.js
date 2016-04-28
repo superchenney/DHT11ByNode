@@ -125,9 +125,9 @@ io.on('connection', function(socket) {
                         // }]
                         var UserInfo = [];
                         for (var i in doc) {
-                            var UserInfo[i].wl = doc[i].wl;
-                            var UserInfo[i].wt = doc[i].wt;
-                            var UserInfo[i].upn = doc[i].upn;
+                            UserInfo[i].wl = doc[i].wl;
+                            UserInfo[i].wt = doc[i].wt;
+                            UserInfo[i].upn = doc[i].upn;
                         }
 
 
