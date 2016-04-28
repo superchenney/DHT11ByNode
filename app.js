@@ -123,9 +123,13 @@ io.on('connection', function(socket) {
                     //     upn: '13568821053',
                     //     _id: 57219 f659d4312266f2f56d6
                     // }]
-                    UserInfo.wl = doc.wl;
-                    UserInfo.wt = doc.wt;
-                    UserInfo.upn = doc.upn;
+                    for (var i in doc) {
+                        UserInfo[i].wl = doc[i].wl;
+                        UserInfo[i].wt = doc[i].wt;
+                        UserInfo[i].upn = doc[i].upn;
+                    }
+
+
                     console.log("报警用户概览：" + UserInfo);
                 }
             });
