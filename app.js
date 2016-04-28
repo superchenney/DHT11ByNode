@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            // var UserInfo = [];
+            var UserInfo = [];
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                     if (err) {
@@ -123,8 +123,8 @@ io.on('connection', function(socket) {
                         //     upn: '13568821053',
                         //     _id: 57219 f659d4312266f2f56d6
                         // }]
-                        var UserInfo = [];
-                        for (var i in doc) {
+
+                        for (var i = 0; i < doc.length; i++) {
                             UserInfo[i].wl = doc[i].wl;
                             UserInfo[i].wt = doc[i].wt;
                             UserInfo[i].upn = doc[i].upn;
