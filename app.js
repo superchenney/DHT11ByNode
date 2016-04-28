@@ -56,11 +56,7 @@ var Alidayu = require('./controller/alidayu/alidayu');
 
 io.on('connection', function(socket) {
     console.log("新用户加入");
-    // socket.emit('realTimeTAndH', {
-    //     temperature: readout.temperature.toFixed(1),
-    //     date: recordTime,
-    //     humidity: readout.humidity.toFixed(1)
-    // });
+    
     var sensor = {
         initialize: function() {
             console.log('温湿度传感器正在初始化.....');
@@ -75,14 +71,12 @@ io.on('connection', function(socket) {
                 var recordTime = moment().format('MMMM Do YYYY, h:mm:ss');
 
                 // // 长连接模块，实时数据
-                // io.on('connection', function(socket) {
-                //     console.log("新用户加入");
                 socket.emit('realTimeTAndH', {
                     temperature: readout.temperature.toFixed(1),
                     date: recordTime,
                     humidity: readout.humidity.toFixed(1)
                 });
-                // });
+                //////////////////////
                 ////////////存入数据库
                 TempHumidityRecord.create({
                     pt: readout.temperature,
@@ -113,28 +107,8 @@ io.on('connection', function(socket) {
                 if (err) {
                     console.log(err);
                 } else {
-                    // console.log(doc);
-                    // [{
-                    //     ur: 'norm',
-                    //     wl: 'true',
-                    //     wt: 27,
-                    //     uct: Thu Apr 28 2016 05: 23: 47 GMT + 0000(UTC),
-                    //     __v: 0,
-                    //     pwd: 'chenchao',
-                    //     upn: '13568821053',
-                    //     _id: 57219 f659d4312266f2f56d6
-                    // }]
-
-                    // for (var i = 0; i < doc.length; i++) {
-                    //     userInfo[i].wl = doc[i].wl;
-                    //     userInfo[i].wt = doc[i].wt;
-                    //     userInfo[i].upn = doc[i].upn;
-                    // }
-
                     userInfo = doc;
                     console.log("报警用户概览：" + userInfo);
-
-                    //////////
                     //////////////////////////
                     for (var i = 0; i < userInfo.length; i++) {
                         /////////////////////////////
@@ -209,7 +183,7 @@ io.on('connection', function(socket) {
         setTimeout(function() {
             sensor.read();
             sensor.warning();
-        }, 1000 * 2);
+        }, 1000 * 4);
     } else {
         console.warn('温湿度传感器初始化失败！');
     }

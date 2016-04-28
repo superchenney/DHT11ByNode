@@ -72,7 +72,6 @@ router.post('/setting', function(req, res, next) {
 
 
 router.get('/warningRecord', function(req, res, next) {
-
     res.render('warningRecord', { title: '记录' });
 });
 

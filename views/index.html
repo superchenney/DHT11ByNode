@@ -19,10 +19,6 @@
     <link rel="apple-touch-icon-precomposed" href="/images/app-icon72x72@2x.png">
     <meta name="msapplication-TileImage" content="/images/app-icon72x72@2x.png">
     <meta name="msapplication-TileColor" content="#44B47E">
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-  <link rel="canonical" href="http://www.example.com/">
-  -->
     <!-- <link rel="stylesheet" href="/stylesheets/amazeui.min.css"> -->
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.6.1/css/amazeui.min.css">
@@ -205,7 +201,7 @@
 
                 // console.log(UserInfo.WarningTemp);
                 if (UserInfo.WarningTemp) {
-                    $("#tableWarningTempSet").text(UserInfo.WarningTemp);
+                    $("#tableWarningTempSet").innerHTML = UserInfo.WarningTemp;
                 }
 
 
@@ -267,13 +263,11 @@
                 }
             });
         }
-
-
-
     });
 
-    /////////////////////////////////////////////////////
-    //登陆注册表单验证
+    //////////////////////////////////////
+    //          登陆注册表单验证
+    //////////////////////////////////////
     $("#signup-box-link").click(function() {
         $(".phone-login").fadeOut(100);
         $(".phone-signup").delay(100).fadeIn(100);
@@ -287,8 +281,9 @@
         $("#login-box-link").addClass("active");
         $("#signup-box-link").removeClass("active");
     });
-    /////////////// 表单验证
-    //////////////////////////////////////////////////////
+    /////////////////////////////////
+    ////        表单验证
+    /////////////////////////////////
     $('#loginPannel').validator({
         onValid: function(validity) {
             $(validity.field).closest('.u-form-group').find('.am-alert').hide();
@@ -326,8 +321,9 @@
     });
 
 
-    ////////////////////////////////////
-    // 登陆注册弹框
+    /////////////////////////
+    //          登陆注册弹框
+    /////////////////////////
     var $modal = $('#loginModel');
 
     $('#loginPopBtn').on('click', function(e) {
@@ -343,8 +339,8 @@
                 $("#getRegistCode").text('获取验证码');
             }
         }
-
     });
+    /////////////////////////////////
     </script>
 </body>
 
