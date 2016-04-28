@@ -58,7 +58,6 @@ var Alidayu = require('./controller/alidayu/alidayu');
 
 
 
-
 var sensor = {
     initialize: function() {
         console.log('温湿度传感器正在初始化.....');
@@ -70,10 +69,10 @@ var sensor = {
         //////////////////////////////////////
         if (readout.temperature > 5) { //筛选掉初始化值，乱值
 
-            var recordTime = new Date();
             ///////////////////////////
             ///       实时温度 存入数据库
             ///////////////////////////
+            var recordTime = new Date();
             TempHumidityRecord.create({
                 pt: readout.temperature,
                 ph: readout.humidity,
@@ -82,29 +81,34 @@ var sensor = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(recordTime + "记录成功！");
+                    console.log(recordTime + "实时温度记录成功！");
                 }
             });
             ///////////////////////////
-
         } else {
             console.log(readout.temperature + '值不合法，被抛弃，不记录');
         }
         /////////// //创建结束！
         setTimeout(function() {
             sensor.read();
-        }, 2000);
+        }, 1000);
     },
     warning: function() {
         var readout = sensorLib.read();
-        /////////////////////////////
+        console.log('实时读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        // //////////////////////////////////////
         //  异步影响
         //  查询数据库,获取用户的手机号、温度设定、进行通知
-
         var userInfo = null;
+
         User.find({}, function(err, doc) {
             if (err) {
                 console.log(err);
+                //////////////////
+                setTimeout(function() {
+                            sensor.warning();
+                        }, 2000);
+                /////////////////
             } else {
                 userInfo = doc;
                 // console.log("报警用户概览：" + doc);
@@ -116,13 +120,6 @@ var sensor = {
                         var warningTime = new Date();
                         //  如果订阅了报警，向用户发送报警短信
                         if (userInfo[i].wl == 'true') {
-                            // //////////////////////////
-                            // console.log('触发用户报警：' + userInfo[i].upn);
-                            // var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                            // var phoneNumStr = userInfo[i].upn.toString();
-                            // console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
-                            // Alidayu.sendWarningMsg(smsParams, phoneNumStr);
-                            // ///////////////////
                             ////////////存入数据库
                             WarningRecord.create({
                                 wt: readout.temperature,
@@ -164,18 +161,23 @@ var sensor = {
                                     console.log(err);
                                 } else {
                                     console.log(warningTime + '\n' + phoneNumStr + "报警记录成功！");
+                                    /////////////////
+                                    ///  5分钟后再读取
+                                    setTimeout(function() {
+                                        sensor.warning();
+                                    }, 1000 * 60 * 5);
+                                    ////////////////
                                 }
                             });
-                            //////////////////
                         }
-
-                        //  5分钟后再读取
-                        setTimeout(function() {
-                            sensor.warning();
-                        }, 1000 * 60 * 5);
-
+                        // /////////////////
+                        // ///  5分钟后再读取
+                        // setTimeout(function() {
+                        //     sensor.warning();
+                        // }, 1000 * 60 * 5);
+                        // ////////////////
                     } else {
-                        console.log(readout.temperature + '温度正常');
+                        console.log(readout.temperature + '温度正常--warning');
                         /////////// //继续每秒读取
                         setTimeout(function() {
                             sensor.warning();
@@ -185,22 +187,21 @@ var sensor = {
                 };
             }
         })
-
-
-
     }
 };
 
 if (sensor.initialize()) {
+
     setTimeout(function() {
         sensor.read();
         sensor.warning();
     }, 1000 * 4);
 
-
+    /////////////////////
+    //        长连接
+    //////////////////// 
     io.on('connection', function(socket) {
         console.log("新用户加入");
-
         setInterval(function() {
             var readout = sensorLib.read();
             var recordTime = new Date();
@@ -210,11 +211,10 @@ if (sensor.initialize()) {
                 date: recordTime,
                 humidity: readout.humidity.toFixed(1)
             });
+            console.log("实时温度传输")
         }, 1000);
-
     });
-
-
+    //////////////////
 } else {
     console.warn('温湿度传感器初始化失败！');
 }
