@@ -7,6 +7,9 @@ var client = new TopClient({
 });
 
 
+
+// 群发短信需传入多个号码，以英文逗号分隔，一次调用最多传入200个号码。示例：18600000000,13911111111,13322222222
+
 // *模板内容:
 // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
 exports.sendWarningMsg = function(smsParams, phoneNum) {
@@ -14,7 +17,7 @@ exports.sendWarningMsg = function(smsParams, phoneNum) {
         // 'extend': '123456',
         'sms_type': 'normal',
         'sms_free_sign_name': '温度实时监测报警',
-        'sms_param': '{"type":"高温预警",time":"2016.04.20","location":"实验室","temp":"25.C","tempset":"32.C"}',
+        // 'sms_param': '{"type":"高温预警",time":"2016.04.20","location":"实验室","temp":"25.C","tempset":"32.C"}',
         'sms_param': smsParams,
         'rec_num': phoneNum,
         'sms_template_code': 'SMS_8135532'

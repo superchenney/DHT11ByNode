@@ -6,10 +6,9 @@ var Alidayu = require('../controller/alidayu/alidayu');
 
 var User = global.dbHandel.getModel('user');
 var UserConfirmCode = global.dbHandel.getModel('ucc');
-
 var TempHumidityRecord = global.dbHandel.getModel('thr');
-
 var WarningRecord = global.dbHandel.getModel('wr');
+
 
 
 

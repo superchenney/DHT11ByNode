@@ -5,9 +5,9 @@ var TempHumidityRecord = global.dbHandel.getModel('thr');
 
 var sensor = {
     initialize: function(type, gpio) {
+        console.log('温湿度传感器正在初始化.....');
         return sensorLib.initialize(11, 26);
         // return sensorLib.initialize(type, gpio);
-        console.log('温湿度传感器正在初始化.....')
     },
     read: function() {
         var readout = sensorLib.read();
