@@ -187,22 +187,17 @@
                 console.log('用户没有登录')
             } else {
                 var UserInfo = data;
+                console.log('用户信息：'+UserInfo);
                 console.log('用户' + UserInfo.PhoneNum + '已经登录');
-                // UserInfo = data;
-                // console.log('UserInfo:' + UserInfo);
-                // console.log(UserInfo.PhoneNum);
-                // console.log(UserInfo.UserRole);
 
-                // console.log(UserInfo.WarningLock);
                 if (UserInfo.WarningLock == 'true') {
                     $("#ModelSelected").text('监控模式');
                 } else {
                     $("#ModelSelected").text('自动模式');
                 }
-
-                // console.log(UserInfo.WarningTemp);
+                
                 if (UserInfo.WarningTemp) {
-                    $("#tableWarningTempSet").innerHTML = UserInfo.WarningTemp;
+                    $("#tableWarningTempSet").text(UserInfo.WarningTemp);
                 }
 
 
