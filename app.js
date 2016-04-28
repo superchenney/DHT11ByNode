@@ -125,7 +125,7 @@ var sensor = {
                 });
                 ////////////////////
                 //  向用户发送报警短信
-                报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
+                // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
                 var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '","tempset":"' + i.wt + '"}';
                 var phoneNum = i.upn;
                 Alidayu.sendWarningMsg(smsParams, phoneNum);
