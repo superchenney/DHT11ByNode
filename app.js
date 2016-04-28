@@ -135,7 +135,7 @@ io.on('connection', function(socket) {
                     }
                 })
                 //////////////////////////
-            for (var i in userInfo) {
+            for (var i = 0; i < userInfo.length; i++) {
                 /////////////////////////////
                 if (readout.temperature >= userInfo[i].wt) {
                     /////////////////////////////
