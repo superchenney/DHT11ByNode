@@ -31,8 +31,6 @@ router.get('/setting', function(req, res, next) {
 
 
 router.post('/setting', function(req, res, next) {
-    // console.log(req.body);
-    // { userTempSet: '27', userTempLock: 'true' }
     User.findOne({
         upn: req.session.user.upn
     }, function(err, doc) {
@@ -99,8 +97,6 @@ router.get('/getUserInofo', function(req, res, next) {
 
 
 router.post('/login', function(req, res, next) {
-    console.log(req.body);
-    // { loginphoneNum: '13568821053', loginPwd: '123' }
     User.findOne({
         upn: req.body.loginphoneNum
     }, function(err, doc) {

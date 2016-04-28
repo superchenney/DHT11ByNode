@@ -69,7 +69,6 @@ io.on('connection', function(socket) {
             if (readout.temperature > 5) { //筛选掉初始化值，乱值
 
                 var recordTime = new Date();
-
                 // // 长连接模块，实时数据
                 socket.emit('realTimeTAndH', {
                     temperature: readout.temperature.toFixed(1),
@@ -77,7 +76,7 @@ io.on('connection', function(socket) {
                     humidity: readout.humidity.toFixed(1)
                 });
                 //////////////////////
-                ////////////存入数据库
+                ///       存入数据库
                 TempHumidityRecord.create({
                     pt: readout.temperature,
                     ph: readout.humidity,
@@ -101,34 +100,31 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            var userInfo = [];
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                 if (err) {
                     console.log(err);
                 } else {
-                    userInfo = doc;
-                    console.log("报警用户概览：" + userInfo);
+                    // console.log("报警用户概览：" + doc);
                     //////////////////////////
-                    for (var i = 0; i < userInfo.length; i++) {
+                    for (var i = 0; i < doc.length; i++) {
                         /////////////////////////////
-                        if (readout.temperature > userInfo[i].wt) {
+                        if (readout.temperature > doc[i].wt) {
                             /////////////////////////////
                             var warningTime = new Date();
-                            //  如果订阅了，向用户发送报警短信
-                            if (userInfo[i].wl == 'true') {
-                                console.log('触发用户报警：' + userInfo[i].upn);
-                                // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
-                                var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                                var phoneNumStr = userInfo[i].upn.toString();
-                                console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
+                            //  如果订阅了报警，向用户发送报警短信
+                            if (doc[i].wl == 'true') {
+                                console.log('触发用户报警：' + doc[i].upn);
+                                var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + doc[i].wt + '度"}';
+                                var phoneNumStr = doc[i].upn.toString();
+                                console.log("给用户：" + doc[i].upn + "发送短信报警！");
                                 Alidayu.sendWarningMsg(smsParams, phoneNumStr);
                                 ///////////////////
                                 ////////////存入数据库
                                 WarningRecord.create({
                                     wt: readout.temperature,
                                     wpn: phoneNumStr, //报警的手机号
-                                    wts: userInfo[i].wt, //报警温度设定
+                                    wts: doc[i].wt, //报警温度设定
                                     t: warningTime
                                 }, function(err, doc) {
                                     if (err) {
@@ -141,9 +137,9 @@ io.on('connection', function(socket) {
                             } else {
                                 ////////////存入数据库
                                 WarningRecord.create({
-                                    wt: userInfo[i].temperature,
-                                    wpn: userInfo[i].upn, //报警的手机号
-                                    wts: userInfo[i].wt, //报警温度设定
+                                    wt: doc[i].temperature,
+                                    wpn: doc[i].upn, //报警的手机号
+                                    wts: doc[i].wt, //报警温度设定
                                     t: warningTime,
                                     wmt: '记录成功！'
                                 }, function(err, doc) {
@@ -166,7 +162,7 @@ io.on('connection', function(socket) {
                             /////////// //继续每秒读取
                             setTimeout(function() {
                                 sensor.warning();
-                            }, 1000);
+                            }, 2000);
                         }
                         ////////////////////
                     };
@@ -215,7 +211,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret: 'temp',
     cookie: {
-        maxAge: 1000 * 60 * 30 //过期时间设置(单位毫秒)
+        maxAge: 1000 * 60 * 60 //过期时间设置(单位毫秒)
     },
     resave: 'false',
     saveUninitialized: 'false'
