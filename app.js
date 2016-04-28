@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
         warning: function() {
             var readout = sensorLib.read();
             /////////////////////////////
-            var UserInfo = null;
+            var userInfo = null;
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                     if (err) {
@@ -124,58 +124,58 @@ io.on('connection', function(socket) {
                         //     _id: 57219 f659d4312266f2f56d6
                         // }]
 
-                        for (var i = 0; i < doc.length; i++) {
-                            UserInfo[i].wl = doc[i].wl;
-                            UserInfo[i].wt = doc[i].wt;
-                            UserInfo[i].upn = doc[i].upn;
-                        }
+                        // for (var i = 0; i < doc.length; i++) {
+                        //     userInfo[i].wl = doc[i].wl;
+                        //     userInfo[i].wt = doc[i].wt;
+                        //     userInfo[i].upn = doc[i].upn;
+                        // }
 
-
-                        console.log("报警用户概览：" + UserInfo);
+                        userInfo = doc;
+                        console.log("报警用户概览：" + userInfo);
                     }
                 })
                 //////////////////////////
-            for (var i in UserInfo) {
+            for (var i in userInfo) {
                 /////////////////////////////
-                if (readout.temperature >= UserInfo[i].wt) {
+                if (readout.temperature >= userInfo[i].wt) {
                     /////////////////////////////
                     var warningTime = new Date();
                     //  如果订阅了，向用户发送报警短信
-                    if (UserInfo[i].wl == 'true') {
-                        console.log('触发用户报警：' + UserInfo[i].upn);
+                    if (userInfo[i].wl == 'true') {
+                        console.log('触发用户报警：' + userInfo[i].upn);
                         // 报警通知：${type}，${time}：${location}温度为${temp}，超出限定温度${tempset}。 SMS_8135532
-                        var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + UserInfo[i].wt + '度"}';
-                        var phoneNum = UserInfo[i].upn;
-                        console.log("给用户：" + UserInfo[i].upn + "发送短信报警！");
+                        var smsParams = '{"type": "温度超限警报","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
+                        var phoneNum = userInfo[i].upn;
+                        console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
                         Alidayu.sendWarningMsg(smsParams, phoneNum);
                         ///////////////////
                         ////////////存入数据库
                         WarningRecord.create({
                             wt: readout.temperature,
                             wpn: phoneNum, //报警的手机号
-                            wts: UserInfo[i].wt, //报警温度设定
+                            wts: userInfo[i].wt, //报警温度设定
                             t: warningTime
                         }, function(err, doc) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log(warningTime + '\n' + UserInfo[i].upn + "报警记录成功！");
+                                console.log(warningTime + '\n' + userInfo[i].upn + "报警记录成功！");
                             }
                         });
                         //////////////////
                     } else {
                         ////////////存入数据库
                         WarningRecord.create({
-                            wt: UserInfo[i].temperature,
-                            wpn: UserInfo[i].upn, //报警的手机号
-                            wts: UserInfo[i].wt, //报警温度设定
+                            wt: userInfo[i].temperature,
+                            wpn: userInfo[i].upn, //报警的手机号
+                            wts: userInfo[i].wt, //报警温度设定
                             t: warningTime,
                             wmt: '记录成功！'
                         }, function(err, doc) {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log(warningTime + '\n' + UserInfo[i].upn + "报警记录成功！");
+                                console.log(warningTime + '\n' + userInfo[i].upn + "报警记录成功！");
                             }
                         });
                         //////////////////
