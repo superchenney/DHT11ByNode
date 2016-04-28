@@ -186,8 +186,9 @@
             if (data == 'error') {
                 console.log('用户没有登录')
             } else {
+                var UserInfo = data;
                 console.log('用户' + UserInfo.PhoneNum + '已经登录');
-                UserInfo = data;
+                // UserInfo = data;
                 // console.log('UserInfo:' + UserInfo);
                 // console.log(UserInfo.PhoneNum);
                 // console.log(UserInfo.UserRole);
