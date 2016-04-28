@@ -107,6 +107,7 @@ io.on('connection', function(socket) {
             var readout = sensorLib.read();
             /////////////////////////////
             var UserInfo = null;
+
             //  查询数据库,获取用户的手机号、温度设定、进行通知
             User.find({}, function(err, doc) {
                 if (err) {
@@ -124,15 +125,15 @@ io.on('connection', function(socket) {
                     //     _id: 57219 f659d4312266f2f56d6
                     // }]
                     UserInfo = doc;
-                    console.log(UserInfo);
+                    console.log("报警用户概览：" + UserInfo);
                 }
             });
-            for (i in UserInfo) {
+
+            for (var i in UserInfo) {
                 /////////////////////////////
-                if (readout.temperature > UserInfo[i].wt) {
+                if (readout.temperature >= UserInfo[i].wt) {
                     /////////////////////////////
                     var warningTime = new Date();
-                    ////////////////////
                     //  如果订阅了，向用户发送报警短信
                     if (UserInfo[i].wl == 'true') {
                         console.log('触发用户报警：' + UserInfo[i].upn);
