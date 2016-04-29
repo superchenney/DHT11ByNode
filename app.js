@@ -149,7 +149,7 @@ var sensor = {
                             } else {
                                 console.log("报警信息数据库保存成功！")
                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
-                                console.log("==============给用户：" + userInfo[i].upn + "发送短信报警！");
+                                console.log("==============给用户：" + userdetail.upn + "发送短信报警！");
                                 // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
                             }
                         });
