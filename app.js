@@ -102,7 +102,7 @@ var sensor = {
         console.log('读取========[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         ///////////
         setTimeout(function() {
-            sensor.read();
+            sensor.warning();
         }, 1000);
         ///////////
     }
