@@ -97,7 +97,9 @@ var sensor = {
         }, 1000);
     },
     warning: function() {
+
         var readout = sensorLib.read();
+        var warningTime = new Date();
         console.log('[ 报警 ]读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         // //////////////////////////////////////
         //  异步影响
@@ -109,14 +111,16 @@ var sensor = {
                 console.log(err);
             } else {
                 userInfo = doc;
-                var phoneNumStr = userInfo.upn;
+                // var phoneNumStr = userInfo.upn;
                 console.log("报警用户概览：" + userInfo);
                 //////////////////////////
                 for (var i = 0; i < userInfo.length; i++) { //逻辑问题.每个用户报警的时间不一定，增加一个字段在userInfo里面，设定过期时间，再对该字段进行判断
                     /////////////////////////////
+                    console.log('开始对第［' + i + '］用户进行检测！');
+                    var phoneNumStr = userInfo[i].upn;
                     if (readout.temperature > userInfo[i].wt) {
                         /////////////////////////////
-                        var warningTime = new Date();
+
                         //  如果订阅了报警，向用户发送报警短信
                         if (userInfo[i].wl == 'true') {
                             MsgSendStatus.findOne({
@@ -129,7 +133,7 @@ var sensor = {
                                     WarningRecord.create({
                                         wt: readout.temperature,
                                         wpn: phoneNumStr, //报警的手机号
-                                        wts: userInfo[i].wt,//报警温度设定
+                                        wts: userInfo[i].wt, //报警温度设定
                                         t: warningTime
                                     }, function(err, doc) {
                                         if (err) {
