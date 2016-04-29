@@ -124,6 +124,7 @@ var sensor = {
                             if (err) {
                                 console.log(err);
                             } else if (!doc) {
+
                                 ////////////存入报警信息数据库
                                 WarningRecord.create({
                                     wt: readout.temperature, //报警温度
@@ -140,7 +141,7 @@ var sensor = {
                                         MsgSendStatus.create({
                                             wpn: userdetail.upn,
                                             ss: "sendSucess"
-                                        }.function() {
+                                        }, function() {
                                             console.log("报警状态记录成功！");
                                             //  报警状态记录
                                             /////////////////
@@ -153,7 +154,7 @@ var sensor = {
                                     }
                                 });
                                 //////////////
-                            }else{
+                            } else {
                                 console.log("¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥  报警已经发送过！");
                             }
 
