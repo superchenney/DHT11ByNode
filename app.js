@@ -207,7 +207,7 @@ if (sensor.initialize()) {
     setTimeout(function() {
             sensor.read();
             sensor.warning();
-        }, 1000 * 5;
+        }, 1000 * 5);
 
         /////////////////////
         //        长连接
