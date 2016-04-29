@@ -100,6 +100,19 @@ var sensor = {
         var readout = sensorLib.read();
         var recordTime = new Date();
         console.log('读取========[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        var userInfo = null;
+        User
+            .find({})
+            .exec(function(err, data) {
+                if (err) {
+                    console.log(err);
+                }
+                userInfo = data;
+            });
+
+        console.log("用户信息：" + userInfo);
+
+
         ///////////
         setTimeout(function() {
             sensor.warning();
@@ -107,7 +120,7 @@ var sensor = {
         ///////////
     }
 
-};
+}
 
 
 
