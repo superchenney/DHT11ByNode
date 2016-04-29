@@ -90,15 +90,21 @@ var sensor = {
         } else {
             console.log('实时温度读取' + readout.temperature + '摄氏值不合法，被抛弃，不记录');
         }
-        /////////// //创建结束！
+        ///////////
         setTimeout(function() {
             sensor.read();
         }, 1000);
+        //////////
     },
     warning: function() {
         var readout = sensorLib.read();
         var recordTime = new Date();
-        console.log('读取========[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        console.log('读取========[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        ///////////
+        setTimeout(function() {
+            sensor.read();
+        }, 1000);
+        ///////////
     }
 
 };
@@ -124,12 +130,13 @@ if (sensor.initialize()) {
         setInterval(function() {
             var readout = sensorLib.read();
             var recordTime = new Date();
-            // // 长连接模块，实时数据
+            ///// 长连接模块，实时数据
             socket.emit('realTimeTAndH', {
                 temperature: readout.temperature.toFixed(1),
                 date: recordTime,
                 humidity: readout.humidity.toFixed(1)
             });
+            /////
             console.log("实时温度传输")
         }, 1000);
     });
