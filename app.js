@@ -145,7 +145,7 @@ var sensor = {
                                                 wpn: userdetail.upn,
                                                 ss: "sendSucess"
                                             }, function(err, doc) {
-                                                if (error) {
+                                                if (err) {
                                                     console.log(err);
                                                 } else {
                                                     console.log("报警状态记录成功！");
