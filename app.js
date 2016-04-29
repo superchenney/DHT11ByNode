@@ -51,6 +51,9 @@ var sensorLib = require('node-dht-sensor');
 var User = global.dbHandel.getModel('user');
 var TempHumidityRecord = global.dbHandel.getModel('thr');
 var WarningRecord = global.dbHandel.getModel('wr');
+
+var MsgSendStatus = global.dbHandel.getModel('mss');
+
 var Alidayu = require('./controller/alidayu/alidayu');
 
 
@@ -108,14 +111,13 @@ var sensor = {
                 userInfo = doc;
                 // console.log("报警用户概览：" + doc);
                 //////////////////////////
-                for (var i = 0; i < userInfo.length; i++) {
+                for (var i = 0; i < userInfo.length; i++) { //逻辑问题.每个用户报警的时间不一定，增加一个字段在userInfo里面，设定过期时间，再对该字段进行判断
                     /////////////////////////////
                     if (readout.temperature > userInfo[i].wt) {
                         /////////////////////////////
                         var warningTime = new Date();
                         //  如果订阅了报警，向用户发送报警短信
                         if (userInfo[i].wl == 'true') {
-
                             ////////////存入数据库
                             WarningRecord.create({
                                 wt: readout.temperature,
@@ -127,13 +129,24 @@ var sensor = {
                                     console.log(err);
                                 } else {
 
-                                    console.log(warningTime + '\n' + phoneNumStr + "短信报警记录成功！");
-                                    //////////////////////////
-                                    console.log('触发用户报警：' + userInfo[i].upn);
-                                    var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                                    var phoneNumStr = userInfo[i].upn.toString();
-                                    console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
-                                    Alidayu.sendWarningMsg(smsParams, phoneNumStr);
+                                    MsgSendStatus.create({
+                                        wpn: phoneNumStr,
+                                        ss: 'success'
+                                    }, function(err, doc) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            ///////////////////////////////
+                                            console.log(warningTime + '\n' + phoneNumStr + "短信报警记录成功！");
+                                            //////////////////////////
+                                            console.log('触发用户报警：' + userInfo[i].upn);
+                                            // var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
+                                            // var phoneNumStr = userInfo[i].upn.toString();
+                                            // console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
+                                            // Alidayu.sendWarningMsg(smsParams, phoneNumStr);
+                                        }
+                                    });
+
 
                                     //////////////////
                                     //  5分钟后再读取
@@ -175,12 +188,13 @@ var sensor = {
                         // ////////////////
                     } else {
                         console.log(readout.temperature + '温度正常--warning');
-                        /////////// //继续每秒读取
-                        setTimeout(function() {
-                            sensor.warning();
-                        }, 2000);
                     }
                     ////////////////////
+                    /////////// //继续每秒读取
+                    setTimeout(function() {
+                        sensor.warning();
+                    }, 2000);
+
                 };
             }
         })

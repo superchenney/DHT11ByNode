@@ -119,6 +119,25 @@ module.exports = {
         // wms: {
         //     type: Boolean
         // }
-    }
+    },
+    ///////////////////////////////////////////////////
+    //         短信报警发送记录 MsgSendStatus
+    mss: {
+        //报警手机号 WarningPhoneNum
+        wpn: {
+            type: String,
+            required: true
+        },
+        //推送状态 SendStatus
+        ss: {
+            type: String,
+            require: true
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now(),
+            required: true
+        }
 
+    }
 };
