@@ -144,14 +144,19 @@ var sensor = {
                                             MsgSendStatus.create({
                                                 wpn: userdetail.upn,
                                                 ss: "sendSucess"
-                                            }, function() {
-                                                console.log("报警状态记录成功！");
-                                                //  报警状态记录
-                                                /////////////////
-                                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
-                                                console.log("==============给用户：" + userdetail.upn + "发送短信报警！");
-                                                // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
-                                                ////////////////////
+                                            }, function(err, doc) {
+                                                if (error) {
+                                                    console.log(err);
+                                                } else {
+                                                    console.log("报警状态记录成功！");
+                                                    //  报警状态记录
+                                                    /////////////////
+                                                    var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                                    console.log("==============给用户：" + userdetail.upn + "发送短信报警！");
+                                                    // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
+                                                    ////////////////////
+                                                }
+
                                             });
 
                                         }
