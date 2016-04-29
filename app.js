@@ -68,14 +68,13 @@ var sensor = {
     },
     read: function() {
         var readout = sensorLib.read();
-        console.log('[ 实时 ]读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        var recordTime = new Date();
+        console.log('读取========[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         //////////////////////////////////////
         if (readout.temperature > 5) { //筛选掉初始化值，乱值
 
             ///////////////////////////
-            ///       实时温度 存入数据库
-            ///////////////////////////
-            var recordTime = new Date();
+            //      实时温度 存入数据库,后台也要运行
             TempHumidityRecord.create({
                 pt: readout.temperature,
                 ph: readout.humidity,
@@ -89,7 +88,7 @@ var sensor = {
             });
             ///////////////////////////
         } else {
-            console.log(readout.temperature + '值不合法，被抛弃，不记录');
+            console.log('实时温度读取' + readout.temperature + '摄氏值不合法，被抛弃，不记录');
         }
         /////////// //创建结束！
         setTimeout(function() {
@@ -97,180 +96,11 @@ var sensor = {
         }, 1000);
     },
     warning: function() {
-
         var readout = sensorLib.read();
-        var warningTime = new Date();
-        console.log('[ 报警 ]读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
-        // //////////////////////////////////////
-        //  异步影响
-        //  查询数据库,获取用户的手机号、温度设定、进行通知
-        var userInfo = null;
-
-        User.find({}, function(err, doc) {
-            if (err) {
-                console.log(err);
-            } else {
-                userInfo = doc;
-                // var phoneNumStr = userInfo.upn;
-                console.log("报警用户概览：" + userInfo);
-                //////////////////////////
-                for (var i = 0; i < userInfo.length; i++) { //逻辑问题.每个用户报警的时间不一定，增加一个字段在userInfo里面，设定过期时间，再对该字段进行判断
-                    /////////////////////////////
-                    console.log('开始对第［' + i + '］用户进行检测！');
-                    var phoneNumStr = userInfo[i].upn;
-                    if (readout.temperature > userInfo[i].wt) {
-                        /////////////////////////////
-
-                        //  如果订阅了报警，向用户发送报警短信
-                        if (userInfo[i].wl == 'true') {
-                            MsgSendStatus.findOne({
-                                wpn: phoneNumStr
-                            }, function(err, doc) {
-                                if (err) {
-                                    console.log(err);
-                                } else if (!doc) {
-                                    ////////////存入数据库
-                                    WarningRecord.create({
-                                        wt: readout.temperature,
-                                        wpn: phoneNumStr, //报警的手机号
-                                        wts: userInfo[i].wt, //报警温度设定
-                                        t: warningTime
-                                    }, function(err, doc) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else {
-                                            MsgSendStatus.create({
-                                                wpn: phoneNumStr,
-                                                ss: 'sendSucess'
-                                            }, function(err, doc) {
-                                                //////////////////////////
-                                                console.log(warningTime + '\n' + phoneNumStr + "短信报警记录成功！");
-                                                //////////////////////////
-                                                console.log('触发用户报警：' + userInfo[i].upn);
-                                                var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                                                var phoneNumStr = userInfo[i].upn.toString();
-                                                console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
-                                                Alidayu.sendWarningMsg(smsParams, phoneNumStr);
-                                                //////////////////
-                                                //  5分钟后再读取
-                                                // setTimeout(function() {
-                                                //     sensor.warning();
-                                                // }, 1000 * 60 * 5);
-                                                //////////////
-                                            })
-
-                                        }
-                                    });
-                                    //////////////
-                                } else if (doc.ss == 'sendSucess') {
-                                    ////////////存入数据库
-                                    WarningRecord.create({
-                                        wt: doc[i].temperature,
-                                        wpn: doc[i].upn, //报警的手机号
-                                        wts: doc[i].wt, //报警温度设定
-                                        t: warningTime,
-                                        wmt: '记录成功！'
-                                    }, function(err, doc) {
-                                        if (err) {
-                                            console.log(err);
-                                        } else {
-                                            console.log(warningTime + '\n' + phoneNumStr + "报警记录成功！");
-                                            /////////////////
-                                            ///  5分钟后再读取
-                                            // setTimeout(function() {
-                                            //     sensor.warning();
-                                            // }, 1000 * 60 * 5);
-                                            // ////////////////
-                                        }
-                                    });
-                                    ///////////////
-                                }
-
-                            });
-                            // ////////////存入数据库
-                            // WarningRecord.create({
-                            //     wt: readout.temperature,
-                            //     wpn: phoneNumStr, //报警的手机号
-                            //     wts: userInfo[i].wt, //报警温度设定
-                            //     t: warningTime
-                            // }, function(err, doc) {
-                            //     if (err) {
-                            //         console.log(err);
-                            //     } else {
-                            //         MsgSendStatus.create({
-                            //             wpn: phoneNumStr,
-                            //             ss: 'sendSucess'
-                            //         }, function(err, doc) {
-                            //             //////////////////////////
-                            //             console.log(warningTime + '\n' + phoneNumStr + "短信报警记录成功！");
-                            //             //////////////////////////
-                            //             console.log('触发用户报警：' + userInfo[i].upn);
-                            //             var smsParams = '{"type": "温度超限警报","time":"' + warningTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                            //             var phoneNumStr = userInfo[i].upn.toString();
-                            //             console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
-                            //             Alidayu.sendWarningMsg(smsParams, phoneNumStr);
-                            //             //////////////////
-                            //             //  5分钟后再读取
-                            //             setTimeout(function() {
-                            //                 sensor.warning();
-                            //             }, 1000 * 60 * 5);
-                            //             //////////////
-                            //         })
-
-                            //     }
-                            // });
-                            // //////////////
-
-
-                        } else {
-                            ////////////存入数据库
-                            // WarningRecord.create({
-                            //     wt: doc[i].temperature,
-                            //     wpn: doc[i].upn, //报警的手机号
-                            //     wts: doc[i].wt, //报警温度设定
-                            //     t: warningTime,
-                            //     wmt: '记录成功！'
-                            // }, function(err, doc) {
-                            //     if (err) {
-                            //         console.log(err);
-                            //     } else {
-                            //         console.log(warningTime + '\n' + phoneNumStr + "报警记录成功！");
-                            //         /////////////////
-                            //         ///  5分钟后再读取
-                            //         setTimeout(function() {
-                            //             sensor.warning();
-                            //         }, 1000 * 60 * 5);
-                            //         ////////////////
-                            //     }
-                            // });
-                            ///////////////
-                        }
-                        // /////////////////
-                        // ///  5分钟后再读取
-                        // setTimeout(function() {
-                        //     sensor.warning();
-                        // }, 1000 * 60 * 5);
-                        // ////////////////
-                    } else {
-                        console.log(readout.temperature + '温度正常--warning');
-                    }
-                    // ////////////////////
-                    // /////////// //继续每秒读取
-                    // setTimeout(function() {
-                    //     sensor.warning();
-                    // }, 2000);
-                    // ////////////
-
-                };
-            }
-        });
-        ////////////////////
-        /////////// //继续每秒读取
-        setTimeout(function() {
-            sensor.warning();
-        }, 2000);
-        ////////////
+        var recordTime = new Date();
+        console.log('读取========[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
     }
+
 };
 
 
