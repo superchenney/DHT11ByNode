@@ -109,10 +109,9 @@ var sensor = {
                 }
                 userInfo = data;
                 console.log("用户信息更新！");
+                console.log("用户信息：" + userInfo);
             });
 
-
-        console.log("用户信息：" + userInfo);
 
         ///////////
         setTimeout(function() {
