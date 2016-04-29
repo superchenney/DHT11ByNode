@@ -65,7 +65,7 @@ var sensor = {
     },
     read: function() {
         var readout = sensorLib.read();
-        console.log('实时读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        console.log('[ 实时 ]读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         //////////////////////////////////////
         if (readout.temperature > 5) { //筛选掉初始化值，乱值
 
@@ -81,7 +81,7 @@ var sensor = {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log(recordTime + "实时温度记录成功！");
+                    console.log(recordTime + "[ 实时 ]温度记录成功！");
                 }
             });
             ///////////////////////////
@@ -95,7 +95,7 @@ var sensor = {
     },
     warning: function() {
         var readout = sensorLib.read();
-        console.log('实时读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+        console.log('[ 报警 ]读取=================' + '\n' + '温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         // //////////////////////////////////////
         //  异步影响
         //  查询数据库,获取用户的手机号、温度设定、进行通知
@@ -104,11 +104,6 @@ var sensor = {
         User.find({}, function(err, doc) {
             if (err) {
                 console.log(err);
-                //////////////////
-                setTimeout(function() {
-                            sensor.warning();
-                        }, 2000);
-                /////////////////
             } else {
                 userInfo = doc;
                 // console.log("报警用户概览：" + doc);
@@ -120,6 +115,7 @@ var sensor = {
                         var warningTime = new Date();
                         //  如果订阅了报警，向用户发送报警短信
                         if (userInfo[i].wl == 'true') {
+
                             ////////////存入数据库
                             WarningRecord.create({
                                 wt: readout.temperature,
@@ -138,7 +134,7 @@ var sensor = {
                                     var phoneNumStr = userInfo[i].upn.toString();
                                     console.log("给用户：" + userInfo[i].upn + "发送短信报警！");
                                     Alidayu.sendWarningMsg(smsParams, phoneNumStr);
-                                    ///////////////////
+
                                     //////////////////
                                     //  5分钟后再读取
                                     setTimeout(function() {
@@ -148,6 +144,7 @@ var sensor = {
                                 }
                             });
                             //////////////
+
                         } else {
                             ////////////存入数据库
                             WarningRecord.create({
