@@ -124,8 +124,9 @@ var sensor = {
                             }, function(err, doc) {
                                 if (err) {
                                     console.log(err);
-                                    console.log("[短信报警]=======用户不存在！");
+                                    // console.log("[短信报警]=======报警信息数据库保存失败！");
                                 } else if (!doc) {
+                                    console.log("[短信报警]=======用户不存在！");
                                     ////////////存入报警信息数据库
                                     WarningRecord.create({
                                         wt: readout.temperature, //报警温度
@@ -135,8 +136,7 @@ var sensor = {
                                         wmt: '短信推送'
                                     }, function(err, doc) {
                                         if (err) {
-                                            // console.log(err);
-                                            console.log("[短信报警]=======报警信息数据库保存失败！");
+                                            console.log(err);
                                         } else {
                                             console.log("[短信报警]=======报警信息数据库保存成功！");
 
@@ -146,6 +146,7 @@ var sensor = {
                                             }, function(err, doc) {
                                                 if (err) {
                                                     console.log(err);
+                                                    console.log("[短信报警]=======报警信息数据库保存失败！");
                                                 } else {
                                                     console.log("报警状态记录成功！");
                                                     //  报警状态记录
