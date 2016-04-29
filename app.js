@@ -113,7 +113,33 @@ var sensor = {
                 for (var i = 0; i < userInfo.length; i++) {
                     console.log("========== " + i + " ==========");
                     userdetail = userInfo[i];
-                    console.log("========== " + userdetail + " ==========");
+                    // console.log("========== " + userdetail + " ==========");
+                    ////////////////////////////////////////////
+                    // { ur: 'norm',
+                    //   wl: 'true',
+                    //   wt: 27,
+                    //   uct: Thu Apr 28 2016 05:23:47 GMT+0000 (UTC),
+                    //   __v: 0,
+                    //   pwd: 'chenchao',
+                    //   upn: '13568821053',
+                    //   _id: 57219f659d4312266f2f56d6 }
+                    ////////////////////////////////////////////
+                    // { ur: 'norm',
+                    //   wl: 'false',
+                    //   wt: 27,
+                    //   uct: Thu Apr 28 2016 10:28:43 GMT+0000 (UTC),
+                    //   __v: 0,
+                    //   pwd: '11111111',
+                    //   upn: '13981899712',
+                    //   _id: 5721e741d72fbf3e051c6112 }
+                    ///////////////////////////////////////////
+                    if (userdetail.wl == 'true' && readout.temperature > userdetail.wt) {
+                        console.log("温度超出限制，订阅报警，记录并发送报警短信给用户==========：" + userdetail.upn);
+                    } else if (userdetail.wl == 'false' && readout.temperature > userdetail.wt) {
+                        console.log("温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
+                    }else{
+                        console.log("温度正常范围内，继续报警监控");
+                    }
                 }
 
             });
