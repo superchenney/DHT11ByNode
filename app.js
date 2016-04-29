@@ -112,8 +112,9 @@ var sensor = {
                 // console.log("用户信息：" + userInfo);
                 for (var i = 0; i < userInfo.length; i++) {
                     console.log("========== "+i+" ==========");
+                    console.log("========== "+i+"哈哈哈");
                 }
-                
+
             });
 
 
