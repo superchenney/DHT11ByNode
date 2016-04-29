@@ -135,9 +135,44 @@ var sensor = {
                     ///////////////////////////////////////////
                     if (userdetail.wl == 'true' && readout.temperature > userdetail.wt) {
                         console.log("温度超出限制，订阅报警，记录并发送报警短信给用户==========：" + userdetail.upn);
+
+                        ////////////存入报警信息数据库
+                        WarningRecord.create({
+                            wt: readout.temperature, //报警温度
+                            wpn: userdetail.upn, //报警的手机号
+                            wts: userdetail.wt, //报警温度设定
+                            t: recordTime, //报警时间
+                            wmt: '短信推送'
+                        }, function(err, doc) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log("报警信息数据库保存成功！")
+                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                console.log("==============给用户：" + userInfo[i].upn + "发送短信报警！");
+                                // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
+                            }
+                        });
+                        //////////////
+
                     } else if (userdetail.wl == 'false' && readout.temperature > userdetail.wt) {
                         console.log("温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
-                    }else{
+                        ////////////存入报警信息数据库
+                        WarningRecord.create({
+                            wt: readout.temperature, //报警温度
+                            wpn: userdetail.upn, //报警的手机号
+                            wts: userdetail.wt, //报警温度设定
+                            t: recordTime, //报警时间
+                            wmt: '未推送'
+                        }, function(err, doc) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log("报警信息数据库保存成功！")
+                            }
+                        });
+                        //////////////
+                    } else {
                         console.log("温度正常范围内，继续报警监控");
                     }
                 }
