@@ -110,7 +110,7 @@ var sensor = {
             } else {
                 userInfo = doc;
                 var phoneNumStr = userInfo.upn;
-                // console.log("报警用户概览：" + doc);
+                console.log("报警用户概览：" + userInfo);
                 //////////////////////////
                 for (var i = 0; i < userInfo.length; i++) { //逻辑问题.每个用户报警的时间不一定，增加一个字段在userInfo里面，设定过期时间，再对该字段进行判断
                     /////////////////////////////
@@ -129,7 +129,7 @@ var sensor = {
                                     WarningRecord.create({
                                         wt: readout.temperature,
                                         wpn: phoneNumStr, //报警的手机号
-                                        wts: userInfo[i].wt, //报警温度设定
+                                        wts: userInfo[i].wt,//报警温度设定
                                         t: warningTime
                                     }, function(err, doc) {
                                         if (err) {
@@ -268,6 +268,12 @@ var sensor = {
         ////////////
     }
 };
+
+
+
+
+
+
 
 if (sensor.initialize()) {
 
