@@ -118,47 +118,48 @@ var sensor = {
                         console.log("温度超出限制，订阅报警，记录并发送报警短信给用户==========：" + userdetail.upn);
 
 
-                        MsgSendStatus.findOne({
-                            wpn: userdetail.upn
-                        }, function(err, doc) {
-                            if (err) {
-                                console.log(err);
-                            } else if (!doc) {
+                        MsgSendStatus
+                            .findOne({
+                                wpn: userdetail.upn
+                            }, function(err, doc) {
+                                if (err) {
+                                    console.log(err);
+                                } else if (doc) {
 
-                                ////////////存入报警信息数据库
-                                WarningRecord.create({
-                                    wt: readout.temperature, //报警温度
-                                    wpn: userdetail.upn, //报警的手机号
-                                    wts: userdetail.wt, //报警温度设定
-                                    t: recordTime, //报警时间
-                                    wmt: '短信推送'
-                                }, function(err, doc) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        console.log("报警信息数据库保存成功！");
+                                    console.log("¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥  报警已经发送过！");
+                                } else {
+                                    ////////////存入报警信息数据库
+                                    WarningRecord.create({
+                                        wt: readout.temperature, //报警温度
+                                        wpn: userdetail.upn, //报警的手机号
+                                        wts: userdetail.wt, //报警温度设定
+                                        t: recordTime, //报警时间
+                                        wmt: '短信推送'
+                                    }, function(err, doc) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            console.log("报警信息数据库保存成功！");
 
-                                        MsgSendStatus.create({
-                                            wpn: userdetail.upn,
-                                            ss: "sendSucess"
-                                        }, function() {
-                                            console.log("报警状态记录成功！");
-                                            //  报警状态记录
-                                            /////////////////
-                                            var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
-                                            console.log("==============给用户：" + userdetail.upn + "发送短信报警！");
-                                            // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
-                                            ////////////////////
-                                        });
+                                            MsgSendStatus.create({
+                                                wpn: userdetail.upn,
+                                                ss: "sendSucess"
+                                            }, function() {
+                                                console.log("报警状态记录成功！");
+                                                //  报警状态记录
+                                                /////////////////
+                                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                                console.log("==============给用户：" + userdetail.upn + "发送短信报警！");
+                                                // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
+                                                ////////////////////
+                                            });
 
-                                    }
-                                });
-                                //////////////
-                            } else {
-                                console.log("¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥¥  报警已经发送过！");
-                            }
+                                        }
+                                    });
+                                    //////////////
+                                }
 
-                        });
+                            });
 
 
                     } else if (readout.temperature > userdetail.wt && userdetail.wl == 'false') {
@@ -205,106 +206,105 @@ var sensor = {
 if (sensor.initialize()) {
 
     setTimeout(function() {
-            sensor.read();
-            sensor.warning();
-        }, 1000 * 5);
+        sensor.read();
+        sensor.warning();
+    }, 1000 * 5);
 
-        /////////////////////
-        //        长连接
-        //////////////////// 
-        io.on('connection', function(socket) {
-            console.log("新用户加入");
-            setInterval(function() {
-                var readout = sensorLib.read();
-                var recordTime = new Date();
-                ///// 长连接模块，实时数据
-                socket.emit('realTimeTAndH', {
-                    temperature: readout.temperature.toFixed(1),
-                    date: recordTime,
-                    humidity: readout.humidity.toFixed(1)
-                });
-                /////
-                console.log("实时温度传输")
-            }, 1000);
-        });
-        //////////////////
-    }
-    else {
-        console.warn('温湿度传感器初始化失败！');
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // view engine setup
-    app.set('views', path.join(__dirname, 'views'));
-    // app.set('view engine', 'ejs');
-    app.engine("html", require("ejs").__express);
-    app.set('view engine', 'html');
-
-    // uncomment after placing your favicon in /public
-    //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-    app.use(logger('dev'));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cookieParser());
-    app.use(express.static(path.join(__dirname, 'public')));
-
-
-    app.use(session({
-        secret: 'temp',
-        cookie: {
-            maxAge: 1000 * 60 * 60 //过期时间设置(单位毫秒)
-        },
-        resave: 'false',
-        saveUninitialized: 'false'
-    }));
-
-
-
-
-    var routes = require('./routes/index');
-    app.use('/', routes);
-
-    // catch 404 and forward to error handler
-    app.use(function(req, res, next) {
-        var err = new Error('Not Found');
-        err.status = 404;
-        next(err);
-    });
-
-
-
-    // error handlers
-
-    // development error handler
-    // will print stacktrace
-    if (app.get('env') === 'development') {
-        app.use(function(err, req, res, next) {
-            res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                error: err
+    /////////////////////
+    //        长连接
+    //////////////////// 
+    io.on('connection', function(socket) {
+        console.log("新用户加入");
+        setInterval(function() {
+            var readout = sensorLib.read();
+            var recordTime = new Date();
+            ///// 长连接模块，实时数据
+            socket.emit('realTimeTAndH', {
+                temperature: readout.temperature.toFixed(1),
+                date: recordTime,
+                humidity: readout.humidity.toFixed(1)
             });
-        });
-    }
+            /////
+            console.log("实时温度传输")
+        }, 1000);
+    });
+    //////////////////
+} else {
+    console.warn('温湿度传感器初始化失败！');
+}
 
-    // production error handler
-    // no stacktraces leaked to user
+
+
+
+
+
+
+
+
+
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
+app.engine("html", require("ejs").__express);
+app.set('view engine', 'html');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(session({
+    secret: 'temp',
+    cookie: {
+        maxAge: 1000 * 60 * 60 //过期时间设置(单位毫秒)
+    },
+    resave: 'false',
+    saveUninitialized: 'false'
+}));
+
+
+
+
+var routes = require('./routes/index');
+app.use('/', routes);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
-            error: {}
+            error: err
         });
     });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
 
-    module.exports = app;
+module.exports = app;

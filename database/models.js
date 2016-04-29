@@ -126,7 +126,8 @@ module.exports = {
         //报警手机号 WarningPhoneNum
         wpn: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
         //推送状态 SendStatus
         ss: {
