@@ -129,8 +129,8 @@ var sensor = {
                                 } else {
                                     // console.log(doc);
                                     //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
-                                    var dateInterve = doc.t - recordTime;
-                                    console.log(dateInterve);
+                                    var dateInterve = recordTime - doc.t;
+                                    console.log(dateInterve);//496666219
                                 }
                             });
 
