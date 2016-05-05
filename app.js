@@ -115,7 +115,6 @@ var sensor = {
                     if (readout.temperature >= userdetail.wt && userdetail.wl == 'true') {
                         console.log("[ 报警 ]=========温度超出限制，订阅报警，记录报警信息==========：" + userdetail.upn);
 
-
                         WarningRecord
                             .findOne({
                                 wpn: userdetail.upn
@@ -123,18 +122,19 @@ var sensor = {
                             .sort({
                                 t: -1
                             })
-                            .exec(function(err, doc) {
+                            .exec(function(err, warningdata) {
                                 if (err) {
                                     console.log(err);
-                                } else if (doc) {
-                                    console.log(doc);
+                                } else if (warningdata) {
+                                    console.log(warningdata);
                                     //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
                                     console.log(recordTime);
-                                    console.log(doc.t);
-                                    var dateInterve = recordTime - doc.t;
+                                    console.log(warningdata.t);
+                                    var dateInterve = recordTime - warningdata.t;
                                     console.log(dateInterve); //504380659
                                     ////////////////////////
                                     if (dateInterve > 1000 * 60 * 3) {
+
                                         WarningRecord.create({
                                             wt: readout.temperature, //报警温度
                                             wpn: userdetail.upn, //报警的手机号
@@ -156,7 +156,7 @@ var sensor = {
                                         console.log("[短信报警]=======3分钟内已经给用户发送过报警短信！");
                                     }
                                     ////////////////////
-                                } else(!doc) {
+                                } else(!warningdata) {
                                     //////////////////////
                                     WarningRecord.create({
                                         wt: readout.temperature, //报警温度
