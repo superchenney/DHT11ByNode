@@ -122,12 +122,12 @@ var sensor = {
                                 wpn: userdetail.upn
                             })
                             .sort({
-                                "t": -1
+                                t: -1
                             })
                             .exec(function(err, doc) {
                                 if (err) {
                                     console.log(err);
-                                }else{
+                                } else {
                                     console.log(doc);
                                 }
                             });
