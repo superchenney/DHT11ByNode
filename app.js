@@ -110,14 +110,14 @@ var sensor = {
                 // console.log("用户信息：" + userInfo);
                 for (var i = 0; i < userInfo.length; i++) {
                     console.log("========== " + i + " ==========");
-                    // userInfo[i] = userInfo[i];
+                    userdetail = userInfo[i];
                     ////////////////////////////////////////////
-                    if (readout.temperature >= userInfo[i].wt && userInfo[i].wl === 'true') {
-                        console.log("[ 报警 ]=========温度超出限制，订阅报警，记录报警信息==========：" + userInfo[i].upn);
+                    if (readout.temperature >= userdetail.wt && userdetail.wl === 'true') {
+                        console.log("[ 报警 ]=========温度超出限制，订阅报警，记录报警信息==========：" + userdetail.upn);
 
                         WarningRecord
                             .findOne({
-                                wpn: userInfo[i].upn
+                                wpn: userdetail.upn
                             })
                             .sort({
                                 t: -1
@@ -137,18 +137,18 @@ var sensor = {
 
                                         WarningRecord.create({
                                             wt: readout.temperature, //报警温度
-                                            wpn: userInfo[i].upn, //报警的手机号
-                                            wts: userInfo[i].wt, //报警温度设定
+                                            wpn: userdetail.upn, //报警的手机号
+                                            wts: userdetail.wt, //报警温度设定
                                             t: recordTime, //报警时间
                                             wmt: '短信推送'
-                                        }, function(err, doc) {
+                                        }, function(err) {
                                             if (err) {
                                                 console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                                             } else {
                                                 console.log("[短信报警][开启]=======报警信息数据库保存成功！");
-                                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                                                console.log("[短信报警]==============给用户：" + userInfo[i].upn + "发送短信报警！");
-                                                // Alidayu.sendWarningMsg(smsParams, userInfo[i].upn);
+                                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                                console.log("[短信报警]==============给用户：" + userdetail.upn + "发送短信报警！");
+                                                // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
                                             }
                                         });
 
@@ -160,18 +160,18 @@ var sensor = {
                                     //////////////////////
                                     WarningRecord.create({
                                         wt: readout.temperature, //报警温度
-                                        wpn: userInfo[i].upn, //报警的手机号
-                                        wts: userInfo[i].wt, //报警温度设定
+                                        wpn: userdetail.upn, //报警的手机号
+                                        wts: userdetail.wt, //报警温度设定
                                         t: recordTime, //报警时间
                                         wmt: '短信推送'
-                                    }, function(err, doc) {
+                                    }, function(err) {
                                         if (err) {
                                             console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                                         } else {
                                             console.log("[短信报警][开启]=======报警信息数据库保存成功！");
-                                            var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userInfo[i].wt + '度"}';
-                                            console.log("[短信报警]==============给用户：" + userInfo[i].upn + "发送短信报警！");
-                                            // Alidayu.sendWarningMsg(smsParams, userInfo[i].upn);
+                                            var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                            console.log("[短信报警]==============给用户：" + userdetail.upn + "发送短信报警！");
+                                            // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
                                         }
                                     });
                                     /////////////////
@@ -179,16 +179,16 @@ var sensor = {
                             });
 
 
-                    } else if (readout.temperature >= userInfo[i].wt && userInfo[i].wl === 'false') {
-                        console.log("[ 报警 ]=========温度超出限制，关闭报警，记录报警信息=========：" + userInfo[i].upn);
+                    } else if (readout.temperature >= userdetail.wt && userdetail.wl === 'false') {
+                        console.log("[ 报警 ]=========温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
                         ////////////存入报警信息数据库
                         WarningRecord.create({
                             wt: readout.temperature, //报警温度
-                            wpn: userInfo[i].upn, //报警的手机号
-                            wts: userInfo[i].wt, //报警温度设定
+                            wpn: userdetail.upn, //报警的手机号
+                            wts: userdetail.wt, //报警温度设定
                             t: recordTime, //报警时间
                             wmt: '关闭订阅'
-                        }, function(err, doc) {
+                        }, function(err) {
                             if (err) {
                                 console.log(err);
                             } else {
