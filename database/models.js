@@ -136,6 +136,7 @@ module.exports = {
         },
         createdAt: {
             type: Date,
+            expires: 60 * 2,
             default: Date.now(),
             required: true
         }
