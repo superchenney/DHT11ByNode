@@ -102,14 +102,14 @@ var sensor = {
 
         console.log('[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
 
-        var userInfo = null;
+        // var userInfo = null;
 
         User.find({})
             .exec(function(err, data) {
                 if (err) {
                     console.log(err);
                 }
-                userInfo = data;
+                var userInfo = data;
                 console.log("[ 报警 ]=========用户信息更新！");
                 // console.log("用户信息：" + userInfo);
                 for (var i = 0; i < userInfo.length; i++) {
