@@ -130,7 +130,7 @@ var sensor = {
                                     console.log(doc);
                                     //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
                                     var dateInterve = recordTime - doc.t;
-                                    // console.log(dateInterve); //496666219
+                                    console.log(dateInterve); //496666219
                                     if (dateInterve > 1000 * 60 * 3) {
                                         WarningRecord.create({
                                             wt: readout.temperature, //报警温度
@@ -142,7 +142,7 @@ var sensor = {
                                             if (err) {
                                                 console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                                             } else {
-                                                console.log("[短信报警]=======报警信息数据库保存成功！");
+                                                console.log("[短信报警][开启]=======报警信息数据库保存成功！");
                                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
                                                 console.log("[短信报警]==============给用户：" + userdetail.upn + "发送短信报警！");
                                                 // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
@@ -169,7 +169,7 @@ var sensor = {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log("[ 报警 ]=========报警信息数据库保存成功！")
+                                console.log("[ 报警 ][关闭]=========报警信息数据库保存成功！")
                             }
                         });
                         //////////////
