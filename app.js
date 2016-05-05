@@ -125,7 +125,7 @@ var sensor = {
                             wpn: userdetail.upn
                         }).then(function(err, msgStatus) {
                             if (err) {
-                                console.log(err);
+                                console.log("[ 短信推送状态 ]查询出错！" + err);
                             } else if (msgStatus) {
                                 console.log("3分钟内已经推送！")
                             } else {
@@ -141,7 +141,7 @@ var sensor = {
                                     }
                                 })
                             }
-                        })
+                        });
 
 
                         //     /////////////////////////
