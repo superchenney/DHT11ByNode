@@ -116,7 +116,6 @@ var sensor = {
                         console.log("[ 报警 ]=========温度超出限制，订阅报警，记录并准备发送报警短信给用户==========：" + userdetail.upn);
 
 
-
                         WarningRecord
                             .findOne({
                                 wpn: userdetail.upn
@@ -128,7 +127,10 @@ var sensor = {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log(doc);
+                                    // console.log(doc);
+                                    //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
+                                    var dateInterve = doc.t - recordTime;
+                                    console.log(dateInterve);
                                 }
                             });
 
