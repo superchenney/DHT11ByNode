@@ -128,9 +128,9 @@ var sensor = {
                                 console.log("[ 短信推送状态 ]查询出错！" + err);
                             } else if (msgStatus) {
                                 console.log("3分钟内已经推送！")
-                            } else {
+                            } else if (!msgStatus) {
                                 MsgSendStatus.create({
-                                    createdAt: recordTime,
+                                    // createdAt: recordTime,
                                     ss: '短信报警推送',
                                     wpn: msgStatus.wpn
                                 }, function(err) {
