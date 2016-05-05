@@ -104,12 +104,8 @@ var sensor = {
         User.find({})
             .exec(function(err, userInfo) {
 
-                // if (err) {
-                //     console.log(err);
-                // }
-
                 console.log("[ 报警 ]=========用户信息更新！");
-                // console.log("用户信息：" + userInfo);
+
                 for (var i = 0; i < userInfo.length; i++) {
 
                     var userdetail = userInfo[i];
@@ -123,10 +119,11 @@ var sensor = {
                         checkStatusExitAndSendMsg(userdetail);
 
 
-
+                        ///////////////////////////
                         function checkStatusExitAndSendMsg(userDetail) {
                             var PhoneNum = userDetail.upn;
-                            var TemSetting = userDetail.wt
+                            var TemSetting = userDetail.wt;
+
                             MsgSendStatus.findOne({
                                 wpn: PhoneNum
                             }).then(function(msgStatus) {
@@ -145,6 +142,22 @@ var sensor = {
                                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
                                                 console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
                                                 // Alidayu.sendWarningMsg(smsParams,PhoneNum);
+
+                                                ////////////存入报警信息数据库
+                                                WarningRecord.create({
+                                                    wt: readout.temperature, //报警温度
+                                                    wpn: PhoneNum, //报警的手机号
+                                                    wts: TemSetting, //报警温度设定
+                                                    t: recordTime, //报警时间
+                                                    wmt: '关闭订阅'
+                                                }, function(err, doc) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        console.log("[ 报警 ][开启]=========报警信息数据库保存成功！")
+                                                    }
+                                                });
+                                                //////////////
                                             }
                                         })
                                         ////////////
@@ -152,28 +165,7 @@ var sensor = {
                             });
                         }
 
-
-
-
-                        //     /////////////////////////
-                        // WarningRecord.create({
-                        //     wt: readout.temperature, //报警温度
-                        //     wpn: userdetail.upn, //报警的手机号
-                        //     wts: userdetail.wt, //报警温度设定
-                        //     t: recordTime, //报警时间
-                        //     wmt: '短信推送'
-                        // }, function(err, wrdata) {
-                        //     if (err) {
-                        //         console.log("[短信报警]=======报警信息数据库保存失败！" + err);
-                        //     } else {
-                        //         console.log("[短信报警][ 开启 ]=======报警信息数据库保存成功！");
-                        //     }
-                        // }).then(function(wrdata) {
-                        //     var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + wrdata.wts + '度"}';
-                        //     console.log("[短信报警][ 开启 ]==============给用户：" + wrdata.wpn + "发送短信报警！");
-                        //     // Alidayu.sendWarningMsg(smsParams,wrdata.wpn);
-                        // });
-                        // /////////////////////////
+                        ////////////////////////////
 
                     } else if (readout.temperature >= userdetail.wt && userdetail.wl === 'false') {
                         console.log("[ 报警 ]=========温度超出限制，[ 关闭报警 ]，记录报警信息=========：" + userdetail.upn);
