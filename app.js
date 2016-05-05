@@ -126,37 +126,15 @@ var sensor = {
                             .exec(function(err, doc) {
                                 if (err) {
                                     console.log(err);
-                                } else {
-                                    if (doc) {
-                                        console.log(doc);
-                                        //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
-                                        console.log(recordTime);
-                                        console.log(doc.t);
-                                        var dateInterve = recordTime - doc.t;
-                                        console.log(dateInterve); //504380659
-
-                                        if (dateInterve > 1000 * 60 * 3) {
-                                            WarningRecord.create({
-                                                wt: readout.temperature, //报警温度
-                                                wpn: userdetail.upn, //报警的手机号
-                                                wts: userdetail.wt, //报警温度设定
-                                                t: recordTime, //报警时间
-                                                wmt: '短信推送'
-                                            }, function(err, doc) {
-                                                if (err) {
-                                                    console.log("[短信报警]=======报警信息数据库保存失败！" + err);
-                                                } else {
-                                                    console.log("[短信报警][开启]=======报警信息数据库保存成功！");
-                                                    var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
-                                                    console.log("[短信报警]==============给用户：" + userdetail.upn + "发送短信报警！");
-                                                    // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
-                                                }
-                                            });
-
-                                        } else {
-                                            console.log("[短信报警]=======3分钟内已经给用户发送过报警短信！");
-                                        }
-                                    } else {
+                                } else if (doc) {
+                                    console.log(doc);
+                                    //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
+                                    console.log(recordTime);
+                                    console.log(doc.t);
+                                    var dateInterve = recordTime - doc.t;
+                                    console.log(dateInterve); //504380659
+                                    ////////////////////////
+                                    if (dateInterve > 1000 * 60 * 3) {
                                         WarningRecord.create({
                                             wt: readout.temperature, //报警温度
                                             wpn: userdetail.upn, //报警的手机号
@@ -173,8 +151,30 @@ var sensor = {
                                                 // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
                                             }
                                         });
-                                    }
 
+                                    } else {
+                                        console.log("[短信报警]=======3分钟内已经给用户发送过报警短信！");
+                                    }
+                                    ////////////////////
+                                } else(!doc) {
+                                    //////////////////////
+                                    WarningRecord.create({
+                                        wt: readout.temperature, //报警温度
+                                        wpn: userdetail.upn, //报警的手机号
+                                        wts: userdetail.wt, //报警温度设定
+                                        t: recordTime, //报警时间
+                                        wmt: '短信推送'
+                                    }, function(err, doc) {
+                                        if (err) {
+                                            console.log("[短信报警]=======报警信息数据库保存失败！" + err);
+                                        } else {
+                                            console.log("[短信报警][开启]=======报警信息数据库保存成功！");
+                                            var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
+                                            console.log("[短信报警]==============给用户：" + userdetail.upn + "发送短信报警！");
+                                            // Alidayu.sendWarningMsg(smsParams, userdetail.upn);
+                                        }
+                                    });
+                                    /////////////////
                                 }
                             });
 
