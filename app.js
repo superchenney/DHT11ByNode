@@ -80,14 +80,14 @@ var sensor = {
                 t: recordTime
             }, function(err, doc) {
                 if (err) {
-                    console.log(err);
+                    console.log("[ 实时 ]=========温度记录错误！" + err);
                 } else {
-                    console.log(recordTime + "[ 实时 ]温度记录成功！");
+                    console.log("[ 实时 ]=========温度记录成功！" + recordTime);
                 }
             });
             ///////////////////////////
         } else {
-            console.log('[ 实时 ]温度读取' + readout.temperature + '摄氏值不合法，被抛弃，不记录');
+            console.log('[ 实时 ]=========温度读取' + readout.temperature + '摄氏值不合法，被抛弃，不记录');
         }
         ///////////
         setTimeout(function() {
@@ -131,7 +131,7 @@ var sensor = {
                                     wmt: '短信推送'
                                 }, function(err, doc) {
                                     if (err) {
-                                        console.log(err);
+                                        console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                                     } else {
                                         console.log("[短信报警]=======报警信息数据库保存成功！");
 
@@ -141,10 +141,9 @@ var sensor = {
                                             ss: "sendSucess"
                                         }, function(err, doc) {
                                             if (err) {
-                                                console.log(err);
-                                                console.log("[短信报警]=======报警信息数据库保存失败！");
+                                                console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                                             } else {
-                                                console.log("报警状态记录成功！");
+                                                console.log("[短信报警]=======报警状态记录成功！");
                                                 //  报警状态记录
                                                 /////////////////
                                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + userdetail.wt + '度"}';
@@ -165,7 +164,7 @@ var sensor = {
                         });
 
                     } else if (readout.temperature > userdetail.wt && userdetail.wl == 'false') {
-                        console.log("温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
+                        console.log("[ 报警 ]=========温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
                         ////////////存入报警信息数据库
                         WarningRecord.create({
                             wt: readout.temperature, //报警温度
@@ -177,12 +176,12 @@ var sensor = {
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log("报警信息数据库保存成功！")
+                                console.log("[ 报警 ]=========报警信息数据库保存成功！")
                             }
                         });
                         //////////////
                     } else {
-                        console.log("温度正常范围内，继续报警监控");
+                        console.log("[ 报警 ]=========温度正常范围内，继续报警监控");
                     }
 
 
@@ -218,7 +217,7 @@ if (sensor.initialize()) {
     //        长连接
     //////////////////// 
     io.on('connection', function(socket) {
-        console.log("新用户加入");
+        console.log("[ Socket ]==========新用户加入");
         setInterval(function() {
             var readout = sensorLib.read();
             var recordTime = new Date();
@@ -229,7 +228,7 @@ if (sensor.initialize()) {
                 humidity: readout.humidity.toFixed(1)
             });
             /////
-            console.log("实时温度传输")
+            console.log("[ Socket ]==========实时温度传输")
         }, 1000);
     });
     //////////////////
