@@ -123,16 +123,16 @@ var sensor = {
 
                         MsgSendStatus.findOne({
                             wpn: userdetail.upn
-                        }).then(function(err, msgStatus) {
+                        }).exec(function(err, msgStatus) {
                             if (err) {
                                 console.log("[ 短信推送状态 ]查询出错！" + err);
                             } else if (msgStatus) {
                                 console.log("3分钟内已经推送！")
                             } else if (!msgStatus) {
+                                /////////////
                                 MsgSendStatus.create({
-                                    // createdAt: recordTime,
                                     ss: '短信报警推送',
-                                    wpn: msgStatus.wpn
+                                    wpn: userdetail.upn
                                 }, function(err) {
                                     if (err) {
                                         console.log("[ 短信推送状态 ] 记录出错！" + err);
@@ -140,6 +140,7 @@ var sensor = {
                                         console.log("[ 短信推送状态 ] 记录保存成功！")
                                     }
                                 })
+                                ////////////
                             }
                         });
 
