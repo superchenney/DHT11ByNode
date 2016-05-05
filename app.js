@@ -125,7 +125,7 @@ var sensor = {
                             wts: userdetail.wt, //报警温度设定
                             t: recordTime, //报警时间
                             wmt: '短信推送'
-                        }, function(err,doc) {
+                        }, function(err, doc) {
                             if (err) {
                                 console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                             } else {
@@ -209,7 +209,7 @@ var sensor = {
                             wts: userdetail.wt, //报警温度设定
                             t: recordTime, //报警时间
                             wmt: '关闭订阅'
-                        }, function(err) {
+                        }, function(err, doc) {
                             if (err) {
                                 console.log(err);
                             } else {
