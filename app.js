@@ -119,32 +119,37 @@ var sensor = {
                     if (readout.temperature >= userdetail.wt && userdetail.wl === 'true') {
 
                         console.log("[ 报警 ]=========温度超出限制，[ 订阅报警 ]，记录报警信息==========：" + userdetail.upn);
+                        checkStatusExitAndSendMsg(userdetail.upn);
 
-                        var warningPhoneNum = userdetail.upn;
 
-                        MsgSendStatus.findOne({
-                            wpn: userdetail.upn
-                        }).then(function(err, msgStatus) {
-                            if (err) {
-                                console.log("[ 短信推送状态 ]查询出错！" + err);
-                            } else if (msgStatus) {
-                                console.log("3分钟内已经推送！")
-                            } else if (!msgStatus) {
-                                /////////////
-                                console.log("hahaha" + userdetail.upn);
-                                MsgSendStatus.create({
-                                        ss: '短信报警推送',
-                                        wpn: userdetail.upn
-                                    }, function(err) {
-                                        if (err) {
-                                            console.log("[ 短信推送状态 ] 记录出错！" + err);
-                                        } else {
-                                            console.log("[ 短信推送状态 ] 记录保存成功！")
-                                        }
-                                    })
-                                    ////////////
-                            }
-                        });
+
+                        function checkStatusExitAndSendMsg(PhoneNum) {
+                            MsgSendStatus.findOne({
+                                wpn: PhoneNum
+                            }).then(function(err, msgStatus) {
+                                if (err) {
+                                    console.log("[ 短信推送状态 ]查询出错！" + err);
+                                } else if (msgStatus) {
+                                    console.log("3分钟内已经推送！")
+                                } else if (!msgStatus) {
+                                    /////////////
+                                    console.log("hahaha" + PhoneNum);
+                                    MsgSendStatus.create({
+                                            ss: '短信报警推送',
+                                            wpn: PhoneNum
+                                        }, function(err) {
+                                            if (err) {
+                                                console.log("[ 短信推送状态 ] 记录出错！" + err);
+                                            } else {
+                                                console.log("[ 短信推送状态 ] 记录保存成功！")
+                                            }
+                                        })
+                                        ////////////
+                                }
+                            });
+                        }
+
+
 
 
                         //     /////////////////////////
