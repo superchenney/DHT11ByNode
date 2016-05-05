@@ -69,10 +69,6 @@ router.post('/setting', function(req, res, next) {
 
 
 
-router.get('/warningRecord', function(req, res, next) {
-    res.render('warningRecord', { title: '记录' });
-});
-
 
 
 
@@ -93,6 +89,32 @@ router.get('/getUserInofo', function(req, res, next) {
 
 
 
+//获取所有温湿度信息，构建图表
+router.get('/getAllTempAndHumityInofo', function(req, res, next) {
+
+    TempHumidityRecord.find({}, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
+    });
+
+});
+
+
+
+router.get('/warningRecord', function(req, res, next) {
+    // res.render('warningRecord', { title: '记录' });
+    WarningRecord.find({}, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.send(doc);
+        }
+    });
+
+});
 
 
 
@@ -124,7 +146,6 @@ router.post('/login', function(req, res, next) {
         };
     });
     //////////////////////
-
 });
 
 

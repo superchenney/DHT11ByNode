@@ -19,6 +19,8 @@
     <link rel="apple-touch-icon-precomposed" href="/images/app-icon72x72@2x.png">
     <meta name="msapplication-TileImage" content="/images/app-icon72x72@2x.png">
     <meta name="msapplication-TileColor" content="#44B47E">
+    <!-- Startup Image -->
+    <link rel="apple-touch-startup-image" href="/images/startup-640x1096.png">
     <!-- <link rel="stylesheet" href="/stylesheets/amazeui.min.css"> -->
     <link rel="stylesheet" href="/stylesheets/index.css">
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.6.1/css/amazeui.min.css">
@@ -171,7 +173,6 @@
     <script src="/javascripts/socket.io-1.4.5.js"></script>
     <script src="/javascripts/index.js"></script>
     <script type="text/javascript">
-    
     //////////////////////////////
     //          图表
     /////////////////////////////
@@ -193,12 +194,27 @@
 
 
     var data = [];
+
     var now = +new Date(1997, 9, 3);
     var oneDay = 24 * 3600 * 1000;
     var value = Math.random() * 1000;
     for (var i = 0; i < 1000; i++) {
         data.push(randomData());
     }
+
+
+    //////////////////////
+    //  获取数据库中的数据
+    $.ajax({
+        url: '/getAllTempAndHumityInofo',
+        type: 'get',
+        error: function() {
+            console.log('获取图表温湿度信息出错！');
+        },
+        success: function(data) {
+            console.log('温湿度信息：' + data);
+        }
+    });
 
     var option = {
         tooltip: {
@@ -285,7 +301,7 @@
         //         color: ['#FEFFFF', '#FEFFFF']
         //     }
         // },
-        color: ['#FEFFFF', '#FEFFFF', '#FEFFFF', '#FEFFFF', '#FEFFFF']
+        color: ['#FEFFFF']
     };
 
     setInterval(function() {
@@ -310,6 +326,14 @@
     window.addEventListener("resize", function() {
         myChart.resize();
     });
+
+
+
+
+
+
+
+
 
 
     ////////////////////////////////////////////////
@@ -360,9 +384,9 @@
         document.getElementById("tableRtHumd").innerHTML = data.humidity;
 
 
-
+        //body背景颜色改变 
         if (UserInfo.WarningTemp && data.temperature >= UserInfo.WarningTemp) {
-            //body背景颜色改变
+
             $("body").removeClass("bkg-norm");
             $("body").addClass("bkg-warning");
         } else {
