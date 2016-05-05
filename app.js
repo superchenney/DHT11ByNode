@@ -129,8 +129,10 @@ var sensor = {
                                 } else {
                                     console.log(doc);
                                     //t: Fri Apr 29 2016 10:09:44 GMT+0000 (UTC),
+                                    console.log(recordTime);
+                                    console.log(doc.t);
                                     var dateInterve = recordTime - doc.t;
-                                    console.log(dateInterve); //496666219
+                                    console.log(dateInterve); //504380659
                                     if (dateInterve > 1000 * 60 * 3) {
                                         WarningRecord.create({
                                             wt: readout.temperature, //报警温度
