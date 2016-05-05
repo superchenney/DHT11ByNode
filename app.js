@@ -97,9 +97,13 @@ var sensor = {
     },
     warning: function() {
         var readout = sensorLib.read();
+
         var recordTime = new Date();
+
         console.log('[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+
         var userInfo = null;
+
         User.find({})
             .exec(function(err, data) {
                 if (err) {
@@ -110,7 +114,7 @@ var sensor = {
                 // console.log("用户信息：" + userInfo);
                 for (var i = 0; i < userInfo.length; i++) {
 
-                    userdetail = userInfo[i];
+                    var userdetail = userInfo[i];
                     console.log("========== " + userdetail.upn + " ==========");
 
                     ////////////////////////////////////////////
