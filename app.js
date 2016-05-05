@@ -123,17 +123,18 @@ var sensor = {
                         var warningPhoneNum = userdetail.upn;
 
                         MsgSendStatus.findOne({
-                            wpn: warningPhoneNum
-                        }).exec(function(err, msgStatus) {
+                            wpn: userdetail.upn
+                        }).then(function(err, msgStatus) {
                             if (err) {
                                 console.log("[ 短信推送状态 ]查询出错！" + err);
                             } else if (msgStatus) {
                                 console.log("3分钟内已经推送！")
                             } else if (!msgStatus) {
                                 /////////////
+                                console.log("hahaha" + userdetail.upn);
                                 MsgSendStatus.create({
                                         ss: '短信报警推送',
-                                        wpn: warningPhoneNum
+                                        wpn: userdetail.upn
                                     }, function(err) {
                                         if (err) {
                                             console.log("[ 短信推送状态 ] 记录出错！" + err);
