@@ -114,15 +114,16 @@ var sensor = {
 
                     var userdetail = userInfo[i];
 
-                    console.log("========== " + userInfo[i].upn + " ==========");
+                    console.log("========== " + userdetail.upn + " ==========");
                     ////////////////////////////////////////////
-                    if (readout.temperature >= userInfo[i].wt && userInfo[i].wl === 'true') {
+                    if (readout.temperature >= userdetail.wt && userdetail.wl === 'true') {
 
-                        console.log("[ 报警 ]=========温度超出限制，[ 订阅报警 ]，记录报警信息==========：" + userInfo[i].upn);
+                        console.log("[ 报警 ]=========温度超出限制，[ 订阅报警 ]，记录报警信息==========：" + userdetail.upn);
 
+                        var warningPhoneNum = userdetail.upn;
 
                         MsgSendStatus.findOne({
-                            wpn: userInfo[i].upn
+                            wpn: warningPhoneNum
                         }).exec(function(err, msgStatus) {
                             if (err) {
                                 console.log("[ 短信推送状态 ]查询出错！" + err);
@@ -131,16 +132,16 @@ var sensor = {
                             } else if (!msgStatus) {
                                 /////////////
                                 MsgSendStatus.create({
-                                    ss: '短信报警推送',
-                                    wpn: userInfo[i].upn
-                                }, function(err) {
-                                    if (err) {
-                                        console.log("[ 短信推送状态 ] 记录出错！" + err);
-                                    } else {
-                                        console.log("[ 短信推送状态 ] 记录保存成功！")
-                                    }
-                                })
-                                ////////////
+                                        ss: '短信报警推送',
+                                        wpn: warningPhoneNum
+                                    }, function(err) {
+                                        if (err) {
+                                            console.log("[ 短信推送状态 ] 记录出错！" + err);
+                                        } else {
+                                            console.log("[ 短信推送状态 ] 记录保存成功！")
+                                        }
+                                    })
+                                    ////////////
                             }
                         });
 
@@ -165,13 +166,13 @@ var sensor = {
                         // });
                         // /////////////////////////
 
-                    } else if (readout.temperature >= userInfo[i].wt && userInfo[i].wl === 'false') {
-                        console.log("[ 报警 ]=========温度超出限制，[ 关闭报警 ]，记录报警信息=========：" + userInfo[i].upn);
+                    } else if (readout.temperature >= userdetail.wt && userdetail.wl === 'false') {
+                        console.log("[ 报警 ]=========温度超出限制，[ 关闭报警 ]，记录报警信息=========：" + userdetail.upn);
                         ////////////存入报警信息数据库
                         WarningRecord.create({
                             wt: readout.temperature, //报警温度
-                            wpn: userInfo[i].upn, //报警的手机号
-                            wts: userInfo[i].wt, //报警温度设定
+                            wpn: userdetail.upn, //报警的手机号
+                            wts: userdetail.wt, //报警温度设定
                             t: recordTime, //报警时间
                             wmt: '关闭订阅'
                         }, function(err, doc) {
