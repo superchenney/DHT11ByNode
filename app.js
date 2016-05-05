@@ -103,7 +103,7 @@ var sensor = {
 
         User.find({})
             .exec(function(err, userInfo) {
-                
+
                 // if (err) {
                 //     console.log(err);
                 // }
@@ -125,7 +125,7 @@ var sensor = {
                             wts: userdetail.wt, //报警温度设定
                             t: recordTime, //报警时间
                             wmt: '短信推送'
-                        }, function(err) {
+                        }, function(err,doc) {
                             if (err) {
                                 console.log("[短信报警]=======报警信息数据库保存失败！" + err);
                             } else {
