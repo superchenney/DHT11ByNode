@@ -117,15 +117,20 @@ var sensor = {
 
 
 
-                        WarningRecord.findOne({
-                            wpn: userdetail.upn
-                        }, function(err, doc) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log("记录信息单条：" + doc);
-                            }
-                        });
+                        WarningRecord
+                            .findOne({
+                                wpn: userdetail.upn
+                            })
+                            .sort({
+                                "t": -1
+                            })
+                            .exec(function(err, doc) {
+                                if (err) {
+                                    console.log(err);
+                                }else{
+                                    console.log(doc);
+                                }
+                            });
 
 
 
