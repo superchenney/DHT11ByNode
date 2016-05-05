@@ -135,7 +135,7 @@ var sensor = {
                         }).then(function(wrdata) {
                             var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + wrdata.wts + '度"}';
                             console.log("[短信报警]==============给用户：" + wrdata.wpn + "发送短信报警！");
-                            // Alidayu.sendWarningMsg(smsParams,doc.wpn);
+                            // Alidayu.sendWarningMsg(smsParams,wrdata.wpn);
                         });
 
 
