@@ -156,7 +156,7 @@ var sensor = {
                                         console.log("[短信报警]=======3分钟内已经给用户发送过报警短信！");
                                     }
                                     ////////////////////
-                                } else(!warningdata) {
+                                } else {
                                     //////////////////////
                                     WarningRecord.create({
                                         wt: readout.temperature, //报警温度
