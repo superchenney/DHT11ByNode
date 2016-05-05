@@ -130,7 +130,8 @@ var sensor = {
 
                                     MsgSendStatus.create({
                                         createdAt: recordTime,
-                                        ss: '短信报警推送'
+                                        ss: '短信报警推送',
+                                        wpn: userdetail.upn
                                     }, function(err, mssinfo) {
                                         if (err) {
                                             console.log("[ 短信推送状态 ] 记录出错！" + err);
