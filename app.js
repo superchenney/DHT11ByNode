@@ -115,6 +115,21 @@ var sensor = {
                     if (readout.temperature > userdetail.wt && userdetail.wl == 'true') {
                         console.log("[ 报警 ]=========温度超出限制，订阅报警，记录并准备发送报警短信给用户==========：" + userdetail.upn);
 
+
+
+                        WarningRecord.findOne({
+                            wpn: userdetail.upn
+                        }, function(err, doc) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log("记录信息单条：" + doc);
+                            }
+                        });
+
+
+
+
                         // MsgSendStatus.findOne({
                         //     wpn: userdetail.upn
                         // }, function(err, doc) {
