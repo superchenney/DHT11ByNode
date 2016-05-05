@@ -112,7 +112,7 @@ var sensor = {
                     console.log("========== " + i + " ==========");
                     userdetail = userInfo[i];
                     ////////////////////////////////////////////
-                    if (readout.temperature >= userdetail.wt && userdetail.wl == 'true') {
+                    if (readout.temperature >= userdetail.wt && userdetail.wl === 'true') {
                         console.log("[ 报警 ]=========温度超出限制，订阅报警，记录报警信息==========：" + userdetail.upn);
 
                         WarningRecord
@@ -179,7 +179,7 @@ var sensor = {
                             });
 
 
-                    } else if (readout.temperature >= userdetail.wt && userdetail.wl == 'false') {
+                    } else if (readout.temperature >= userdetail.wt && userdetail.wl === 'false') {
                         console.log("[ 报警 ]=========温度超出限制，关闭报警，记录报警信息=========：" + userdetail.upn);
                         ////////////存入报警信息数据库
                         WarningRecord.create({
