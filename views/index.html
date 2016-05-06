@@ -196,23 +196,6 @@
     var option = {
         tooltip: {
             trigger: 'axis'
-                // formatter: function(params) {
-                //     params = params[0];
-                //     var date = new Date(params.name);
-                //     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-                // },
-                // axisPointer: {
-                //     animation: false
-                // },
-                // textStyle: {
-                //     color: '#feffff'
-                // },
-                // axisPointer: {
-                //     lineStyle: {
-                //         color: '#feffff',
-                //         opacity: 0.4
-                //     }
-                // }
         },
         xAxis: {
             type: 'time',
@@ -299,7 +282,6 @@
         success: function(data) {
             console.log('温湿度信息：' + data);
             // [{"_id":"5723326033cdc93f4ded5694","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:28.073Z","sl":"实验室"},
-            // {"_id":"5723326133cdc93f4ded5695","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:29.154Z","sl":"实验室"},
             // {"_id":"5723326233cdc93f4ded5696","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:30.691Z","sl":"实验室"}]
 
             // echartData
@@ -310,9 +292,12 @@
                 echartsDatahumity.push(data[i].ph);
             }
 
-            if (option && typeof option === "object") {
-                myChart.setOption(option, true);
-            }
+            console.log(echartsDataxAxis);
+            console.log(echartsDatatemp);
+            console.log(echartsDatahumity);
+
+            myChart.setOption(option, true);
+
 
         }
     });
