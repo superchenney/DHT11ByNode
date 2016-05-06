@@ -202,16 +202,7 @@
 
             // echartData
             for (var i = 0; i < data.length; i++) {
-                var chartDataItem = [];
-                // [{name:'温度'，data:tempData},{name:'湿度',data:humityData}]
-                // chartDataItem.name=data.t;
-                // chartDataItem.name=data.t;
                 // 温度、湿度分开
-                // chartData[0].data.push(data.pt);
-                // chartData[1].data.push(data.ph);
-
-                // chartData[0].data.push(data.pt);
-                // chartData[1].data.push(data.ph);
                 echartsDataxAxis.push(data[i].t);
                 echartsDatatemp.push(data[i].pt);
                 echartsDatahumity.push(data[i].ph);
@@ -223,24 +214,24 @@
 
     var option = {
         tooltip: {
-            trigger: 'axis',
-            // formatter: function(params) {
-            //     params = params[0];
-            //     var date = new Date(params.name);
-            //     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-            // },
-            axisPointer: {
-                animation: false
-            },
-            textStyle: {
-                color: '#feffff'
-            },
-            axisPointer: {
-                lineStyle: {
-                    color: '#feffff',
-                    opacity: 0.4
-                }
-            }
+            trigger: 'axis'
+                // formatter: function(params) {
+                //     params = params[0];
+                //     var date = new Date(params.name);
+                //     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                // },
+                // axisPointer: {
+                //     animation: false
+                // },
+                // textStyle: {
+                //     color: '#feffff'
+                // },
+                // axisPointer: {
+                //     lineStyle: {
+                //         color: '#feffff',
+                //         opacity: 0.4
+                //     }
+                // }
         },
         xAxis: {
             type: 'time',
