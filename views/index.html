@@ -186,34 +186,34 @@
     var echartsDatahumity = [];
 
 
-    $.ready(function() {
 
-        // //////////////////////
-        //  获取数据库中的数据
-        $.ajax({
-            url: '/getAllTempAndHumityInofo',
-            type: 'get',
-            error: function() {
-                console.log('获取图表温湿度信息出错！');
-            },
-            success: function(data) {
-                console.log('温湿度信息：' + data);
-                // [{"_id":"5723326033cdc93f4ded5694","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:28.073Z","sl":"实验室"},
-                // {"_id":"5723326133cdc93f4ded5695","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:29.154Z","sl":"实验室"},
-                // {"_id":"5723326233cdc93f4ded5696","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:30.691Z","sl":"实验室"}]
 
-                // echartData
-                for (var i = 0; i < data.length; i++) {
-                    // 温度、湿度分开
-                    echartsDataxAxis.push(data[i].t);
-                    echartsDatatemp.push(data[i].pt);
-                    echartsDatahumity.push(data[i].ph);
-                }
+    // //////////////////////
+    //  获取数据库中的数据
+    $.ajax({
+        url: '/getAllTempAndHumityInofo',
+        type: 'get',
+        error: function() {
+            console.log('获取图表温湿度信息出错！');
+        },
+        success: function(data) {
+            console.log('温湿度信息：' + data);
+            // [{"_id":"5723326033cdc93f4ded5694","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:28.073Z","sl":"实验室"},
+            // {"_id":"5723326133cdc93f4ded5695","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:29.154Z","sl":"实验室"},
+            // {"_id":"5723326233cdc93f4ded5696","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:30.691Z","sl":"实验室"}]
 
+            // echartData
+            for (var i = 0; i < data.length; i++) {
+                // 温度、湿度分开
+                echartsDataxAxis.push(data[i].t);
+                echartsDatatemp.push(data[i].pt);
+                echartsDatahumity.push(data[i].ph);
             }
-        });
 
-    })
+        }
+    });
+
+
 
 
     var dom = document.getElementById("tempTrendChart");
