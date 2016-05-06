@@ -276,6 +276,7 @@
         url: '/getAllTempAndHumityInofo',
         type: 'get',
         async: false, //同步执行  
+        dataType: "json", //返回数据形式为json  
         error: function() {
             console.log('获取图表温湿度信息出错！');
         },
