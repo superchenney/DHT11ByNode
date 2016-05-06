@@ -181,36 +181,10 @@
     var dom = document.getElementById("tempTrendChart");
     var myChart = echarts.init(dom);
 
-    // function randomData() {
-    //     now = new Date(+now + oneDay);
-    //     value = value + Math.random() * 21 - 10;
-    //     return {
-    //         name: now.toString(),
-    //         value: [
-    //             [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-    //             Math.round(value)
-    //         ]
-    //     }
-    // }
-    var tempData = [];
-    var humityData = [];
 
-
-    var echartData = [{
-        name: '温度',
-        data: tempData
-    }, {
-        name: '湿度',
-        data: humityData
-    }];
-
-    // var now = +new Date(1997, 9, 3);
-    // var oneDay = 24 * 3600 * 1000;
-    // var value = Math.random() * 1000;
-    // for (var i = 0; i < 1000; i++) {
-    //     data.push(randomData());
-    // }
-
+    var echartsDataxAxis = []
+    var echartsDatatemp = [];
+    var echartsDatahumity = [];
 
     //////////////////////
     //  获取数据库中的数据
@@ -233,8 +207,14 @@
                 // chartDataItem.name=data.t;
                 // chartDataItem.name=data.t;
                 // 温度、湿度分开
-                chartData[0].data.push(data.pt);
-                chartData[1].data.push(data.ph);
+                // chartData[0].data.push(data.pt);
+                // chartData[1].data.push(data.ph);
+
+                // chartData[0].data.push(data.pt);
+                // chartData[1].data.push(data.ph);
+                echartsDataxAxis.push(data[i].t);
+                echartsDatatemp.push(data[i].pt);
+                echartsDatahumity.push(data[i].ph);
             }
 
         }
@@ -281,8 +261,8 @@
             },
             axisLine: {
                 show: false
-            }
-            // data: xAxisData
+            },
+            data: echartsDataxAxis
         },
         yAxis: {
             type: 'value',
@@ -312,7 +292,13 @@
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: echartData,
+            data: [{
+                name: '温度',
+                data: echartsDatatemp
+            }, {
+                name: '湿度',
+                data: echartsDatahumity
+            }];
             // makePoint: {},
             // markLine: {
             //     data: [{
