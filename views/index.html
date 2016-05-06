@@ -164,10 +164,11 @@
     <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.ie8polyfill.min.js"></script>
     <![endif]-->
     <!--[if (gte IE 9)|!(IE)]><!-->
-    <script src="/javascripts/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
     <!--<![endif]-->
     <!-- <script src="assets/js/amazeui.min.js"></script> -->
-    <script src="/javascripts/echarts.min.js"></script>
+    <!-- <script src="/javascripts/echarts.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
     <script src="/javascripts/openlink.js"></script>
     <script src="/javascripts/socket.io-1.4.5.js"></script>
@@ -180,27 +181,33 @@
     var dom = document.getElementById("tempTrendChart");
     var myChart = echarts.init(dom);
 
-    function randomData() {
-        now = new Date(+now + oneDay);
-        value = value + Math.random() * 21 - 10;
-        return {
-            name: now.toString(),
-            value: [
-                [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
-                Math.round(value)
-            ]
-        }
-    }
+    // function randomData() {
+    //     now = new Date(+now + oneDay);
+    //     value = value + Math.random() * 21 - 10;
+    //     return {
+    //         name: now.toString(),
+    //         value: [
+    //             [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('-'),
+    //             Math.round(value)
+    //         ]
+    //     }
+    // }
 
 
-    var data = [];
+    var echartData = [{
+        name: '温度'，
+        data: tempData
+    }, {
+        name: '湿度',
+        data: humityData
+    }];
 
-    var now = +new Date(1997, 9, 3);
-    var oneDay = 24 * 3600 * 1000;
-    var value = Math.random() * 1000;
-    for (var i = 0; i < 1000; i++) {
-        data.push(randomData());
-    }
+    // var now = +new Date(1997, 9, 3);
+    // var oneDay = 24 * 3600 * 1000;
+    // var value = Math.random() * 1000;
+    // for (var i = 0; i < 1000; i++) {
+    //     data.push(randomData());
+    // }
 
 
     //////////////////////
@@ -213,18 +220,33 @@
         },
         success: function(data) {
             console.log('温湿度信息：' + data);
+            // [{"_id":"5723326033cdc93f4ded5694","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:28.073Z","sl":"实验室"},
+            // {"_id":"5723326133cdc93f4ded5695","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:29.154Z","sl":"实验室"},
+            // {"_id":"5723326233cdc93f4ded5696","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:30.691Z","sl":"实验室"}]
+
+            // echartData
+            for (var i = 0; i < data.length; i++) {
+                var chartDataItem = [];
+                // [{name:'温度'，data:tempData},{name:'湿度',data:humityData}]
+                // chartDataItem.name=data.t;
+                // chartDataItem.name=data.t;
+                // 温度、湿度分开
+                 chartData[0].data.push(data.pt);
+                 chartData[1].data.push(data.ph);
+            }
+
         }
     });
-    
+
 
     var option = {
         tooltip: {
             trigger: 'axis',
-            formatter: function(params) {
-                params = params[0];
-                var date = new Date(params.name);
-                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
-            },
+            // formatter: function(params) {
+            //     params = params[0];
+            //     var date = new Date(params.name);
+            //     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+            // },
             axisPointer: {
                 animation: false
             },
@@ -257,7 +279,8 @@
             },
             axisLine: {
                 show: false
-            }
+            },
+            data: xAxisData
         },
         yAxis: {
             type: 'value',
@@ -287,7 +310,7 @@
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: data,
+            data: echartData,
             // makePoint: {},
             // markLine: {
             //     data: [{
@@ -305,19 +328,19 @@
         color: ['#FEFFFF']
     };
 
-    setInterval(function() {
+    // setInterval(function() {
 
-        for (var i = 0; i < 5; i++) {
-            data.shift();
-            data.push(randomData());
-        }
+    //     for (var i = 0; i < 5; i++) {
+    //         data.shift();
+    //         data.push(randomData());
+    //     }
 
-        myChart.setOption({
-            series: [{
-                data: data
-            }]
-        });
-    }, 1000);
+    //     myChart.setOption({
+    //         series: [{
+    //             data: data
+    //         }]
+    //     });
+    // }, 1000);
 
     if (option && typeof option === "object") {
         myChart.setOption(option, true);
@@ -327,13 +350,6 @@
     window.addEventListener("resize", function() {
         myChart.resize();
     });
-
-
-
-
-
-
-
 
 
 
@@ -378,7 +394,24 @@
     var socket = io.connect('http://chenchao.ngrok.natapp.cn');
 
     socket.on('realTimeTAndH', function(data) {
+
         console.log(data);
+
+        // date:"2016-05-05T11:54:51.180Z"
+        // humidity:"47.0"
+        // temperature:"27.0"
+
+
+        // echartData.shift();
+        // echartData.push(data);
+
+        // myChart.setOption({
+        //     series: [{
+        //         data: echartData
+        //     }]
+        // });
+
+
 
         document.getElementById("realTimeCirleTemp").innerHTML = data.temperature;
         document.getElementById("tableRtTemp").innerHTML = data.temperature;
