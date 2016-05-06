@@ -301,14 +301,6 @@
             showSymbol: false,
             hoverAnimation: false,
             data: echartsDatahumity
-                // }]
-                // makePoint: {},
-                // markLine: {
-                //     data: [{
-                //         type: 'average',
-                //         name: '平均值'
-                //     }]
-                // }
         }],
         // splitLine: {
         //     lineStyle: {
@@ -333,9 +325,9 @@
     //     });
     // }, 1000);
 
-    if (option && typeof option === "object") {
-        myChart.setOption(option, true);
-    }
+    // if (option && typeof option === "object") {
+    //     myChart.setOption(option, true);
+    // }
 
 
 
@@ -404,6 +396,26 @@
         //         data: echartData
         //     }]
         // });
+        echartsDataxAxis.push(data.date);
+        echartsDatatemp.push(data.temperature);
+        echartsDatahumity.push(data.humidity);
+
+        myChart.setOption({
+            series: [{
+                name: '温度',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: echartsDatatemp
+            }, {
+                name: '湿度',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
+                data: echartsDatahumity
+            }]
+        });
+
 
 
 
