@@ -208,6 +208,10 @@
                 echartsDatahumity.push(data[i].ph);
             }
 
+
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
         }
     });
 
