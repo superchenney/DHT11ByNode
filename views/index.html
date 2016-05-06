@@ -207,6 +207,10 @@
                 echartsDatahumity.push(data[i].ph);
             }
 
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+
         }
     });
 
@@ -325,9 +329,6 @@
     //     });
     // }, 1000);
 
-    // if (option && typeof option === "object") {
-    //     myChart.setOption(option, true);
-    // }
 
 
 
@@ -387,15 +388,6 @@
         // humidity:"47.0"
         // temperature:"27.0"
 
-
-        // echartData.shift();
-        // echartData.push(data);
-
-        // myChart.setOption({
-        //     series: [{
-        //         data: echartData
-        //     }]
-        // });
         echartsDataxAxis.push(data.date);
         echartsDatatemp.push(data.temperature);
         echartsDatahumity.push(data.humidity);
