@@ -94,7 +94,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
 
     TempHumidityRecord.find({}, function(err, doc) {
         if (err) {
-            console.log(err);
+            console.log('查询历史温湿度数据错误！' + err);
         } else {
             res.send(doc);
         }
