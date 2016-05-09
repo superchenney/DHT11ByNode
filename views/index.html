@@ -42,7 +42,7 @@
       </h1>
         <div class="am-header-right am-header-nav" style="right: 20px;color: #FEFFFF;">
             <a href="" class="" style="color: #FEFFFF;">
-                <i class="am-header-icon am-icon-share-alt"></i>
+                <i class="am-header-icon am-icon-area-chart"></i>
             </a>
         </div>
     </header>
@@ -279,16 +279,16 @@
             console.log('获取历史温湿度数据出错！');
         },
         success: function(data) {
+            console.log('获取历史温湿度数据成功！');
             for (var i = 0; i < data.length; i++) {
                 echartsDataxAxis.push(data[i].t);
                 echartsDatatemp.push(data[i].pt);
                 echartsDatahumity.push(data[i].ph);
             }
-            // myChart.hideLoading();
-            // console.log("asfdasdf" + data.pt);
-            console.log('［echart］时间' + echartsDataxAxis);
-            console.log('［echart］温度' + echartsDatatemp);
-            console.log('［echart］湿度' + echartsDatahumity);
+            myChart.hideLoading();
+            // console.log('［echart］时间' + echartsDataxAxis);
+            // console.log('［echart］温度' + echartsDatatemp);
+            // console.log('［echart］湿度' + echartsDatahumity);
 
             ////// 填入数据
             myChart.setOption({
@@ -376,9 +376,9 @@
         // humidity:"47.0"
         // temperature:"27.0"
 
-        // echartsDataxAxis.shift();
-        // echartsDatatemp.shift();
-        // echartsDatahumity.shift();
+        echartsDataxAxis.shift();
+        echartsDatatemp.shift();
+        echartsDatahumity.shift();
 
         echartsDataxAxis.push(data.date);
         echartsDatatemp.push(data.temperature);
