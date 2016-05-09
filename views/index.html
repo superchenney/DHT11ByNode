@@ -183,9 +183,11 @@
     var echartsDatatemp = [];
     var echartsDatahumity = [];
 
-    // var myChart = echarts.init($("#tempTrendChart"));
 
-    // myChart.showLoading();
+
+    var dom = document.getElementById("tempTrendChart");
+    var myChart = echarts.init(dom);
+    myChart.showLoading();
 
     var option = {
         tooltip: {
@@ -263,7 +265,7 @@
         color: ['#FEFFFF']
     };
 
-    // myChart.setOption(option);
+    myChart.setOption(option, true);
 
     // 异步加载数据
     $.ajax({
@@ -280,9 +282,9 @@
             }
             // myChart.hideLoading();
             // console.log("asfdasdf" + data.pt);
-            console.log(echartsDataxAxis);
-            console.log(echartsDatatemp);
-            console.log(echartsDatahumity);
+            console.log('［echart］时间' + echartsDataxAxis);
+            console.log('［echart］温度' + echartsDatatemp);
+            console.log('［echart］湿度' + echartsDatahumity);
 
             // 填入数据
             // myChart.setOption({
