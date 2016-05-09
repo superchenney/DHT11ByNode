@@ -149,7 +149,7 @@ var sensor = {
                                                     wpn: PhoneNum, //报警的手机号
                                                     wts: TemSetting, //报警温度设定
                                                     t: recordTime, //报警时间
-                                                    wmt: '关闭订阅'
+                                                    wmt: '短信发送'
                                                 }, function(err, doc) {
                                                     if (err) {
                                                         console.log(err);

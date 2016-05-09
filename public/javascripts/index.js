@@ -166,7 +166,7 @@ $.ajax({
             // $("#tableWarningTempSet").text('登陆后查看');
             $("#ModelSelected").text('自动模式');
         } else {
-            var UserInfo = data;
+            UserInfo = data;
             console.log('用户信息：' + UserInfo);
             console.log('用户' + UserInfo.PhoneNum + '已经登录');
 
