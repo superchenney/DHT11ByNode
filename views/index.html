@@ -178,20 +178,16 @@
     //          图表
     /////////////////////////////
     //图表
-
-
-
     var echartsDataxAxis = []
     var echartsDatatemp = [];
     var echartsDatahumity = [];
 
-
-    var myChart = echarts.init(document.getElementById("tempTrendChart"));
+    var echartDom = document.getElementById("tempTrendChart")
+    var myChart = echarts.init(echartDom);
 
     myChart.showLoading();
 
-
-    myChart.setOption({
+    var option = {
         tooltip: {
             trigger: 'axis'
         },
@@ -265,125 +261,11 @@
         //     }
         // },
         color: ['#FEFFFF']
-    });
-    //////////////////
+    };
 
-    // var option = {
-    //     tooltip: {
-    //         trigger: 'axis'
-    //     },
-    //     xAxis: {
-    //         type: 'time',
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         },
-    //         data: echartsDataxAxis
-    //     },
-    //     yAxis: {
-    //         type: 'value',
-    //         boundaryGap: [0, '100%'],
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         }
-
-    //     },
-    //     series: [{
-    //         // name: '模拟数据',
-    //         // type: 'line',
-    //         // showSymbol: false,
-    //         // hoverAnimation: false,
-    //         // data: [{
-    //         name: '温度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         data: echartsDatatemp
-    //     }, {
-    //         name: '湿度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         data: echartsDatahumity
-    //     }],
-    //     // splitLine: {
-    //     //     lineStyle: {
-    //     //         // 使用深浅的间隔色
-    //     //         color: ['#FEFFFF', '#FEFFFF']
-    //     //     }
-    //     // },
-    //     color: ['#FEFFFF']
-    // };
-
-
+    myChart.setOption(option);
 
     // 异步加载数据
-    // $.get('/getAllTempAndHumityInofo').done(function(data) {
-
-    //     for (var i = 0; i < data.length; i++) {
-    //         echartsDataxAxis.push(data[i].t);
-    //         echartsDatatemp.push(data[i].pt);
-    //         echartsDatahumity.push(data[i].ph);
-    //     }
-    //     myChart.hideLoading();
-    //     // console.log("asfdasdf" + data.pt);
-    //     console.log(echartsDataxAxis);
-    //     console.log(echartsDatatemp);
-    //     console.log(echartsDatahumity);
-
-
-    //     // 填入数据
-    //     myChart.setOption({
-    //         xAxis: {
-    //             data: echartsDataxAxis
-    //         },
-    //         series: [{
-    //             name: '温度',
-    //             type: 'line',
-    //             showSymbol: false,
-    //             hoverAnimation: false,
-    //             data: echartsDatatemp
-    //         }, {
-    //             name: '湿度',
-    //             type: 'line',
-    //             showSymbol: false,
-    //             hoverAnimation: false,
-    //             data: echartsDatahumity
-    //         }]
-    //     });
-
-
-    // });
-
     $.ajax({
         url: '/getAllTempAndHumityInofo',
         type: 'get',
@@ -401,7 +283,6 @@
             console.log(echartsDataxAxis);
             console.log(echartsDatatemp);
             console.log(echartsDatahumity);
-
 
             // 填入数据
             myChart.setOption({
@@ -428,53 +309,6 @@
     });
 
 
-
-    // // //////////////////////
-    // //  获取数据库中的数据
-    // $.ajax({
-    //     url: '/getAllTempAndHumityInofo',
-    //     type: 'get',
-    //     async: false, //同步执行  
-    //     dataType: "json", //返回数据形式为json  
-    //     error: function() {
-    //         console.log('获取图表温湿度信息出错！');
-    //     },
-    //     success: function(data) {
-    //         console.log('温湿度信息：' + data);
-    //         // [{"_id":"5723326033cdc93f4ded5694","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:28.073Z","sl":"实验室"},
-    //         // {"_id":"5723326233cdc93f4ded5696","pt":26,"ph":43,"__v":0,"t":"2016-04-29T10:07:30.691Z","sl":"实验室"}]
-
-    //         for (var i = 0; i < data.length; i++) {
-    //             echartsDataxAxis.push(data[i].t);
-    //             echartsDatatemp.push(data[i].pt);
-    //             echartsDatahumity.push(data[i].ph);
-    //         }
-
-    //         // console.log("asfdasdf" + data.pt);
-    //         console.log(echartsDataxAxis);
-    //         console.log(echartsDatatemp);
-    //         console.log(echartsDatahumity);
-
-    //         myChart.setOption({
-    //             series: [{
-    //                 name: '温度',
-    //                 type: 'line',
-    //                 showSymbol: false,
-    //                 hoverAnimation: false,
-    //                 data: echartsDatatemp
-    //             }, {
-    //                 name: '湿度',
-    //                 type: 'line',
-    //                 showSymbol: false,
-    //                 hoverAnimation: false,
-    //                 data: echartsDatahumity
-    //             }]
-    //         });
-
-
-    //     }
-    // });
-    // ///////////////////
 
 
 
