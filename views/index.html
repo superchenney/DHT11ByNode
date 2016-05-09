@@ -184,30 +184,8 @@
     var echartsDatahumity = [];
 
     var myChart = echarts.init(document.getElementById('tempTrendChart'));
-
+    myChart.showLoading();
     // 指定图表的配置项和数据
-    // var option = {
-    //     title: {
-    //         text: 'ECharts 入门示例'
-    //     },
-    //     tooltip: {},
-    //     legend: {
-    //         data: ['温度', '湿度']
-    //     },
-    //     xAxis: {
-    //         data: echartsDataxAxis
-    //     },
-    //     yAxis: {},
-    //     series: [{
-    //         name: '温度',
-    //         type: 'bar',
-    //         data: echartsDatatemp
-    //     }, {
-    //         name: '湿度',
-    //         type: 'bar',
-    //         data: echartsDatahumity
-    //     }]
-    // };
     var option = {
         tooltip: {
             trigger: 'axis'
@@ -293,86 +271,6 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 
-    // var dom = document.getElementById("tempTrendChart");
-    // var myChart = echarts.init(dom);
-    // myChart.showLoading();
-
-    // var option = {
-    //     tooltip: {
-    //         trigger: 'axis'
-    //     },
-    //     xAxis: {
-    //         type: 'time',
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         },
-    //         // data: echartsDataxAxis
-    //         data: [1, 2, 3]
-    //     },
-    //     yAxis: {
-    //         type: 'value',
-    //         boundaryGap: [0, '100%'],
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         }
-
-    //     },
-    //     series: [{
-    //         name: '温度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         // data: echartsDatatemp
-    //         data: [1, 2, 3]
-    //     }, {
-    //         name: '湿度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         // data: echartsDatahumity
-    //         data: [1, 2, 3]
-    //     }],
-    //     // splitLine: {
-    //     //     lineStyle: {
-    //     //         // 使用深浅的间隔色
-    //     //         color: ['#FEFFFF', '#FEFFFF']
-    //     //     }
-    //     // },
-    //     color: ['#FEFFFF']
-    // };
-
-    // myChart.setOption(option, true);
-
     // 异步加载数据
     $.ajax({
         url: '/getAllTempAndHumityInofo',
@@ -397,7 +295,6 @@
             //     xAxis: {
             //         data: echartsDataxAxis
             //     },
-            //     yAxis: {},
             //     series: [{
             //         name: '温度',
             //         type: 'bar',
@@ -480,12 +377,13 @@
         echartsDatatemp.push(data.temperature);
         echartsDatahumity.push(data.humidity);
 
+        myChart.hideLoading();
+
         // // 填入数据
         myChart.setOption({
             xAxis: {
                 data: echartsDataxAxis
             },
-            yAxis: {},
             series: [{
                 name: '温度',
                 type: 'line',
