@@ -179,144 +179,145 @@
     //          图表
     /////////////////////////////
     //图表
-    var echartsDataxAxis = []
-    var echartsDatatemp = [];
-    var echartsDatahumity = [];
+    // var echartsDataxAxis = []
+    // var echartsDatatemp = [];
+    // var echartsDatahumity = [];
 
-    var echartDom = document.getElementById("tempTrendChart")
-    var myChart = echarts.init(echartDom);
+    // var echartDom = document.getElementById("tempTrendChart");
 
-    myChart.showLoading();
+    // var myChart = echarts.init(echartDom);
 
-    var option = {
-        tooltip: {
-            trigger: 'axis'
-        },
-        xAxis: {
-            type: 'time',
-            splitLine: {
-                show: false
-            },
-            axisTick: {
-                show: false,
-                lineStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLabel: {
-                // show: false,
-                textStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLine: {
-                show: false
-            },
-            data: echartsDataxAxis
-        },
-        yAxis: {
-            type: 'value',
-            boundaryGap: [0, '100%'],
-            splitLine: {
-                show: false
-            },
-            axisTick: {
-                show: false,
-                lineStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLabel: {
-                // show: false,
-                textStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLine: {
-                show: false
-            }
+    // myChart.showLoading();
 
-        },
-        series: [{
-            // name: '模拟数据',
-            // type: 'line',
-            // showSymbol: false,
-            // hoverAnimation: false,
-            // data: [{
-            name: '温度',
-            type: 'line',
-            showSymbol: false,
-            hoverAnimation: false,
-            data: echartsDatatemp
-        }, {
-            name: '湿度',
-            type: 'line',
-            showSymbol: false,
-            hoverAnimation: false,
-            data: echartsDatahumity
-        }],
-        // splitLine: {
-        //     lineStyle: {
-        //         // 使用深浅的间隔色
-        //         color: ['#FEFFFF', '#FEFFFF']
-        //     }
-        // },
-        color: ['#FEFFFF']
-    };
+    // var option = {
+    //     tooltip: {
+    //         trigger: 'axis'
+    //     },
+    //     xAxis: {
+    //         type: 'time',
+    //         splitLine: {
+    //             show: false
+    //         },
+    //         axisTick: {
+    //             show: false,
+    //             lineStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLabel: {
+    //             // show: false,
+    //             textStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLine: {
+    //             show: false
+    //         },
+    //         data: echartsDataxAxis
+    //     },
+    //     yAxis: {
+    //         type: 'value',
+    //         boundaryGap: [0, '100%'],
+    //         splitLine: {
+    //             show: false
+    //         },
+    //         axisTick: {
+    //             show: false,
+    //             lineStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLabel: {
+    //             // show: false,
+    //             textStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLine: {
+    //             show: false
+    //         }
 
-    myChart.setOption(option);
+    //     },
+    //     series: [{
+    //         // name: '模拟数据',
+    //         // type: 'line',
+    //         // showSymbol: false,
+    //         // hoverAnimation: false,
+    //         // data: [{
+    //         name: '温度',
+    //         type: 'line',
+    //         showSymbol: false,
+    //         hoverAnimation: false,
+    //         data: echartsDatatemp
+    //     }, {
+    //         name: '湿度',
+    //         type: 'line',
+    //         showSymbol: false,
+    //         hoverAnimation: false,
+    //         data: echartsDatahumity
+    //     }],
+    //     // splitLine: {
+    //     //     lineStyle: {
+    //     //         // 使用深浅的间隔色
+    //     //         color: ['#FEFFFF', '#FEFFFF']
+    //     //     }
+    //     // },
+    //     color: ['#FEFFFF']
+    // };
 
-    // 异步加载数据
-    $.ajax({
-        url: '/getAllTempAndHumityInofo',
-        type: 'get',
-        error: function() {
-            console.log('获取历史温湿度数据出错！');
-        },
-        success: function(data) {
-            for (var i = 0; i < data.length; i++) {
-                echartsDataxAxis.push(data[i].t);
-                echartsDatatemp.push(data[i].pt);
-                echartsDatahumity.push(data[i].ph);
-            }
-            myChart.hideLoading();
-            // console.log("asfdasdf" + data.pt);
-            console.log(echartsDataxAxis);
-            console.log(echartsDatatemp);
-            console.log(echartsDatahumity);
+    // myChart.setOption(option);
 
-            // 填入数据
-            myChart.setOption({
-                xAxis: {
-                    data: echartsDataxAxis
-                },
-                series: [{
-                    name: '温度',
-                    type: 'line',
-                    showSymbol: false,
-                    hoverAnimation: false,
-                    data: echartsDatatemp
-                }, {
-                    name: '湿度',
-                    type: 'line',
-                    showSymbol: false,
-                    hoverAnimation: false,
-                    data: echartsDatahumity
-                }]
-            });
+    // // 异步加载数据
+    // $.ajax({
+    //     url: '/getAllTempAndHumityInofo',
+    //     type: 'get',
+    //     error: function() {
+    //         console.log('获取历史温湿度数据出错！');
+    //     },
+    //     success: function(data) {
+    //         for (var i = 0; i < data.length; i++) {
+    //             echartsDataxAxis.push(data[i].t);
+    //             echartsDatatemp.push(data[i].pt);
+    //             echartsDatahumity.push(data[i].ph);
+    //         }
+    //         myChart.hideLoading();
+    //         // console.log("asfdasdf" + data.pt);
+    //         console.log(echartsDataxAxis);
+    //         console.log(echartsDatatemp);
+    //         console.log(echartsDatahumity);
 
-
-        }
-    });
+    //         // 填入数据
+    //         myChart.setOption({
+    //             xAxis: {
+    //                 data: echartsDataxAxis
+    //             },
+    //             series: [{
+    //                 name: '温度',
+    //                 type: 'line',
+    //                 showSymbol: false,
+    //                 hoverAnimation: false,
+    //                 data: echartsDatatemp
+    //             }, {
+    //                 name: '湿度',
+    //                 type: 'line',
+    //                 showSymbol: false,
+    //                 hoverAnimation: false,
+    //                 data: echartsDatahumity
+    //             }]
+    //         });
 
 
+    //     }
+    // });
 
 
 
-    //自适应变化
-    window.addEventListener("resize", function() {
-        myChart.resize();
-    });
+
+
+    // //自适应变化
+    // window.addEventListener("resize", function() {
+    //     myChart.resize();
+    // });
 
 
 
