@@ -1,3 +1,4 @@
+var moment = require('moment');
 module.exports = {
     /////////////////////////////////////////////////////////////
     // 用户信息
@@ -33,10 +34,15 @@ module.exports = {
             default: '27'
         },
         //账号创建时间 UserCreateTime
+        // uct: {
+        //     type: Date,
+        //     required: true,
+        //     default: Date.now()
+        // }
         uct: {
-            type: Date,
+            type: String,
             required: true,
-            default: Date.now()
+            default: moment().format('YYYY-MM-DD, HH:mm:ss')
         }
     },
     /////////////////////////////////////////////////////////////
@@ -70,8 +76,10 @@ module.exports = {
         },
         //记录时间 PonitTime
         t: {
-            type: Date,
-            default: Date.now(),
+            // type: Date,
+            // default: Date.now(),
+            // required: true
+            type: String,
             required: true
         },
         //温度信息 PonitTemperature
@@ -90,9 +98,12 @@ module.exports = {
     wr: {
         //报警时间 WarningTime
         t: {
-            type: Date,
-            default: Date.now(),
-            required: true
+            // type: Date,
+            // default: Date.now(),
+            // required: true
+            type: String,
+            required: true,
+            default: moment().format('YYYY-MM-DD, HH:mm:ss')
         },
         //报警手机号 WarningPhoneNum
         wpn: {

@@ -57,9 +57,6 @@ var Alidayu = require('./controller/alidayu/alidayu');
 
 
 
-
-
-
 var sensor = {
     initialize: function() {
         console.log('温湿度传感器正在初始化.....');
@@ -67,10 +64,9 @@ var sensor = {
     },
     read: function() {
         var readout = sensorLib.read();
-        var recordTime = new Date();
+        // var recordTime = new Date();
+        var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
 
-        // var t = moment().format('YYYY-MM-DD, HH:mm:ss');
-        
         console.log('[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         //////////////////////////////////////
         if (readout.temperature > 5) { //筛选掉初始化值，乱值
@@ -99,7 +95,8 @@ var sensor = {
     },
     warning: function() {
         var readout = sensorLib.read();
-        var recordTime = new Date();
+        // var recordTime = new Date();
+        var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
 
         console.log('[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
 
@@ -226,7 +223,8 @@ if (sensor.initialize()) {
         console.log("[ Socket ]==========新用户加入");
         setInterval(function() {
             var readout = sensorLib.read();
-            var recordTime = new Date();
+            // var recordTime = new Date();
+            var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
             ///// 长连接模块，实时数据
             socket.emit('realTimeTAndH', {
                 temperature: readout.temperature.toFixed(1),
