@@ -389,13 +389,43 @@
                 type: 'line',
                 showSymbol: false,
                 hoverAnimation: false,
-                data: echartsDatatemp
+                data: echartsDatatemp,
+                markPoint: {
+                    data: [{
+                        type: 'max',
+                        name: '最大温度'
+                    }, {
+                        type: 'min',
+                        name: '最小温度'
+                    }]
+                },
+                markLine: {
+                    data: [{
+                        type: 'average',
+                        name: '温度均值'
+                    }]
+                }
             }, {
                 name: '湿度',
-                type: 'line',
+                type: 'bar',
                 showSymbol: false,
                 hoverAnimation: false,
-                data: echartsDatahumity
+                data: echartsDatahumity,
+                markPoint: {
+                    data: [{
+                        type: 'max',
+                        name: '最大湿度'
+                    }, {
+                        type: 'min',
+                        name: '最小湿度'
+                    }]
+                },
+                markLine: {
+                    data: [{
+                        type: 'average',
+                        name: '湿度均值'
+                    }]
+                }
             }]
         });
 
