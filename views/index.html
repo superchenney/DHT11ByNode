@@ -183,14 +183,43 @@
     var echartsDatatemp = [];
     var echartsDatahumity = [];
 
+    var myChart = echarts.init(document.getElementById('tempTrendChart'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data: ['温度', '湿度']
+        },
+        xAxis: {
+            data: echartsDataxAxis
+        },
+        yAxis: {},
+        series: [{
+            name: '温度',
+            type: 'bar',
+            data: echartsDatatemp
+        }, {
+            name: '湿度',
+            type: 'bar',
+            data: echartsDatahumity
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
     // var dom = document.getElementById("tempTrendChart");
     // var myChart = echarts.init(dom);
     // myChart.showLoading();
 
     // var option = {
-    //     // tooltip: {
-    //     //     trigger: 'axis'
-    //     // },
+    //     tooltip: {
+    //         trigger: 'axis'
+    //     },
     //     xAxis: {
     //         type: 'time',
     //         splitLine: {
@@ -211,7 +240,8 @@
     //         axisLine: {
     //             show: false
     //         },
-    //         data: echartsDataxAxis
+    //         // data: echartsDataxAxis
+    //         data: [1, 2, 3]
     //     },
     //     yAxis: {
     //         type: 'value',
@@ -241,7 +271,15 @@
     //         type: 'line',
     //         showSymbol: false,
     //         hoverAnimation: false,
-    //         data: echartsDatatemp
+    //         // data: echartsDatatemp
+    //         data: [1, 2, 3]
+    //     }, {
+    //         name: '湿度',
+    //         type: 'line',
+    //         showSymbol: false,
+    //         hoverAnimation: false,
+    //         // data: echartsDatahumity
+    //         data: [1, 2, 3]
     //     }],
     //     // splitLine: {
     //     //     lineStyle: {
@@ -252,41 +290,7 @@
     //     color: ['#FEFFFF']
     // };
 
-    // myChart.setOption(option);
-
-
-    var dom = document.getElementById("tempTrendChart");
-    var myChart = echarts.init(dom);
-    ///////////////////////
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-            data: ['温度']
-        },
-        xAxis: {
-            data: echartsDataxAxis
-        },
-        yAxis: {},
-        series: [{
-            name: '温度',
-            type: 'bar',
-            data: echartsDatatemp
-        }, {
-            name: '湿度',
-            type: 'bar',
-            data: echartsDatahumity
-        }]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-
-
-
+    // myChart.setOption(option, true);
 
     // 异步加载数据
     $.ajax({
@@ -333,9 +337,9 @@
 
 
     // //自适应变化
-    window.addEventListener("resize", function() {
-        myChart.resize();
-    });
+    // window.addEventListener("resize", function() {
+    //     myChart.resize();
+    // });
 
 
 
@@ -392,25 +396,21 @@
         // echartsDatahumity.push(data.humidity);
 
         // // 填入数据
-        // myChart.setOption({
-        //     xAxis: {
-        //         data: echartsDataxAxis
-        //     },
-        //     series: [{
-        //         name: '温度',
-        //         type: 'line',
-        //         showSymbol: false,
-        //         hoverAnimation: false,
-        //         data: echartsDatatemp
-        //     }, {
-        //         name: '湿度',
-        //         type: 'line',
-        //         showSymbol: false,
-        //         hoverAnimation: false,
-        //         data: echartsDatahumity
-        //     }]
-        // });
-
+        myChart.setOption({
+            xAxis: {
+                data: echartsDataxAxis
+            },
+            yAxis: {},
+            series: [{
+                name: '温度',
+                type: 'bar',
+                data: echartsDatatemp
+            }, {
+                name: '湿度',
+                type: 'bar',
+                data: echartsDatahumity
+            }]
+        });
 
 
 
