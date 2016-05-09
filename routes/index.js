@@ -100,7 +100,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
             if (err) {
                 console.log('查询历史温湿度数据错误！' + err);
             } else {
-                res.send(doc);
+                res.send(docs);
             }
         })
 });
