@@ -339,7 +339,8 @@
         success: function(data) {
             // console.log(data);
             if (data == 'error') {
-                console.log('用户没有登录')
+                console.log('用户没有登录');
+                $("#tableWarningTempSet").text('登陆后查看');
             } else {
                 var UserInfo = data;
                 console.log('用户信息：' + UserInfo);
