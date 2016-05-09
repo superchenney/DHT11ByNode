@@ -209,7 +209,9 @@
     //     }]
     // };
     var option = {
-        tooltip: {},
+        tooltip: {
+            trigger: 'axis'
+        },
         legend: {
             data: ['温度', '湿度']
         },
@@ -230,13 +232,12 @@
                 }
             },
             axisLine: {
-                show: false
+                show: true
             },
             data: echartsDataxAxis
         },
         yAxis: {
             type: 'value',
-            boundaryGap: [0, '100%'],
             splitLine: {
                 show: false
             },
@@ -253,7 +254,7 @@
                 }
             },
             axisLine: {
-                show: false
+                show: true
             }
 
         },
