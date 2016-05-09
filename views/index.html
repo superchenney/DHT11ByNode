@@ -183,9 +183,9 @@
     var echartsDatatemp = [];
     var echartsDatahumity = [];
 
-    // var myChart = echarts.init($("#tempTrendChart"));
+    var myChart = echarts.init($("#tempTrendChart"));
 
-    // myChart.showLoading();
+    myChart.showLoading();
 
     var option = {
         tooltip: {
@@ -263,7 +263,7 @@
         color: ['#FEFFFF']
     };
 
-    // myChart.setOption(option);
+    myChart.setOption(option);
 
     // 异步加载数据
     $.ajax({
