@@ -183,45 +183,106 @@
     var echartsDatatemp = [];
     var echartsDatahumity = [];
 
+    // var dom = document.getElementById("tempTrendChart");
+    // var myChart = echarts.init(dom);
+    // myChart.showLoading();
 
-
-
-    // var myChart = echarts.init(document.getElementById('tempTrendChart'));
-
-    // // 指定图表的配置项和数据
     // var option = {
-    //     title: {
-    //         text: 'ECharts 入门示例'
-    //     },
-    //     tooltip: {},
-    //     legend: {
-    //         data: ['温度', '湿度']
-    //     },
+    //     // tooltip: {
+    //     //     trigger: 'axis'
+    //     // },
     //     xAxis: {
+    //         type: 'time',
+    //         splitLine: {
+    //             show: false
+    //         },
+    //         axisTick: {
+    //             show: false,
+    //             lineStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLabel: {
+    //             // show: false,
+    //             textStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLine: {
+    //             show: false
+    //         },
     //         data: echartsDataxAxis
     //     },
-    //     yAxis: {},
+    //     yAxis: {
+    //         type: 'value',
+    //         boundaryGap: [0, '100%'],
+    //         splitLine: {
+    //             show: false
+    //         },
+    //         axisTick: {
+    //             show: false,
+    //             lineStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLabel: {
+    //             // show: false,
+    //             textStyle: {
+    //                 color: '#feffff'
+    //             }
+    //         },
+    //         axisLine: {
+    //             show: false
+    //         }
+
+    //     },
     //     series: [{
     //         name: '温度',
-    //         type: 'bar',
+    //         type: 'line',
+    //         showSymbol: false,
+    //         hoverAnimation: false,
     //         data: echartsDatatemp
-    //     }, {
-    //         name: '湿度',
-    //         type: 'bar',
-    //         data: echartsDatahumity
-    //     }]
+    //     }],
+    //     // splitLine: {
+    //     //     lineStyle: {
+    //     //         // 使用深浅的间隔色
+    //     //         color: ['#FEFFFF', '#FEFFFF']
+    //     //     }
+    //     // },
+    //     color: ['#FEFFFF']
     // };
 
-    // // 使用刚指定的配置项和数据显示图表。
     // myChart.setOption(option);
 
+
+
+
+
+    ///////////////////////////
     var dom = document.getElementById("tempTrendChart");
     var myChart = echarts.init(dom);
-    myChart.showLoading();
+
 
     var option = {
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            formatter: function(params) {
+                params = params[0];
+                var date = new Date(params.name);
+                return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+            },
+            axisPointer: {
+                animation: false
+            },
+            textStyle: {
+                color: '#feffff'
+            },
+            axisPointer: {
+                lineStyle: {
+                    color: '#feffff',
+                    opacity: 0.4
+                }
+            }
         },
         xAxis: {
             type: 'time',
@@ -242,9 +303,7 @@
             },
             axisLine: {
                 show: false
-            },
-            // data: echartsDataxAxis
-            data: [1, 2, 3]
+            }
         },
         yAxis: {
             type: 'value',
@@ -270,11 +329,18 @@
 
         },
         series: [{
-            name: '温度',
+            name: '模拟数据',
             type: 'line',
             showSymbol: false,
             hoverAnimation: false,
-            data: echartsDatatemp
+            data: [1,2,3,4,5],
+            // makePoint: {},
+            // markLine: {
+            //     data: [{
+            //         type: 'average',
+            //         name: '平均值'
+            //     }]
+            // }
         }],
         // splitLine: {
         //     lineStyle: {
@@ -282,8 +348,9 @@
         //         color: ['#FEFFFF', '#FEFFFF']
         //     }
         // },
-        color: ['#FEFFFF']
+        color: ['#FEFFFF', '#FEFFFF', '#FEFFFF', '#FEFFFF', '#FEFFFF']
     };
+
 
     myChart.setOption(option);
 
