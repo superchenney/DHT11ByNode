@@ -209,57 +209,14 @@
     //     }]
     // };
     var option = {
-        tooltip: {
-            trigger: 'axis'
-        },
+        tooltip: {},
         legend: {
             data: ['温度', '湿度']
         },
         xAxis: {
-            type: 'time',
-            splitLine: {
-                show: false
-            },
-            axisTick: {
-                show: false,
-                lineStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLabel: {
-                // show: false,
-                textStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLine: {
-                show: false
-            },
             data: echartsDataxAxis
         },
-        yAxis: {
-            type: 'value',
-            boundaryGap: [0, '100%'],
-            splitLine: {
-                show: false
-            },
-            axisTick: {
-                show: false,
-                lineStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLabel: {
-                // show: false,
-                textStyle: {
-                    color: '#feffff'
-                }
-            },
-            axisLine: {
-                show: false
-            }
-
-        },
+        yAxis: {},
         series: [{
             name: '温度',
             type: 'line',
@@ -474,6 +431,10 @@
 
         // // 填入数据
         myChart.setOption({
+            xAxis: {
+                data: echartsDataxAxis
+            },
+            yAxis: {},
             series: [{
                 name: '温度',
                 type: 'line',
