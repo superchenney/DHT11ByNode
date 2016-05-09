@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var session = require('express-session');
 
-
+var moment = require('moment');
 
 var app = express();
 
@@ -51,7 +51,6 @@ var sensorLib = require('node-dht-sensor');
 var User = global.dbHandel.getModel('user');
 var TempHumidityRecord = global.dbHandel.getModel('thr');
 var WarningRecord = global.dbHandel.getModel('wr');
-
 var MsgSendStatus = global.dbHandel.getModel('mss');
 
 var Alidayu = require('./controller/alidayu/alidayu');
@@ -69,6 +68,9 @@ var sensor = {
     read: function() {
         var readout = sensorLib.read();
         var recordTime = new Date();
+
+        // var t = moment().format('YYYY-MM-DD, HH:mm:ss');
+        
         console.log('[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         //////////////////////////////////////
         if (readout.temperature > 5) { //筛选掉初始化值，乱值
