@@ -186,110 +186,106 @@
 
 
 
-    var myChart = echarts.init(document.getElementById('tempTrendChart'));
+    // var myChart = echarts.init(document.getElementById('tempTrendChart'));
 
-    // 指定图表的配置项和数据
-    var option = {
-        title: {
-            text: 'ECharts 入门示例'
-        },
-        tooltip: {},
-        legend: {
-            data: ['销量']
-        },
-        xAxis: {
-            data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-        },
-        yAxis: {},
-        series: [{
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-
-    // var dom = document.getElementById("tempTrendChart");
-    // var myChart = echarts.init(dom);
-    // myChart.showLoading();
-
+    // // 指定图表的配置项和数据
     // var option = {
-    //     tooltip: {
-    //         trigger: 'axis'
+    //     title: {
+    //         text: 'ECharts 入门示例'
+    //     },
+    //     tooltip: {},
+    //     legend: {
+    //         data: ['温度', '湿度']
     //     },
     //     xAxis: {
-    //         type: 'time',
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         },
-    //         // data: echartsDataxAxis
-    //         data: [1, 2, 3]
+    //         data: echartsDataxAxis
     //     },
-    //     yAxis: {
-    //         type: 'value',
-    //         boundaryGap: [0, '100%'],
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false,
-    //             lineStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             // show: false,
-    //             textStyle: {
-    //                 color: '#feffff'
-    //             }
-    //         },
-    //         axisLine: {
-    //             show: false
-    //         }
-
-    //     },
+    //     yAxis: {},
     //     series: [{
     //         name: '温度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         // data: echartsDatatemp
-    //         data: [1, 2, 3]
+    //         type: 'bar',
+    //         data: echartsDatatemp
     //     }, {
     //         name: '湿度',
-    //         type: 'line',
-    //         showSymbol: false,
-    //         hoverAnimation: false,
-    //         // data: echartsDatahumity
-    //         data: [1, 2, 3]
-    //     }],
-    //     // splitLine: {
-    //     //     lineStyle: {
-    //     //         // 使用深浅的间隔色
-    //     //         color: ['#FEFFFF', '#FEFFFF']
-    //     //     }
-    //     // },
-    //     color: ['#FEFFFF']
+    //         type: 'bar',
+    //         data: echartsDatahumity
+    //     }]
     // };
 
-    // myChart.setOption(option, true);
+    // // 使用刚指定的配置项和数据显示图表。
+    // myChart.setOption(option);
+
+    var dom = document.getElementById("tempTrendChart");
+    var myChart = echarts.init(dom);
+    myChart.showLoading();
+
+    var option = {
+        tooltip: {
+            trigger: 'axis'
+        },
+        xAxis: {
+            type: 'time',
+            splitLine: {
+                show: false
+            },
+            axisTick: {
+                show: false,
+                lineStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLabel: {
+                // show: false,
+                textStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLine: {
+                show: false
+            },
+            // data: echartsDataxAxis
+            data: [1, 2, 3]
+        },
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            splitLine: {
+                show: false
+            },
+            axisTick: {
+                show: false,
+                lineStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLabel: {
+                // show: false,
+                textStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLine: {
+                show: false
+            }
+
+        },
+        series: [{
+            name: '温度',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
+            data: echartsDatatemp
+        }],
+        // splitLine: {
+        //     lineStyle: {
+        //         // 使用深浅的间隔色
+        //         color: ['#FEFFFF', '#FEFFFF']
+        //     }
+        // },
+        color: ['#FEFFFF']
+    };
+
+    myChart.setOption(option);
 
     // 异步加载数据
     $.ajax({
@@ -339,9 +335,9 @@
 
 
     // //自适应变化
-    // window.addEventListener("resize", function() {
-    //     myChart.resize();
-    // });
+    window.addEventListener("resize", function() {
+        myChart.resize();
+    });
 
 
 
