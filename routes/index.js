@@ -92,14 +92,17 @@ router.get('/getUserInofo', function(req, res, next) {
 //获取所有温湿度信息，构建图表
 router.get('/getAllTempAndHumityInofo', function(req, res, next) {
 
-    TempHumidityRecord.find({}, function(err, doc) {
-        if (err) {
-            console.log('查询历史温湿度数据错误！' + err);
-        } else {
-            res.send(doc);
-        }
-    });
-
+    TempHumidityRecord
+        .find({})
+        .sort('-t')
+        .limit(20)
+        .exec(function(err, docs) {
+            if (err) {
+                console.log('查询历史温湿度数据错误！' + err);
+            } else {
+                res.send(doc);
+            }
+        })
 });
 
 
