@@ -290,21 +290,26 @@
             console.log('［echart］温度' + echartsDatatemp);
             console.log('［echart］湿度' + echartsDatahumity);
 
-            // // 填入数据
-            // myChart.setOption({
-            //     xAxis: {
-            //         data: echartsDataxAxis
-            //     },
-            //     series: [{
-            //         name: '温度',
-            //         type: 'bar',
-            //         data: echartsDatatemp
-            //     }, {
-            //         name: '湿度',
-            //         type: 'bar',
-            //         data: echartsDatahumity
-            //     }]
-            // });
+            ////// 填入数据
+            myChart.setOption({
+                xAxis: {
+                    data: echartsDataxAxis
+                },
+                series: [{
+                    name: '温度',
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    data: echartsDatatemp
+                }, {
+                    name: '湿度',
+                    type: 'line',
+                    showSymbol: false,
+                    hoverAnimation: false,
+                    data: echartsDatahumity
+                }]
+            });
+            //////////////////
 
 
         }
@@ -398,7 +403,7 @@
                 data: echartsDatahumity
             }]
         });
-
+        //////////////////
 
 
         document.getElementById("realTimeCirleTemp").innerHTML = data.temperature;
