@@ -10,8 +10,6 @@ var TempHumidityRecord = global.dbHandel.getModel('thr');
 var WarningRecord = global.dbHandel.getModel('wr');
 
 
-
-
 router.get('/', function(req, res, next) {
     res.render('index', { title: '首页' });
 
@@ -108,7 +106,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
 
 
 router.get('/warningRecord', function(req, res, next) {
-    // res.render('warningRecord', { title: '记录' });
+
     WarningRecord.find({}, function(err, doc) {
         if (err) {
             console.log(err);
@@ -155,7 +153,7 @@ router.post('/login', function(req, res, next) {
 
 
 router.post('/regist', function(req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     // { registPhoneNum: '13568821053',
     //   registCode: '7879',
     //   registPwd: 'chenchao',
@@ -170,10 +168,10 @@ router.post('/regist', function(req, res, next) {
             console.log(err);
         } else if (doc) {
             // req.session.error = '手机号码已存在！';
-            var getCode = req.body.registCode;
+            var reqCode = req.body.registCode;
             var oldCode = doc.cc;
 
-            if (getCode == oldCode) {
+            if (reqCode == oldCode) {
                 console.log('验证码一致');
                 //创建用户信息,验证成功
                 User.create({
@@ -206,7 +204,6 @@ router.post('/regist', function(req, res, next) {
 
 router.post('/getRegistCode', function(req, res, next) {
 
-    // console.log(req.body.phoneNum);
     var pNum = req.body.phoneNum;
     //  生成随机数
     var registCode = creatRegistCode();
@@ -217,10 +214,8 @@ router.post('/getRegistCode', function(req, res, next) {
     }, function(err, doc) {
         if (err) {
             res.send(500);
-            // req.session.error = '系统错误！';
             console.log(err);
         } else if (doc) {
-            // req.session.error = '手机号码已存在！';
             ////////
             UserConfirmCode.update({
                 upn: pNum
@@ -245,10 +240,8 @@ router.post('/getRegistCode', function(req, res, next) {
             }, function(err, doc) {
                 if (err) {
                     res.sendStatus(500);
-                    // req.session.error = '创建失败！';
                     console.log(err);
                 } else {
-                    // req.session.success = '手机号创建成功，请登录！';
                     console.log("验证码创建成功！")
                         ////////短信发送
                     var sendRegistParam = '{"code": "' + registCode + '","product": "温度实时监测报警系统"}'
@@ -265,7 +258,7 @@ router.post('/getRegistCode', function(req, res, next) {
         do
             code = Math.floor(Math.random() * 10000);
         while (code < 1000)
-        console.log(code);
+        // console.log(code);
         return code;
     }
 

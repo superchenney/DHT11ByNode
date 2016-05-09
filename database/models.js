@@ -42,7 +42,7 @@ module.exports = {
         uct: {
             type: String,
             required: true,
-            default: moment().format('YYYY-MM-DD, HH:mm:ss')
+            default: moment().format('YYYY-MM-DD HH:mm:ss')
         }
     },
     /////////////////////////////////////////////////////////////
@@ -60,10 +60,16 @@ module.exports = {
             required: true
         },
         //创建日期 CreateTime
-        ct: {
+        // ct: {
+        //     type: Date,
+        //     required: true,
+        //     default: Date.now()
+        // }
+        createdAt: {
             type: Date,
-            required: true,
-            default: Date.now()
+            // expires: 60 * 2,
+            default: Date.now(),
+            required: true
         }
     },
     /////////////////////////////////////////////////////////////
@@ -103,7 +109,7 @@ module.exports = {
             // required: true
             type: String,
             required: true,
-            default: moment().format('YYYY-MM-DD, HH:mm:ss')
+            default: moment().format('YYYY-MM-DD HH:mm:ss')
         },
         //报警手机号 WarningPhoneNum
         wpn: {
@@ -132,7 +138,7 @@ module.exports = {
         // }
     },
     ///////////////////////////////////////////////////
-    //         短信报警发送记录 MsgSendStatus
+    //         短信报警发送状态 MsgSendStatus
     mss: {
         //报警手机号 WarningPhoneNum
         wpn: {

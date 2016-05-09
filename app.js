@@ -32,6 +32,7 @@ var dbUrl = 'mongodb://123.59.57.189:20000/temp' //线上数据库
 var db = mongoose.connection;
 mongoose.connect(dbUrl)
 db.on('error', console.error.bind(console, 'connection error:'));
+
 db.once('open', function(callback) {
     console.log("数据库连接成功！" + dbUrl)
 });
@@ -65,7 +66,7 @@ var sensor = {
     read: function() {
         var readout = sensorLib.read();
         // var recordTime = new Date();
-        var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
+        var recordTime = moment().format('YYYY-MM-DD HH:mm:ss');
 
         console.log('[ 实时 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
         //////////////////////////////////////
@@ -96,7 +97,7 @@ var sensor = {
     warning: function() {
         var readout = sensorLib.read();
         // var recordTime = new Date();
-        var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
+        var recordTime = moment().format('YYYY-MM-DD HH:mm:ss');
 
         console.log('[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
 
@@ -224,7 +225,7 @@ if (sensor.initialize()) {
         setInterval(function() {
             var readout = sensorLib.read();
             // var recordTime = new Date();
-            var recordTime = moment().format('YYYY-MM-DD, HH:mm:ss');
+            var recordTime = moment().format('YYYY-MM-DD HH:mm:ss');
             ///// 长连接模块，实时数据
             socket.emit('realTimeTAndH', {
                 temperature: readout.temperature.toFixed(1),
@@ -270,7 +271,7 @@ app.use(session({
     cookie: {
         maxAge: 1000 * 60 * 60 //过期时间设置(单位毫秒)
     },
-    resave: 'false',
+    resave: 'true',
     saveUninitialized: 'false'
 }));
 
@@ -279,6 +280,7 @@ app.use(session({
 
 var routes = require('./routes/index');
 app.use('/', routes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
