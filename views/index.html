@@ -186,28 +186,102 @@
     var myChart = echarts.init(document.getElementById('tempTrendChart'));
 
     // 指定图表的配置项和数据
+    // var option = {
+    //     title: {
+    //         text: 'ECharts 入门示例'
+    //     },
+    //     tooltip: {},
+    //     legend: {
+    //         data: ['温度', '湿度']
+    //     },
+    //     xAxis: {
+    //         data: echartsDataxAxis
+    //     },
+    //     yAxis: {},
+    //     series: [{
+    //         name: '温度',
+    //         type: 'bar',
+    //         data: echartsDatatemp
+    //     }, {
+    //         name: '湿度',
+    //         type: 'bar',
+    //         data: echartsDatahumity
+    //     }]
+    // };
     var option = {
-        title: {
-            text: 'ECharts 入门示例'
+        tooltip: {
+            trigger: 'axis'
         },
-        tooltip: {},
         legend: {
             data: ['温度', '湿度']
         },
         xAxis: {
+            type: 'time',
+            splitLine: {
+                show: false
+            },
+            axisTick: {
+                show: false,
+                lineStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLabel: {
+                // show: false,
+                textStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLine: {
+                show: false
+            },
             data: echartsDataxAxis
         },
-        yAxis: {},
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            splitLine: {
+                show: false
+            },
+            axisTick: {
+                show: false,
+                lineStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLabel: {
+                // show: false,
+                textStyle: {
+                    color: '#feffff'
+                }
+            },
+            axisLine: {
+                show: false
+            }
+
+        },
         series: [{
             name: '温度',
-            type: 'bar',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
             data: echartsDatatemp
         }, {
             name: '湿度',
-            type: 'bar',
+            type: 'line',
+            showSymbol: false,
+            hoverAnimation: false,
             data: echartsDatahumity
-        }]
+        }],
+        // splitLine: {
+        //     lineStyle: {
+        //         // 使用深浅的间隔色
+        //         color: ['#FEFFFF', '#FEFFFF']
+        //     }
+        // },
+        color: ['#FEFFFF']
     };
+
 
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
@@ -311,22 +385,22 @@
             console.log('［echart］温度' + echartsDatatemp);
             console.log('［echart］湿度' + echartsDatahumity);
 
-            // 填入数据
-            myChart.setOption({
-                xAxis: {
-                    data: echartsDataxAxis
-                },
-                yAxis: {},
-                series: [{
-                    name: '温度',
-                    type: 'bar',
-                    data: echartsDatatemp
-                }, {
-                    name: '湿度',
-                    type: 'bar',
-                    data: echartsDatahumity
-                }]
-            });
+            // // 填入数据
+            // myChart.setOption({
+            //     xAxis: {
+            //         data: echartsDataxAxis
+            //     },
+            //     yAxis: {},
+            //     series: [{
+            //         name: '温度',
+            //         type: 'bar',
+            //         data: echartsDatatemp
+            //     }, {
+            //         name: '湿度',
+            //         type: 'bar',
+            //         data: echartsDatahumity
+            //     }]
+            // });
 
 
         }
@@ -391,23 +465,26 @@
         // humidity:"47.0"
         // temperature:"27.0"
 
+        echartsDataxAxis.shift();
+        echartsDatatemp.shift();
+        echartsDatahumity.shift();
         echartsDataxAxis.push(data.date);
         echartsDatatemp.push(data.temperature);
         echartsDatahumity.push(data.humidity);
 
         // // 填入数据
         myChart.setOption({
-            xAxis: {
-                data: echartsDataxAxis
-            },
-            yAxis: {},
             series: [{
                 name: '温度',
-                type: 'bar',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
                 data: echartsDatatemp
             }, {
                 name: '湿度',
-                type: 'bar',
+                type: 'line',
+                showSymbol: false,
+                hoverAnimation: false,
                 data: echartsDatahumity
             }]
         });
