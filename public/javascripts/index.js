@@ -1,9 +1,8 @@
-< script type = "text/javascript" >
-    //////////////////////////////
-    //          图表
-    /////////////////////////////
-    //图表
-    var echartsDataxAxis = []
+//////////////////////////////
+//          图表
+/////////////////////////////
+//图表
+var echartsDataxAxis = []
 var echartsDatatemp = [];
 var echartsDatahumity = [];
 
