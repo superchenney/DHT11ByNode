@@ -164,7 +164,7 @@
 
 .am-modal-dialog {
     position: relative;
-    z-index: 9999;
+    z-index: 99999;
 }
 
 .am-modal-dialog > *{
@@ -188,6 +188,7 @@
     border-bottom: 1px solid #eee;
     text-align: center;
     height: 28px;
+
 }
 
 .lb-header a {
