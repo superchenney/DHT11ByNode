@@ -226,14 +226,17 @@ if (sensor.initialize()) {
             var readout = sensorLib.read();
             // var recordTime = new Date();
             var recordTime = moment().format('YYYY-MM-DD HH:mm:ss');
-            ///// 长连接模块，实时数据
-            socket.emit('realTimeTAndH', {
-                temperature: readout.temperature.toFixed(1),
-                date: recordTime,
-                humidity: readout.humidity.toFixed(1)
-            });
-            /////
-            console.log("[ Socket ]==========实时温度传输")
+            if (readout.temperature > 5) {
+                ///// 长连接模块，实时数据
+                socket.emit('realTimeTAndH', {
+                    temperature: readout.temperature.toFixed(1),
+                    date: recordTime,
+                    humidity: readout.humidity.toFixed(1)
+                });
+                /////
+                console.log("[ Socket ]==========实时温度传输")
+            }
+
         }, 1000);
     });
     //////////////////
