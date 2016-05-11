@@ -34,7 +34,8 @@ router.get('/setting', function(req, res, next) {
 
 router.get('/warningRecord', function(req, res, next) {
 
-    if (req.session.user.upn) {
+    if (req.session.user) {
+
         WarningRecord
             .find({
                 'wpn': req.session.user.upn
@@ -51,6 +52,7 @@ router.get('/warningRecord', function(req, res, next) {
                     });
                 };
             });
+            
     } else {
         res.redirect('/');
     }
