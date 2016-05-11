@@ -167,6 +167,11 @@
     z-index: 9999;
 }
 
+.am-modal-dialog > *{
+    // position: relative;
+    z-index: 9999;
+}
+
 
 /*登陆注册模块*/
 
