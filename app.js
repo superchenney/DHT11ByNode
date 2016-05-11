@@ -255,7 +255,7 @@ if (sensor.initialize()) {
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views/dist'));
 // app.set('view engine', 'ejs');
 app.engine("html", require("ejs").__express);
 app.set('view engine', 'html');
@@ -281,7 +281,7 @@ app.use(session({
 
 
 
-var routes = require('./routes/index');
+var routes = require('./routes/index.min.js');
 app.use('/', routes);
 
 
