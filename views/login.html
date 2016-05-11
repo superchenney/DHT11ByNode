@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>登陆注册</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/images/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="设置－温度监测报警" />
+    <link rel="apple-touch-icon-precomposed" href="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileImage" content="/images/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+    <!-- <link rel="stylesheet" href="/stylesheets/amazeui.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.6.1/css/amazeui.min.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css">
+    body {
+        background-color: #44B47E;
+        height: 100%;
+    }
+    
+    .login-box {
+        position: relative;
+        margin: 10px auto;
+        width: 100%;
+        height: 800px;
+        /*height: auto;*/
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+        -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+        box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+    }
+    
+    .lb-header {
+        position: relative;
+        color: #00415d;
+        margin: 5px 5px 10px 5px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        text-align: center;
+        height: 35px;
+    }
+    
+    .lb-header a {
+        margin: 0 15px;
+        padding: 0 10px;
+        text-decoration: none;
+        color: #666;
+        font-weight: bold;
+        font-size: 12px;
+        outline: none;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    
+    .lb-header .active {
+        color: #029f5b;
+        font-size: 16px;
+    }
+    
+    .phone-login,
+    .phone-signup {
+        position: relative;
+        float: left;
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+        text-align: center;
+    }
+    
+    .u-form-group {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .u-form-group input {
+        width: 90%;
+        max-width: 300px;
+        height: 46px;
+        outline: none;
+        border: 1px solid #ddd;
+        padding: 0 10px;
+        border-radius: 2px;
+        color: #333;
+        font-size: 1.4rem;
+        -webkit-transition: all 0.1s linear;
+        -moz-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+    }
+    
+    .u-form-group input:focus {
+        border-color: #44B47E;
+    }
+    
+    .u-form-group button {
+        width: 50%;
+        background-color: #44B47E;
+        border: none;
+        outline: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: normal;
+        padding: 14px 0;
+        margin-bottom: 20px;
+        border-radius: 2px;
+        text-transform: uppercase;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- 页头 50px -->
+    <header data-am-widget="header" class="am-header" style="margin: 10px 0;">
+        <div class="am-header-left am-header-nav">
+            <a href="/" class="am-btn" style="color: #FEFFFF;">
+                <i class="am-header-icon am-icon-arrow-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title" style="color: #FEFFFF;font-size: 1.8rem;"></h1>
+        <!-- <div class="am-header-right am-header-nav" style="right: 20px;color: #FEFFFF;">
+            <a href="" class="" style="color: #FEFFFF;">
+                <i class="am-header-icon am-icon-share-alt"></i>
+            </a>
+        </div> -->
+    </header>
+    <div class="am-g">
+        <div class="am-u-sm-10 am-u-sm-offset-1 ">
+            <div class="login-box">
+                <div class="lb-header">
+                    <a href="#" class="active" id="login-box-link">登陆</a>
+                    <a href="#" id="signup-box-link">注册</a>
+                </div>
+                <!-- 登陆 -->
+                <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel">
+                    <fieldset>
+                        <div class="u-form-group">
+                            <input type="text" placeholder="手机号码" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" id="loginphoneNum" name="loginphoneNum" data-validation-message="请输入正确的手机号码" required/>
+                        </div>
+                        <div class="u-form-group">
+                            <input type="password" placeholder="密码" id="loginPwd" name="loginPwd" data-validation-message="请输入密码" required/>
+                        </div>
+                        <div class="u-form-group">
+                            <button type="submit">登 陆</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <!-- 注册 -->
+                <form class="phone-signup" action="regist" method="POST" data-am-validator id="registPannel">
+                    <fieldset>
+                        <div class="u-form-group">
+                            <input type="text" placeholder="手机号码" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" id="registPhoneNum" name="registPhoneNum" data-validation-message="请输入正确的手机号码" required/>
+                        </div>
+                        <div class="u-form-group">
+                            <input type="text" placeholder="短信验证码" id="registCode" name="registCode" data-validation-message="请输入验证码" required/>
+                            <!-- <button class="am-btn am-btn-block" style="position: absolute;top: 7px;right: 18px;line-height: 20px;font-size: 10px;width: 80px;padding: 5px;margin: 0;height: 30px;" id="getRegistCode">获取验证码</button> -->
+                        </div>
+                        <button class="am-btn am-btn-block" style="width: 90%;max-width: 300px;font-size: 12px;padding: 5px;margin:0 auto;height: 40px;margin-bottom: 20px;" id="getRegistCode">获取验证码</button>
+                        <div class="u-form-group">
+                            <input type="password" placeholder="密码" id="registPwd" name="registPwd" data-validation-message="请输入密码" required/>
+                        </div>
+                        <div class="u-form-group">
+                            <input type="password" placeholder="确认密码" id="registPwdConfirm" name="registPwdConfirm" data-equal-to="#registPwd" data-validation-message="请输入一样的密码" required/>
+                        </div>
+                        <div class="u-form-group">
+                            <button type="submit">注 册</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <!-- <script src="/javascripts/jquery.min.js"></script> -->
+    <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
+    <script type="text/javascript">
+    /////////////////////////////////
+    ////        表单验证
+    /////////////////////////////////
+    $('#loginPannel').validator({
+        onValid: function(validity) {
+            $(validity.field).closest('.u-form-group').find('.am-alert').hide();
+        },
+        onInValid: function(validity) {
+            var $field = $(validity.field);
+            var $group = $field.closest('.u-form-group');
+            var $alert = $group.find('.am-alert');
+            // 使用自定义的提示信息 或 插件内置的提示信息
+            var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+            if (!$alert.length) {
+                $alert = $('<div class="am-alert am-alert-danger" style="width: 90%;max-width: 300px;margin:5px auto;font-size:12px;line-height:12px;padding:7px;"></div>').hide().
+                appendTo($group);
+            }
+            $alert.html(msg).show();
+        }
+    });
+
+    $('#registPannel').validator({
+        onValid: function(validity) {
+            $(validity.field).closest('.u-form-group').find('.am-alert').hide();
+        },
+        onInValid: function(validity) {
+            var $field = $(validity.field);
+            var $group = $field.closest('.u-form-group');
+            var $alert = $group.find('.am-alert');
+            // 使用自定义的提示信息 或 插件内置的提示信息
+            var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+            if (!$alert.length) {
+                $alert = $('<div class="am-alert am-alert-danger" style="width: 90%;max-width: 300px;margin:5px auto;font-size:12px;line-height:12px;padding:7px;"></div>').hide().
+                appendTo($group);
+            }
+            $alert.html(msg).show();
+        }
+    });
+    //////////////
+    $(".phone-signup").hide();
+    $("#signup-box-link").click(function() {
+        $(".phone-login").fadeOut(100);
+        $(".phone-signup").delay(100).fadeIn(100);
+        $("#login-box-link").removeClass("active");
+        $("#signup-box-link").addClass("active");
+    });
+    $("#login-box-link").click(function() {
+        $(".phone-login").delay(100).fadeIn(100);;
+        $(".phone-signup").fadeOut(100);
+        $("#login-box-link").addClass("active");
+        $("#signup-box-link").removeClass("active");
+    });
+    /////////////////////
+    // 验证码模块
+    $("#getRegistCode").click(function() {
+
+        var phoneNum = $('#registPhoneNum').val();
+
+        function checkMobile(str) {
+            var re = /^1((3|5|8){1}\d{1}|70)\d{8}$/
+            if (re.test(str)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        if (checkMobile(phoneNum)) {
+            $.ajax({
+                url: '/getRegistCode',
+                type: 'post',
+                data: {
+                    'phoneNum': phoneNum
+                },
+                error: function() {
+                    alert('error');
+                },
+                success: function(data) {
+                    $("#getRegistCode").text('已发送！');
+                    $("#getRegistCode").addClass('am-disabled');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+
+</html>
