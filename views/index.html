@@ -33,16 +33,17 @@
         <div class="am-header-left am-header-nav">
             <!-- <a href="/login" class="" style="color: #FEFFFF;">
                 <i class="am-header-icon am-icon-get-pocket"></i>
+                <i class="fa fa-bell-o" aria-hidden="true"></i>
             </a> -->
-            <i class="am-header-icon am-icon-get-pocket am-btn js-modal-open" style="color: #FEFFFF;" id="loginPopBtn"></i>
+            <i class="am-header-icon am-icon-user am-btn js-modal-open" style="color: #FEFFFF;" id="loginPopBtn"></i>
         </div>
         <h1 class="am-header-title" style="color: #FEFFFF;font-size: 1.8rem;">
             实时温度
             <div style="font-size: 13px;line-height: 14px;" id="ModelSelected">自动模式</div><!-- 正常模式、自动模式、 -->
       </h1>
-        <div class="am-header-right am-header-nav" style="right: 20px;color: #FEFFFF;">
-            <a href="/history" class="" style="color: #FEFFFF;">
-                <i class="am-header-icon am-icon-area-chart"></i>
+        <div class="am-header-right am-header-nav" style="right: 20px;color: #FEFFFF;display: none;" id="warningHistory">
+            <a href="/warningRecord" class="" style="color: #FEFFFF;">
+                <i class="am-header-icon am-icon-bell-o"></i>
             </a>
         </div>
     </header>
@@ -75,7 +76,7 @@
                 <div style="font-size: 35px;color:#FEFFFF;font-weight: 800;" id="tableRtHumd">－</div>
             </div>
         </div>
-<!--         <div class="am-g" style="height: 120px;border: 1px solid #feffff;border-width: 0 0 1px 0;">
+        <!--         <div class="am-g" style="height: 120px;border: 1px solid #feffff;border-width: 0 0 1px 0;">
             <div class="am-u-sm-6" style="height: 100%;border-right: 1px solid #feffff;padding: 30px">
                 <div style="font-size: 14px;color:#FEFFFF;opacity: 0.7;">平均温度（&#8451;）</div>
                 <div style="font-size: 35px;color:#FEFFFF;font-weight: 800;" id="tableAverageTemp">－</div>
@@ -176,7 +177,6 @@
     <script src="/javascripts/openlink.js"></script>
     <script src="/javascripts/socket.io-1.4.5.js"></script>
     <script src="/javascripts/index.js"></script>
-    
 </body>
 
 </html>
