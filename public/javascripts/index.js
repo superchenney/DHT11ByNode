@@ -182,7 +182,14 @@ $.ajax({
             if (UserInfo.WarningTemp) {
                 $("#tableWarningTempSet").text(UserInfo.WarningTemp);
 
-                // $("#loginPopBtn").text(UserInfo.WarningTemp);
+                $('#loginPopBtn').removeClass('am-icon-user');
+                $('#loginPopBtn').addClass('am-icon-get-pocket');
+                $('#warningHistory').css("display", "block");
+
+            } else {
+                $('#loginPopBtn').removeClass('am-icon-get-pocket');
+                $('#loginPopBtn').addClass('am-icon-user');
+                $('#warningHistory').css("display", "none");
             }
 
 
@@ -361,15 +368,9 @@ $('#loginPopBtn').on('click', function(e) {
 
     if (UserInfo.PhoneNum) {
         location.href = '/setting';
-        $('#loginPopBtn').removeClass('am-icon-user');
-        $('#loginPopBtn').addClass('am-icon-get-pocket');
-        // warningHistory
-        $('#warningHistory').css("display","block");
 
     } else {
-        $('#loginPopBtn').removeClass('am-icon-get-pocket');
-        $('#loginPopBtn').addClass('am-icon-user');
-        $('#warningHistory').css("display","none");
+
         if (($target).hasClass('js-modal-open')) {
             $modal.modal();
             $("#getRegistCode").removeClass('am-disabled');
