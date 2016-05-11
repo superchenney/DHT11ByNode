@@ -33,22 +33,28 @@ router.get('/setting', function(req, res, next) {
 
 
 router.get('/warningRecord', function(req, res, next) {
-    WarningRecord
-        .find({
-            'wpn': req.session.user.upn
-        })
-        .sort('-t')
-        .exec(function(err, doc) {
-            if (err) {
-                console.log("数据库查询历史报警信息出错！" + err);
-            } else {
-                // console.log('记录 item : ' + doc);
-                res.render("warningRecord", {
-                    title: '历史记录',
-                    item: doc
-                });
-            }; //else
-        }); //Operate
+
+    if (req.session.user.upn) {
+        WarningRecord
+            .find({
+                'wpn': req.session.user.upn
+            })
+            .sort('-t')
+            .exec(function(err, doc) {
+                if (err) {
+                    console.log("数据库查询历史报警信息出错！" + err);
+                } else {
+                    // console.log('记录 item : ' + doc);
+                    res.render("warningRecord", {
+                        title: '历史记录',
+                        item: doc
+                    });
+                };
+            });
+    } else {
+        res.redirect('/');
+    }
+
 });
 
 
