@@ -120,7 +120,7 @@
                 }
                 $('#userPhone').val(UserInfo.PhoneNum);
                 $('#userTempSet').val(UserInfo.WarningTemp);
-                $('#userRegistTime').val(UserInfo.UserCreateTime);
+                $('#userRegistTime').val(UserInfo.UserCreateTime.slice(0,10));
             }
         }
     });
