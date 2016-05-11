@@ -26,7 +26,6 @@
     body {
         background-color: #44B47E;
     }
-
     </style>
 </head>
 
@@ -40,38 +39,42 @@
         </div>
         <h1 class="am-header-title" style="color: #FEFFFF;font-size: 1.8rem;">历史数据</h1>
     </header>
-
-   
+    <div class="am-g">
+        <div class="am-u-sm-2 am-u-sm-offset-4"><span style="font-size: 14px;color: white;">1天</span></div>
+        <div class="am-u-sm-2"><span style="font-size: 14px;color: white;">1周</span></div>
+        <div class="am-u-sm-2"><span style="font-size: 14px;color: white;">1个月</span></div>
+        <div class="am-u-sm-2"><span style="font-size: 14px;color: white;">半年</span></div>
+    </div>
     <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
     <!-- <script src="/javascripts/jquery.min.js"></script> -->
     <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
     <script type="text/javascript">
-    var UserInfo = {}
-    $.ajax({
-        url: '/getUserInofo',
-        type: 'get',
-        error: function() {
-            console.log('用户信息获取失败....')
-        },
-        success: function(data) {
-            if (data == 'null') {
-                console.log('用户信息获取失败....')
-            } else {
-                UserInfo = data;
-                // console.log(UserInfo);
-                if (UserInfo.WarningLock == 'true') {
-                    $("input[name='userTempLock']").get(0).checked = true;
-                    $("input[name='userTempLock']").get(1).checked = false;
-                } else if (UserInfo.WarningLock == 'false') {
-                    $("input[name='userTempLock']").get(0).checked = false;
-                    $("input[name='userTempLock']").get(1).checked = true;
-                }
-                $('#userPhone').val(UserInfo.PhoneNum);
-                $('#userTempSet').val(UserInfo.WarningTemp);
-                $('#userRegistTime').val(UserInfo.UserCreateTime);
-            }
-        }
-    });
+    // var UserInfo = {}
+    // $.ajax({
+    //     url: '/getUserInofo',
+    //     type: 'get',
+    //     error: function() {
+    //         console.log('用户信息获取失败....')
+    //     },
+    //     success: function(data) {
+    //         if (data == 'null') {
+    //             console.log('用户信息获取失败....')
+    //         } else {
+    //             UserInfo = data;
+    //             // console.log(UserInfo);
+    //             if (UserInfo.WarningLock == 'true') {
+    //                 $("input[name='userTempLock']").get(0).checked = true;
+    //                 $("input[name='userTempLock']").get(1).checked = false;
+    //             } else if (UserInfo.WarningLock == 'false') {
+    //                 $("input[name='userTempLock']").get(0).checked = false;
+    //                 $("input[name='userTempLock']").get(1).checked = true;
+    //             }
+    //             $('#userPhone').val(UserInfo.PhoneNum);
+    //             $('#userTempSet').val(UserInfo.WarningTemp);
+    //             $('#userRegistTime').val(UserInfo.UserCreateTime);
+    //         }
+    //     }
+    // });
     </script>
 </body>
 

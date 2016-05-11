@@ -18,6 +18,8 @@ router.get('/', function(req, res, next) {
 
 
 
+
+
 router.get('/setting', function(req, res, next) {
     if (req.session.user) {
         res.render('setting');
@@ -26,6 +28,11 @@ router.get('/setting', function(req, res, next) {
     }
 });
 
+
+
+router.get('/history', function(req, res, next) {
+    res.render('history', { title: '历史记录' });
+});
 
 
 router.post('/setting', function(req, res, next) {
