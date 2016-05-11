@@ -11,7 +11,10 @@ myChart.showLoading();
 // 指定图表的配置项和数据
 var option = {
     tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+            animation: false
+        }
     },
     legend: {
         data: ['温度', '湿度'],
