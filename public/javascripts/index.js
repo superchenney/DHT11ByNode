@@ -362,6 +362,19 @@ $('#registPannel').validator({
 /////////////////////////
 var $modal = $('#loginModel');
 
+
+$('#loginModel').on('open.modal.amui', function(){
+  console.log('弹窗打开');
+  $('#tempBackPannel').css("visibility", "hidden");
+});
+
+$('#loginModel').on('close.modal.amui', function(){
+  console.log('弹窗关闭');
+  $('#tempBackPannel').css("visibility", "visible");
+});
+
+
+
 $('#loginPopBtn').on('click', function(e) {
 
     var $target = $(e.target);
