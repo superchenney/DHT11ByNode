@@ -37,7 +37,7 @@
     <!-- 页头 50px -->
     <header data-am-widget="header" class="am-header" style="margin: 10px 0;">
         <div class="am-header-left am-header-nav">
-            <a href="/setting" class="am-btn" style="color: #FEFFFF;">
+            <a href="/" class="am-btn" style="color: #FEFFFF;">
                 <i class="am-header-icon am-icon-arrow-left"></i>
             </a>
         </div>
@@ -57,6 +57,7 @@
                     <th>时间</th>
                     <th class="am-hide-sm-only">报警温度</th>
                     <th class="am-hide-sm-only">设定温度</th>
+                    <th class="am-hide-sm-only">推送手机</th>
                     <th class="am-hide-sm-only">推送状态</th>
                 </tr>
             </thead>
@@ -84,6 +85,9 @@
                         </td>
                         <td>
                             <%=item[i].wts%>
+                        </td>
+                        <td>
+                            <%=item[i].wpn%>
                         </td>
                         <td>
                             <%=item[i].wmt%>
