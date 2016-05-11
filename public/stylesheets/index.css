@@ -10,7 +10,9 @@
     background-color: #FD7F50;
 }
 
+
 /*实时显示圆圈*/
+
 .wrap {
     width: 200px;
     height: 200px;
@@ -160,7 +162,14 @@
     }
 }
 
+.am-modal-dialog {
+    position: relative;
+    z-index: 9999;
+}
+
+
 /*登陆注册模块*/
+
 .login-box {
     position: relative;
     z-index: 9000;
@@ -193,45 +202,44 @@
     font-size: 16px;
 }
 
+.social-login {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: auto;
+    padding: 10px 0 15px 0;
+    border-bottom: 1px solid #eee;
+}
 
-  .social-login {
-        position: relative;
-        float: left;
-        width: 100%;
-        height: auto;
-        padding: 10px 0 15px 0;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .social-login a {
-        position: relative;
-        float: left;
-        width: calc(40% - 8px);
-        text-decoration: none;
-        color: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        padding: 12px;
-        border-radius: 2px;
-        font-size: 12px;
-        text-transform: uppercase;
-        margin: 0 3%;
-        text-align: center;
-    }
-    
-    .social-login a i {
-        position: relative;
-        float: left;
-        width: 20px;
-        top: 2px;
-    }
-    
-    .social-login a:first-child {
-        background-color: #49639F;
-    }
-    
-    .social-login a:last-child {
-        background-color: #DF4A32;
-    }
+.social-login a {
+    position: relative;
+    float: left;
+    width: calc(40% - 8px);
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 12px;
+    border-radius: 2px;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 0 3%;
+    text-align: center;
+}
+
+.social-login a i {
+    position: relative;
+    float: left;
+    width: 20px;
+    top: 2px;
+}
+
+.social-login a:first-child {
+    background-color: #49639F;
+}
+
+.social-login a:last-child {
+    background-color: #DF4A32;
+}
 
 .phone-login,
 .phone-signup {

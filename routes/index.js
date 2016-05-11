@@ -78,7 +78,7 @@ router.post('/setting', function(req, res, next) {
                     // req.session.user = doc;//session同时更新
                     req.session.user.wt = req.body.userTempSet;
                     req.session.user.wl = req.body.userTempLock;
-                    res.redirect('/setting');
+                    res.redirect('/');
                 }
             });
         }
