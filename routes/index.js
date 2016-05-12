@@ -176,7 +176,7 @@ router.post('/login', function(req, res, next) {
                 // res.send(500);
                 // res.send('error');
                 res.sendStatus(500);
-                res.send();
+                // res.send();
                 console.log(req.body.loginphoneNum + "密码错误");
             } else {
                 // console.log("doc：" + doc);
