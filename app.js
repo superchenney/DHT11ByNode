@@ -141,7 +141,7 @@ var sensor = {
                                                 console.log("[ 短信推送状态 ] 记录保存成功！");
                                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
                                                 console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
-                                                // Alidayu.sendWarningMsg(smsParams,PhoneNum);
+                                                Alidayu.sendWarningMsg(smsParams,PhoneNum);
 
                                                 ////////////存入报警信息数据库
                                                 WarningRecord.create({
