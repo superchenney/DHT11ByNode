@@ -102,18 +102,18 @@
         </div>
     </div>
     <!-- 弹框 -->
-        <div class="am-modal am-modal-no-btn" tabindex="-1" id="loginModel">
-            <div class="am-modal-dialog" style="background-color: #fff;z-index: 9999;">
-                <div class="am-modal-hd">
-                    <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
-                </div>
-                <div class="am-modal-bd" style="z-index: 9999;">
-                    <div class="login-box">
-                        <div class="lb-header">
-                            <a href="#" class="active" id="login-box-link">登陆</a>
-                            <a href="#" id="signup-box-link">注册</a>
-                        </div>
-                        <!--         
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="loginModel">
+        <div class="am-modal-dialog" style="background-color: #fff;z-index: 9999;">
+            <div class="am-modal-hd">
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd" style="z-index: 9999;">
+                <div class="login-box">
+                    <div class="lb-header">
+                        <a href="#" class="active" id="login-box-link">登陆</a>
+                        <a href="#" id="signup-box-link">注册</a>
+                    </div>
+                    <!--         
                     <div class="social-login">
                         <a href="#">
                             <i class="fa fa-facebook fa-lg"></i> Login in with facebook
@@ -122,8 +122,8 @@
                             <i class="fa fa-google-plus fa-lg"></i> log in with Google
                         </a>
                     </div> 
-                    -->    
-                        <%- message %>
+                    -->
+                    <%- message %>
                         <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel" onsubmit="alert('用户名密码不匹配！') return false">
                             <fieldset>
                                 <div class="u-form-group">
@@ -160,36 +160,36 @@
                                 </div>
                             </fieldset>
                         </form>
-                    </div>
                 </div>
             </div>
         </div>
-        <!--[if lt IE 9]>
+    </div>
+    <!--[if lt IE 9]>
     <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
     <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.ie8polyfill.min.js"></script>
     <![endif]-->
-        <!--[if (gte IE 9)|!(IE)]><!-->
-        <!-- <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script> -->
-        <!-- <script src="/javascripts/jquery.min.js"></script> -->
-        <!--<![endif]-->
-        <!-- <script src="assets/js/amazeui.min.js"></script> -->
-        <!-- <script src="/javascripts/echarts.min.js"></script> -->
-        <!-- <script src="/javascripts/jquery.min.js"></script> -->
-        <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
-        <script src="http://cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
-        <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
-        <script src="/javascripts/openlink.min.js"></script>
-        <script src="/javascripts/socket.io-1.4.5.js"></script>
-        <script src="/javascripts/index.min.js"></script>
-        <script>
-        var $modal = $('#loginModel');
-        var message = '<%- message %>';
-
-        if (message.length > 1) {
-            $modal.modal();
-        }
-        </script>
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <!-- <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script> -->
+    <!-- <script src="/javascripts/jquery.min.js"></script> -->
+    <!--<![endif]-->
+    <!-- <script src="assets/js/amazeui.min.js"></script> -->
+    <!-- <script src="/javascripts/echarts.min.js"></script> -->
+    <!-- <script src="/javascripts/jquery.min.js"></script> -->
+    <script src="http://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/echarts/3.0.0/echarts.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.6.1/js/amazeui.min.js"></script>
+    <script src="/javascripts/openlink.min.js"></script>
+    <script src="/javascripts/socket.io-1.4.5.js"></script>
+    <script src="/javascripts/index.min.js"></script>
+    <script>
+    var $modal = $('#loginModel')
+    var message = '<%- message %>'
+    console.log(message);
+    if (message.length > 1) {
+        $modal.modal();
+    }
+    </script>
 </body>
 
 </html>
