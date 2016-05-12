@@ -294,6 +294,23 @@ app.use(function(req, res, next) {
 
 
 
+app.use(function(req, res, next) {
+    res.locals.user = req.session.user;
+    var err = req.session.error;
+    var msg = req.session.success;
+    delete req.session.error;
+    delete req.session.success;
+    res.locals.message = "";
+    if (err) {
+        res.locals.message = '<div class="am-alert am-alert-danger" data-am-alert><button type="button" class="am-close">&times;</button><p>' + err + '</p></div>';
+    };
+    if (msg) {
+        res.locals.message = '<div class="am-alert am-alert-success" data-am-alert><button type="button" class="am-close">&times;</button><p>' + msg + '</p></div>';
+    }
+    next();
+});
+
+
 // error handlers
 
 // development error handler
