@@ -106,7 +106,7 @@ $.ajax({
     },
     success: function(data) {
         console.log('获取历史温湿度数据成功！');
-        for (var i = data.length; i >= 0; i--) {
+        for (var i = 0; i < data.length; i++) {
             echartsDataxAxis.push(data[i].t.slice(-8));
             echartsDatatemp.push(data[i].pt);
             echartsDatahumity.push(data[i].ph);

@@ -126,6 +126,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
         .find({})
         .sort('-t')
         .limit(20)
+        .sort('t')
         .exec(function(err, docs) {
             if (err) {
                 console.log('查询历史温湿度数据错误！' + err);
