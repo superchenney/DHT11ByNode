@@ -124,7 +124,7 @@
                         </a>
                     </div> 
                     -->
-                        <form class="phone-login" action="" method="POST" data-am-validator id="loginPannel">
+                        <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel" onsubmit="return false">
                             <fieldset>
                                 <div class="u-form-group">
                                     <input type="text" placeholder="手机号码" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" id="loginphoneNum" name="loginphoneNum" data-validation-message="请输入正确的手机号码" required/>
@@ -183,35 +183,35 @@
     <script src="/javascripts/socket.io-1.4.5.js"></script>
     <script src="/javascripts/index.min.js"></script>
     <script type="text/javascript">
-    $(function() {
+    // $(function() {
 
-        $("#login").click(function() {
-            var phoneNum = $("#loginphoneNum").val();
-            var password = $("#loginPwd").val();
-            var data = {
-                "loginphoneNum": phoneNum,
-                "loginPwd": password,
-            };
-            $.ajax({
-                url: '/login',
-                type: 'post',
-                data: data,
-                success: function(data, status) {
-                    if (status == 'success') {
-                        location.href = '/';
-                    }
-                },
-                error: function(data, status) {
-                    if (status == 'error') {
-                        // location.href = 'login';
-                    }
-                }
-            });
-        });
+    //     $("#login").click(function() {
+    //         var phoneNum = $("#loginphoneNum").val();
+    //         var password = $("#loginPwd").val();
+    //         var data = {
+    //             "loginphoneNum": phoneNum,
+    //             "loginPwd": password,
+    //         };
+    //         $.ajax({
+    //             url: '/login',
+    //             type: 'post',
+    //             data: data,
+    //             success: function(data, status) {
+    //                 if (status == 'success') {
+    //                     location.href = '/';
+    //                 }
+    //             },
+    //             error: function(data, status) {
+    //                 if (status == 'error') {
+    //                     // location.href = 'login';
+    //                 }
+    //             }
+    //         });
+    //     });
 
 
 
-    });
+    // });
     </script>
 </body>
 
