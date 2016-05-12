@@ -77,28 +77,34 @@ var option = {
         showSymbol: false,
         hoverAnimation: false,
         data: echartsDatatemp,
-        markPonit: {
-            data: [{
-                name: '最大值',
-                type: 'max'
-            }, {
-                name: '最小值',
-                type: 'min'
-            }]
+        markPoint: {
+            data: [
+                { type: 'max', name: '最大值' },
+                { type: 'min', name: '最小值' }
+            ]
         },
         markLine: {
-            data: [{
-                name: '平均线',
-                // 支持 'average', 'min', 'max'
-                type: 'average'
-            }]
+            data: [
+                { type: 'average', name: '平均温度' }
+            ]
         }
     }, {
         name: '湿度',
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
-        data: echartsDatahumity
+        data: echartsDatahumity,
+        markPoint: {
+            data: [
+                { type: 'max', name: '最大值' },
+                { type: 'min', name: '最小值' }
+            ]
+        },
+        markLine: {
+            data: [
+                { type: 'average', name: '平均湿度' }
+            ]
+        }
     }],
     // splitLine: {
     //     lineStyle: {
