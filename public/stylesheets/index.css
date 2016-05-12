@@ -162,23 +162,11 @@
     }
 }
 
-.am-modal-dialog {
-    position: relative;
-    z-index: 99999;
-}
-
-.am-modal-dialog > *{
-    // position: relative;
-    z-index: 9999;
-}
 
 
 /*登陆注册模块*/
 
-.login-box {
-    position: relative;
-    z-index: 9000;
-}
+
 
 .lb-header {
     position: relative;
