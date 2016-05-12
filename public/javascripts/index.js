@@ -79,7 +79,7 @@ var option = {
         data: echartsDatatemp
     }, {
         name: '湿度',
-        type: 'bar',
+        type: 'line',
         showSymbol: false,
         hoverAnimation: false,
         data: echartsDatahumity
