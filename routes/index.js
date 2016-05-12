@@ -175,7 +175,7 @@ router.post('/login', function(req, res, next) {
                 req.session.error = "密码输入错误";
                 // res.send(500);
                 // res.send('error');
-                res.sendStatus(200);
+                res.sendStatus(500);
                 res.send();
                 console.log(req.body.loginphoneNum + "密码错误");
             } else {
@@ -183,8 +183,8 @@ router.post('/login', function(req, res, next) {
                 req.session.user = doc;
                 req.session.success = '登录成功！';
                 // DataBaseOperate.LoginInfoRecord(req, res);
-                // res.sendStatus(200);
-                res.redirect("/");
+                res.sendStatus(200);
+                // res.redirect("/");
 
             };
         };
