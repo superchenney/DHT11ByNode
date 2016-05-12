@@ -77,12 +77,6 @@ var option = {
         showSymbol: false,
         hoverAnimation: false,
         data: echartsDatatemp,
-        markPoint: {
-            data: [
-                { type: 'max', name: '最大值' },
-                { type: 'min', name: '最小值' }
-            ]
-        },
         markLine: {
             data: [
                 { type: 'average', name: '平均温度' }
@@ -94,12 +88,6 @@ var option = {
         showSymbol: false,
         hoverAnimation: false,
         data: echartsDatahumity,
-        markPoint: {
-            data: [
-                { type: 'max', name: '最大值' },
-                { type: 'min', name: '最小值' }
-            ]
-        },
         markLine: {
             data: [
                 { type: 'average', name: '平均湿度' }
