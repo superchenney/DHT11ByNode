@@ -76,7 +76,23 @@ var option = {
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
-        data: echartsDatatemp
+        data: echartsDatatemp,
+        markPonit: {
+            data: [{
+                name: '最大值',
+                type: 'max'
+            }, {
+                name: '最小值',
+                type: 'min'
+            }]
+        },
+        markLine: {
+            data: [{
+                name: '平均线',
+                // 支持 'average', 'min', 'max'
+                type: 'average'
+            }]
+        }
     }, {
         name: '湿度',
         type: 'line',
@@ -363,14 +379,14 @@ $('#registPannel').validator({
 var $modal = $('#loginModel');
 
 
-$('#loginModel').on('open.modal.amui', function(){
-  console.log('弹窗打开');
-  $('#tempBackPannel').css("visibility", "hidden");
+$('#loginModel').on('open.modal.amui', function() {
+    console.log('弹窗打开');
+    $('#tempBackPannel').css("visibility", "hidden");
 });
 
-$('#loginModel').on('close.modal.amui', function(){
-  console.log('弹窗关闭');
-  $('#tempBackPannel').css("visibility", "visible");
+$('#loginModel').on('close.modal.amui', function() {
+    console.log('弹窗关闭');
+    $('#tempBackPannel').css("visibility", "visible");
 });
 
 

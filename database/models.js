@@ -153,7 +153,7 @@ module.exports = {
         },
         createdAt: {
             type: Date,
-            expires: 60 * 3,
+            expires: 60 * 5,
             default: Date.now(),
             required: true
         }
