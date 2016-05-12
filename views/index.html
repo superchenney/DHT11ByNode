@@ -124,7 +124,7 @@
                         </a>
                     </div> 
                     -->
-                        <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel" onsubmit="return false">
+                        <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel" onsubmit="alert('用户名密码不匹配！') return false">
                             <fieldset>
                                 <div class="u-form-group">
                                     <input type="text" placeholder="手机号码" pattern="^1((3|5|8){1}\d{1}|70)\d{8}$" id="loginphoneNum" name="loginphoneNum" data-validation-message="请输入正确的手机号码" required/>
