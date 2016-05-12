@@ -15,7 +15,7 @@ gulp.task('Cssmin', function() {
 
 
 gulp.task('Jsmin', function() {
-    gulp.src('public/javascripts/index.js')
+    gulp.src(['public/javascripts/index.js','public/javascripts/openlink.js'])
         .pipe(gulp.dest('public/javascripts'))
         .pipe(jshint())
         .pipe(uglify())
