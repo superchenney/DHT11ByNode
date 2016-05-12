@@ -167,12 +167,12 @@ router.post('/login', function(req, res, next) {
             console.log(err);
         } else if (!doc) {
             req.session.error = '手机号未注册';
-            res.send(500);
+            // res.send(500);
             console.log("用户" + req.body.loginphoneNum + "不存在");
         } else {
             if (doc.pwd != req.body.loginPwd) {
                 req.session.error = "密码输入错误";
-                res.send(500);
+                // res.send(500);
                 console.log(req.body.loginphoneNum + "密码错误");
             } else {
                 // console.log("doc：" + doc);
