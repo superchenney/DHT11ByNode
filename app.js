@@ -141,7 +141,7 @@ var sensor = {
                                                 console.log("[ 短信推送状态 ] 记录保存成功！");
                                                 var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
                                                 console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
-                                                Alidayu.sendWarningMsg(smsParams,PhoneNum);
+                                                Alidayu.sendWarningMsg(smsParams, PhoneNum);
 
                                                 ////////////存入报警信息数据库
                                                 WarningRecord.create({
@@ -278,6 +278,22 @@ app.use(session({
     saveUninitialized: 'false'
 }));
 
+// app.use(function(req, res, next) {
+//     res.locals.user = req.session.user;
+//     var err = req.session.error;
+//     var msg = req.session.success;
+//     delete req.session.error;
+//     delete req.session.success;
+//     res.locals.message = "";
+//     if (err) {
+//         res.locals.message = "<div class='am-alert am-alert-danger' data-am-alert><button type='button' class='am-close'>&times;</button><p>" + err + "</p></div>";
+//     };
+//     if (msg) {
+//         res.locals.message = "<div class='am-alert am-alert-success' data-am-alert><button type='button' class='am-close'>&times;</button><p>" + msg + "</p></div>";
+//     }
+//     next();
+// });
+
 app.use(function(req, res, next) {
     res.locals.user = req.session.user;
     var err = req.session.error;
@@ -286,10 +302,10 @@ app.use(function(req, res, next) {
     delete req.session.success;
     res.locals.message = "";
     if (err) {
-        res.locals.message = "<div class='am-alert am-alert-danger' data-am-alert><button type='button' class='am-close'>&times;</button><p>" + err + "</p></div>";
+        res.locals.message = err;
     };
     if (msg) {
-        res.locals.message = "<div class='am-alert am-alert-success' data-am-alert><button type='button' class='am-close'>&times;</button><p>" + msg + "</p></div>";
+        res.locals.message = msg;
     }
     next();
 });

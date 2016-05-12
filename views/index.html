@@ -123,7 +123,7 @@
                         </a>
                     </div> 
                     -->
-                    <%- message %>
+                    
                         <form class="phone-login" action="login" method="POST" data-am-validator id="loginPannel" onsubmit="alert('用户名密码不匹配！') return false">
                             <fieldset>
                                 <div class="u-form-group">
@@ -164,6 +164,17 @@
             </div>
         </div>
     </div>
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="errorInfo">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">提示信息
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <%- message %>
+            </div>
+        </div>
+    </div>
     <!--[if lt IE 9]>
     <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
@@ -183,7 +194,7 @@
     <script src="/javascripts/socket.io-1.4.5.js"></script>
     <script src="/javascripts/index.min.js"></script>
     <script>
-    var $modal = $('#loginModel')
+    var $modal = $('#errorInfo')
     var message = '<%- message %>'
     console.log(message);
     if (message.length > 1) {
