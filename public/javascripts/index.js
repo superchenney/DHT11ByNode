@@ -76,23 +76,13 @@ var option = {
         type: 'line',
         showSymbol: false,
         hoverAnimation: false,
-        data: echartsDatatemp,
-        markLine: {
-            data: [
-                { type: 'average', name: '平均温度' }
-            ]
-        }
+        data: echartsDatatemp
     }, {
         name: '湿度',
-        type: 'line',
+        type: 'bar',
         showSymbol: false,
         hoverAnimation: false,
-        data: echartsDatahumity,
-        markLine: {
-            data: [
-                { type: 'average', name: '平均湿度' }
-            ]
-        }
+        data: echartsDatahumity
     }],
     // splitLine: {
     //     lineStyle: {
