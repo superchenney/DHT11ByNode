@@ -278,22 +278,6 @@ app.use(session({
     saveUninitialized: 'false'
 }));
 
-
-
-
-var routes = require('./routes/index.min.js');
-app.use('/', routes);
-
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-
-
 app.use(function(req, res, next) {
     res.locals.user = req.session.user;
     var err = req.session.error;
@@ -309,6 +293,22 @@ app.use(function(req, res, next) {
     }
     next();
 });
+
+
+var routes = require('./routes/index.min.js');
+app.use('/', routes);
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+
+
+
 
 
 // error handlers
