@@ -128,7 +128,7 @@ var sensor = {
                                 wpn: PhoneNum
                             }).then(function(msgStatus) {
                                 if (msgStatus) {
-                                    console.log("[ 短信推送状态 ] 3分钟内已经短信推送！")
+                                    console.log("[ 短信推送状态 ] 5分钟内已经短信推送！")
                                 } else if (!msgStatus) {
                                     /////////////
                                     MsgSendStatus.create({
