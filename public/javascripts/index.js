@@ -7,7 +7,7 @@ var echartsDatatemp = [];
 var echartsDatahumity = [];
 
 var myChart = echarts.init(document.getElementById('tempTrendChart'));
-myChart.showLoading();
+// myChart.showLoading();
 // 指定图表的配置项和数据
 var option = {
     tooltip: {
@@ -111,7 +111,7 @@ $.ajax({
             echartsDatatemp.push(data[i].pt);
             echartsDatahumity.push(data[i].ph);
         }
-        myChart.hideLoading();
+        // myChart.hideLoading();
         // console.log('［echart］时间' + echartsDataxAxis);
         // console.log('［echart］温度' + echartsDatatemp);
         // console.log('［echart］湿度' + echartsDatahumity);
@@ -219,7 +219,7 @@ socket.on('realTimeTAndH', function(data) {
     echartsDatatemp.push(data.temperature);
     echartsDatahumity.push(data.humidity);
 
-    myChart.hideLoading();
+    // myChart.hideLoading();
 
     // // 填入数据
     myChart.setOption({
