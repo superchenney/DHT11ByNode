@@ -166,7 +166,9 @@
 
 /*登陆注册模块*/
 
-
+.am-modal-no-btn .am-modal-footer{
+    display: block;
+}
 
 .lb-header {
     position: relative;
