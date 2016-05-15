@@ -142,7 +142,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
     TempHumidityRecord
         .find({})
         .sort('-t')
-        .limit(20)
+        .limit(40)
         .sort('t')
         .exec(function(err, docs) {
             if (err) {
@@ -223,7 +223,7 @@ router.post('/regist', function(req, res, next) {
                     pwd: req.body.registPwdConfirm,
                 }, function(err, doc) {
                     if (err) {
-                        req.session.error = '创建失败！';
+                        // req.session.error = '创建失败！';
                         res.sendStatus(500);
                         console.log(err);
                     } else {
