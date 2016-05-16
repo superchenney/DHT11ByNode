@@ -182,7 +182,7 @@ router.post('/login', function(req, res, next) {
             } else {
                 // console.log("doc：" + doc);
                 req.session.user = doc;
-                req.session.success = '登录成功！';
+                // req.session.success = '登录成功！';
                 // DataBaseOperate.LoginInfoRecord(req, res);
                 // res.sendStatus(200);
                 res.redirect("/");
