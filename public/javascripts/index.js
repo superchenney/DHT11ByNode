@@ -255,7 +255,7 @@ socket.on('realTimeTAndH', function(data) {
         $("body").addClass("bkg-warning");
 
         //push
-        // pushPCMessage(data.temperature, UserInfo.WarningTemp)
+        pushPCMessage(data.temperature, UserInfo.WarningTemp)
         // setInterval(pushPCMessage(data.temperature, UserInfo.WarningTemp), 5000);
     } else {
         Push.clear();
@@ -265,19 +265,18 @@ socket.on('realTimeTAndH', function(data) {
 
 
 
-    setInterval(pushPCMessage(data.temperature, UserInfo.WarningTemp), 3000);
+    // setInterval(pushPCMessage(data.temperature, UserInfo.WarningTemp), 3000);
 
     function pushPCMessage(realT, UserT) {
-        if (realT >= UserT) {
+        // if (realT >= UserT) {
             Push.clear();
             Push.create('温度实时报警监测系统', {
                 body: '温度超出限定警报!当前温度:' + realT + '设定温度:' + UserT,
                 icon: {
                     x32: 'images/app-icon72x72@2x.png'
-                },
-                timeout: 5000
+                }
             });
-        }
+        // }
 
     }
 
