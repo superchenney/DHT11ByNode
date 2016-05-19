@@ -253,7 +253,18 @@ socket.on('realTimeTAndH', function(data) {
 
         $("body").removeClass("bkg-norm");
         $("body").addClass("bkg-warning");
+
+        //push
+        Push.clear();
+        Push.create('Hello World!', {
+            body: '温度超出限定警报!当前温度:' + data.temperature + '设定温度:' + UserInfo.WarningTemp,
+            icon: {
+                x32: 'images/logo.png'
+            },
+            timeout: 5000
+        });
     } else {
+        Push.clear();
         $("body").removeClass("bkg-warning");
         $("body").addClass("bkg-norm");
     }

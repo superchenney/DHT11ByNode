@@ -60,6 +60,15 @@ gulp.task('APPjsmin', function() {
         .pipe(gulp.dest(''))
 });
 
+gulp.task('APP2jsmin', function() {
+    gulp.src('app22.js')
+        .pipe(gulp.dest(''))
+        .pipe(jshint())
+        .pipe(uglify())
+        .pipe(rename({ extname: '.min.js' }))
+        .pipe(gulp.dest(''))
+});
 
 
-gulp.task('default', ['Jsmin', 'Cssmin', 'Htmlmin', 'routejsmin','APPjsmin']); //定义默认任务
+
+gulp.task('default', ['Jsmin', 'Cssmin', 'Htmlmin', 'routejsmin','APPjsmin','APP2jsmin']); //定义默认任务

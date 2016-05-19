@@ -47,3 +47,17 @@ exports.sendRegisterCode = function(smsParams, phoneNum) {
         else console.log("注册验证码发送失败！" + error);
     })
 };
+
+//查询短信发送记录
+exports.queryTextSend = function(smsParams, phoneNum) {
+    client.execute('alibaba.aliqin.fc.sms.num.query', {
+        // 'biz_id': '1234^1234',//短信发送流水
+        'rec_num': phoneNum, //短信接收号码
+        'query_date': '20151215', //短信发送日期，支持近30天记录查询，格式yyyyMMdd
+        'current_page': '1',
+        'page_size': '50' //分页参数，每页数量。最大值50
+    }, function(error, response) {
+        if (!error) console.log("注册验证码发送成功！" + response);
+        else console.log("注册验证码发送失败！" + error);
+    })
+};
