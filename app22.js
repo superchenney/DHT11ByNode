@@ -53,8 +53,121 @@ var User = global.dbHandel.getModel('user');
 var TempHumidityRecord = global.dbHandel.getModel('thr');
 var WarningRecord = global.dbHandel.getModel('wr');
 var MsgSendStatus = global.dbHandel.getModel('mss');
+var NoSendStatus = global.dbHandel.getModel('mss');
 
 var Alidayu = require('./controller/alidayu/alidayu');
+
+
+
+
+
+function saveRealTimeData(readout, recordTime) {
+    if (readout.temperature > 5) { //筛选掉初始化值，乱值
+        //      实时温度 存入数据库,后台也要运行
+        TempHumidityRecord.create({
+            pt: readout.temperature,
+            ph: readout.humidity,
+            t: recordTime
+        }, function(err, doc) {
+            if (err) {
+                console.log("[ 实时 ]=========温度记录错误！" + err);
+            } else {
+                console.log("[ 实时 ]=========温度记录成功！" + recordTime);
+            }
+        });
+        ///////////////////////////
+    } else {
+        console.log('[ 实时 ]=========温度读取' + readout.temperature + '摄氏值不合法，被抛弃，不记录');
+    }
+}
+
+
+function saveWarningRecord(userDetail, readout, recordTime, setStatus) {
+    ////////////存入报警信息数据库
+    WarningRecord.create({
+        wt: readout.temperature, //报警温度
+        wpn: userDetail.upn, //报警的手机号
+        wts: userDetail.wt, //报警温度设定
+        t: recordTime, //报警时间
+        wmt: setStatus
+    }, function(err, doc) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("[ 报警 ]=========报警信息数据库保存成功！")
+        }
+    });
+    //////////////
+}
+
+
+///////////////////////////
+function checkStatusExitAndSendMsg(userDetail, readout, recordTime) {
+    var PhoneNum = userDetail.upn;
+    var TemSetting = userDetail.wt;
+
+    MsgSendStatus.findOne({
+        wpn: PhoneNum
+    }).then(function(msgStatus) {
+        if (msgStatus) {
+            console.log("[ 短信推送状态 ] 5分钟内已经短信推送！")
+        } else if (!msgStatus) {
+            /////////////
+            MsgSendStatus.create({
+                    ss: '短信报警推送',
+                    wpn: PhoneNum
+                }, function(err) {
+                    if (err) {
+                        console.log("[ 短信推送状态 ] 记录出错！" + err);
+                    } else {
+                        console.log("[ 短信推送状态 ] 记录保存成功！");
+                        var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
+                        console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
+
+                        Alidayu.sendWarningMsg(smsParams, PhoneNum);
+                        saveWarningRecord(userDetail, readout, recordTime, '短信发送');
+                    }
+                })
+                ////////////
+        }
+    });
+}
+////////////////////////////
+
+
+///////////////////////////
+function checkNoStatusExitAndSendMsg(userDetail, readout, recordTime) {
+    var PhoneNum = userDetail.upn;
+    var TemSetting = userDetail.wt;
+
+    NoSendStatus.findOne({
+        wpn: PhoneNum
+    }).then(function(msgStatus) {
+        if (msgStatus) {
+            console.log("[ 短信推送状态 ] 5分钟内已经记录关闭订阅！")
+        } else if (!msgStatus) {
+            /////////////
+            NoSendStatus.create({
+                    ss: '短信报警关闭',
+                    wpn: PhoneNum
+                }, function(err) {
+                    if (err) {
+                        console.log("[ 短信推送状态 ] 记录出错！" + err);
+                    } else {
+                        console.log("[短信报警][ 关闭 ]==============");
+
+                        saveWarningRecord(userDetail, readout, recordTime, '报警关闭');
+                    }
+                })
+                ////////////
+        }
+    });
+}
+////////////////////////////
+
+
+
+
 
 
 
@@ -96,14 +209,14 @@ var sensor = {
     },
     warning: function() {
         var readout = sensorLib.read();
-        // var recordTime = new Date();
         var recordTime = moment().format('YYYY-MM-DD HH:mm:ss');
-
+        //  存入数据库
+        saveRealTimeData(readout, recordTime);
         console.log('[ 报警 ]=========温度: ' + readout.temperature.toFixed(1) + 'C, ' + '湿度: ' + readout.humidity.toFixed(1) + '%');
+
 
         User.find({})
             .exec(function(err, userInfo) {
-
                 console.log("[ 报警 ]=========用户信息更新！");
 
                 for (var i = 0; i < userInfo.length; i++) {
@@ -111,87 +224,26 @@ var sensor = {
                     var userdetail = userInfo[i];
 
                     console.log("========== " + userdetail.upn + " ==========");
+
+
                     ////////////////////////////////////////////
                     if (readout.temperature >= userdetail.wt && userdetail.wl === 'true') {
 
                         console.log("[ 报警 ]=========温度超出限制，[ 订阅报警 ]，记录报警信息==========：" + userdetail.upn);
 
-                        checkStatusExitAndSendMsg(userdetail);
-
-
-                        ///////////////////////////
-                        function checkStatusExitAndSendMsg(userDetail) {
-                            var PhoneNum = userDetail.upn;
-                            var TemSetting = userDetail.wt;
-
-                            MsgSendStatus.findOne({
-                                wpn: PhoneNum
-                            }).then(function(msgStatus) {
-                                if (msgStatus) {
-                                    console.log("[ 短信推送状态 ] 5分钟内已经短信推送！")
-                                } else if (!msgStatus) {
-                                    /////////////
-                                    MsgSendStatus.create({
-                                            ss: '短信报警推送',
-                                            wpn: PhoneNum
-                                        }, function(err) {
-                                            if (err) {
-                                                console.log("[ 短信推送状态 ] 记录出错！" + err);
-                                            } else {
-                                                console.log("[ 短信推送状态 ] 记录保存成功！");
-                                                var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
-                                                console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
-                                                Alidayu.sendWarningMsg(smsParams, PhoneNum);
-
-                                                ////////////存入报警信息数据库
-                                                WarningRecord.create({
-                                                    wt: readout.temperature, //报警温度
-                                                    wpn: PhoneNum, //报警的手机号
-                                                    wts: TemSetting, //报警温度设定
-                                                    t: recordTime, //报警时间
-                                                    wmt: '短信发送'
-                                                }, function(err, doc) {
-                                                    if (err) {
-                                                        console.log(err);
-                                                    } else {
-                                                        console.log("[ 报警 ][开启]=========报警信息数据库保存成功！")
-                                                    }
-                                                });
-                                                //////////////
-                                            }
-                                        })
-                                        ////////////
-                                }
-                            });
-                        }
-
-                        ////////////////////////////
+                        checkStatusExitAndSendMsg(userdetail, readout, recordTime);
 
                     } else if (readout.temperature >= userdetail.wt && userdetail.wl === 'false') {
                         console.log("[ 报警 ]=========温度超出限制，[ 关闭报警 ]，记录报警信息=========：" + userdetail.upn);
-                        ////////////存入报警信息数据库
-                        WarningRecord.create({
-                            wt: readout.temperature, //报警温度
-                            wpn: userdetail.upn, //报警的手机号
-                            wts: userdetail.wt, //报警温度设定
-                            t: recordTime, //报警时间
-                            wmt: '关闭订阅'
-                        }, function(err, doc) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log("[ 报警 ][关闭]=========报警信息数据库保存成功！")
-                            }
-                        });
-                        //////////////
-
+                        // saveWarningRecord(userDetail, readout, recordTime, '关闭订阅');
+                        checkNoStatusExitAndSendMsg(userdetail, readout, recordTime);
                     } else {
                         console.log("[ 报警 ]=========温度正常范围内，继续报警监控");
                     }
 
 
-                }
-                /////////// for 遍历
+                } /////////// for 遍历
+
             });
 
 
@@ -213,7 +265,7 @@ var sensor = {
 if (sensor.initialize()) {
 
     setTimeout(function() {
-        sensor.read();
+        // sensor.read();
         sensor.warning();
     }, 1000 * 5);
 
@@ -294,21 +346,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-// app.use(function(req, res, next) {
-//     res.locals.user = req.session.user;
-//     var err = req.session.error;
-//     var msg = req.session.success;
-//     delete req.session.error;
-//     delete req.session.success;
-//     res.locals.message = "";
-//     if (err) {
-//         res.locals.message = err;
-//     };
-//     if (msg) {
-//         res.locals.message = msg;
-//     }
-//     next();
-// });
 
 
 var routes = require('./routes/index.min.js');

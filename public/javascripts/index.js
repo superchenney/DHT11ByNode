@@ -242,7 +242,6 @@ socket.on('realTimeTAndH', function(data) {
     });
     //////////////////
 
-
     document.getElementById("realTimeCirleTemp").innerHTML = data.temperature;
     document.getElementById("tableRtTemp").innerHTML = data.temperature;
     document.getElementById("tableRtHumd").innerHTML = data.humidity;
@@ -264,11 +263,7 @@ socket.on('realTimeTAndH', function(data) {
     }
 
 
-
-    // setInterval(pushPCMessage(data.temperature, UserInfo.WarningTemp), 3000);
-
     function pushPCMessage(realT, UserT) {
-        // if (realT >= UserT) {
             Push.clear();
             Push.create('温度实时报警监测系统', {
                 body: '温度超出限定警报!当前温度:' + realT + '设定温度:' + UserT,
@@ -276,8 +271,6 @@ socket.on('realTimeTAndH', function(data) {
                     x32: 'images/app-icon72x72@2x.png'
                 }
             });
-        // }
-
     }
 
 
