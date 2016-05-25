@@ -67,7 +67,7 @@ module.exports = {
         // }
         createdAt: {
             type: Date,
-            // expires: 60 * 2,
+            expires: 60 * 30,
             default: Date.now(),
             required: true
         }
@@ -138,7 +138,7 @@ module.exports = {
         // }
     },
     ///////////////////////////////////////////////////
-    //         短信报警发送状态 MsgSendStatus
+    //         订阅短信报警发送状态 MsgSendStatus
     mss: {
         //报警手机号 WarningPhoneNum
         wpn: {
@@ -159,7 +159,7 @@ module.exports = {
         }
 
     },
-     //         短信报警发送状态 NoSendStatus
+     //         关闭短信报警发送状态 NoSendStatus
     nss: {
         //报警手机号 WarningPhoneNum
         wpn: {
