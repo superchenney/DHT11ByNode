@@ -65,7 +65,7 @@ function saveRealTimeData(readout, recordTime) {
     if (readout.temperature > 5) { //筛选掉初始化值，乱值
         //      实时温度 存入数据库,后台也要运行
         TempHumidityRecord.create({
-            pt: readout.temperature,
+            pt: readout.temperature.toString().slice(0,4),
             ph: readout.humidity,
             t: recordTime
         }, function(err, doc) {
@@ -85,7 +85,7 @@ function saveRealTimeData(readout, recordTime) {
 function saveWarningRecord(userDetail, readout, recordTime, setStatus) {
     ////////////存入报警信息数据库
     WarningRecord.create({
-        wt: readout.temperature, //报警温度
+        wt: readout.temperature.toString().slice(0,4), //报警温度
         wpn: userDetail.upn, //报警的手机号
         wts: userDetail.wt, //报警温度设定
         t: recordTime, //报警时间
@@ -121,7 +121,7 @@ function checkStatusExitAndSendMsg(userDetail, readout, recordTime) {
                         console.log("[ 短信推送状态 ] 记录出错！" + err);
                     } else {
                         console.log("[ 短信推送状态 ] 记录保存成功！");
-                        var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature + '度","tempset":"' + TemSetting + '度"}';
+                        var smsParams = '{"type": "温度超限警报","time":"' + recordTime + '","location": "实验室","temp":"' + readout.temperature.toString().slice(0,4) + '度","tempset":"' + TemSetting + '度"}';
                         console.log("[短信报警][ 开启 ]==============给用户：" + PhoneNum + "发送短信报警！,设定温度为" + TemSetting);
                         Alidayu.sendWarningMsg(smsParams, PhoneNum);
                         saveWarningRecord(userDetail, readout, recordTime, '短信发送');

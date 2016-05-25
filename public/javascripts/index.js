@@ -242,8 +242,8 @@ socket.on('realTimeTAndH', function(data) {
     });
     //////////////////
 
-    document.getElementById("realTimeCirleTemp").innerHTML = data.temperature;
-    document.getElementById("tableRtTemp").innerHTML = data.temperature;
+    document.getElementById("realTimeCirleTemp").innerHTML = data.temperature.toString().slice(0,4);
+    document.getElementById("tableRtTemp").innerHTML = data.temperature.toString().slice(0,4);
     document.getElementById("tableRtHumd").innerHTML = data.humidity;
 
 
