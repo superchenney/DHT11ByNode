@@ -142,7 +142,7 @@ router.get('/getAllTempAndHumityInofo', function(req, res, next) {
     TempHumidityRecord
         .find({})
         .sort('-t')
-        .limit(40)
+        .limit(50)
         .sort('t')
         .exec(function(err, docs) {
             if (err) {
