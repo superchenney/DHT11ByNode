@@ -11,6 +11,10 @@ var WarningRecord = global.dbHandel.getModel('wr');
 
 
 router.get('/', function(req, res, next) {
+    res.writeHead(200, {
+        /// ...
+        'Access-Control-Allow-Origin' : '*'
+    });
     res.render('index', { title: '首页' });
 });
 
