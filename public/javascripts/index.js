@@ -201,7 +201,7 @@ $.ajax({
 
 ///////////////////////////////////////////////////////////////
 //长连接socket.io
-var socket = io.connect('http://chenchao.ngrok.natapp.cn');
+var socket = io.connect('http://chenchao.vip.natapp.cn');
 
 socket.on('realTimeTAndH', function(data) {
 
