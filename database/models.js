@@ -159,7 +159,7 @@ module.exports = {
         }
 
     },
-     //         关闭短信报警发送状态 NoSendStatus
+    //         关闭短信报警发送状态 NoSendStatus
     nss: {
         //报警手机号 WarningPhoneNum
         wpn: {
